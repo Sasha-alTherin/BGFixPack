@@ -1,0 +1,225 @@
+// Macintosh ToTSC Fixes -- Missing 5512 patch changes -- by DevSin
+// ----------------------------------------------------------------------------
+PRINT ~Processing mac-fixes-by-devsin.tph~
+// Mac TotSC missing resource changes from PC patch 5512
+ACTION_IF (("%WEIDU_OS%" STRING_COMPARE_CASE "osx" = 0) && (GAME_IS ~totsc~)) THEN BEGIN
+ PRINT ~Installing missing Mac 5512 patch files -- by DevSin~
+// ----------------------------------------------------------------------------
+// Correct scroll icons (iscrl5a-q); Karoug script (initinv2)
+//install missing Mac version files
+ COPY ~bg_fixpack/mac/mac_files~ ~override~
+// ----------------------------------------------------------------------------
+// Replaces entry for Wraithform
+ COPY_EXISTING ~rndscrol.2da~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   REPLACE_TEXTUALLY EXACT_MATCH "SCRL1R" "SCRL1S"
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Make sure L10 bards get correct pick pockets skill level
+ ACTION_IF NOT (FILE_EXISTS ~override/skillbrd.2da~) THEN BEGIN
+  APPEND "skillbrd.2da" "10          70"
+  APPEND "skillbrd.2da" "11          75"
+  APPEND "skillbrd.2da" "12          80"
+  APPEND "skillbrd.2da" "13          85"
+  APPEND "skillbrd.2da" "14          90"
+  APPEND "skillbrd.2da" "15          95"
+  APPEND "skillbrd.2da" "16          99"
+  APPEND "skillbrd.2da" "17          99"
+  APPEND "skillbrd.2da" "18          99"
+  APPEND "skillbrd.2da" "19          99"
+  APPEND "skillbrd.2da" "20          99"
+ END
+// ----------------------------------------------------------------------------
+<<<<<<<< totscpatch-mac.d
+ADD_STATE_TRIGGER garric 0 ~!Dead("Silke")~
+ADD_STATE_TRIGGER silke 0 ~!Dead("Garrick")~
+ADD_STATE_TRIGGER silke 1 ~!Dead("Garrick")~
+>>>>>>>>
+ COMPILE ~totscpatch-mac.d~
+// ----------------------------------------------------------------------------
+// Death knight can't spawn after being killed
+ COPY_EXISTING ~ar0502.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+   REPLACE_TEXTUALLY EXACT_MATCH ~ Global("DeathSpawn","GLOBAL",0)~
+                                 ~Global("DeathSpawn","GLOBAL",0) !Dead("DeathK")~
+  COMPILE_BAF_TO_BCS
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Prevent island return text screen from repeating
+ COPY_EXISTING ~ar1000.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+   REPLACE_TEXTUALLY EXACT_MATCH ~ TextScreen("ISLOFF")~
+                                 ~SetInterrupt(FALSE) TextScreen("ISLOFF")~
+   REPLACE_TEXTUALLY EXACT_MATCH ~ SetGlobal("IslandTravel","GLOBAL",2)~
+                                 ~SetInterrupt(TRUE) SetGlobal("IslandTravel","GLOBAL",2)~
+  COMPILE_BAF_TO_BCS
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Treasury container can be unlocked
+ COPY_EXISTING ~ar0111.are~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x11c) THEN BEGIN // protects against invalid files
+   READ_LONG 0x70 cnt_loc
+   READ_SHORT 0x74 cnt_num
+   FOR (index = 0; index < cnt_num; index = index + 1) BEGIN
+    READ_SHORT cnt_loc + (index * 0xc0) + 0x26 difficulty
+    READ_SHORT cnt_loc + (index * 0xc0) + 0x34 loc_x
+    READ_SHORT cnt_loc + (index * 0xc0) + 0x36 loc_y
+    PATCH_IF ((loc_x = 468) AND (loc_y = 1012) AND (difficulty > 99)) BEGIN
+     WRITE_SHORT cnt_loc + (index * 0xc0) + 0x26 90
+    END
+   END
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Make sure Karoug can't be killed prematurely
+ COPY_EXISTING ~karoug.cre~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x2cc) THEN BEGIN // protects against invalid files
+   WRITE_ASCII 0x248 INITINV2 #8
+   WRITE_SHORT 0x46 0 - 10 // armor class
+   WRITE_SHORT 0x48 0 - 10 // armor class
+   WRITE_BYTE 0x54 2   // save V death
+   WRITE_BYTE 0x55 2   // save V wand
+   WRITE_BYTE 0x56 2   // save V poly
+   WRITE_BYTE 0x57 2   // save V breath
+   WRITE_BYTE 0x58 2   // save V spell
+   WRITE_BYTE 0x5d 100 // magic resist
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Additional tanar'ri sounds
+ COPY_EXISTING ~tanar.cre~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x2d4) THEN BEGIN // protects against invalid files
+   SAY SELECT_COMMON2 #23831
+   SAY SELECT_COMMON3 #23827
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Remove Wraithform from spellbook
+ COPY_EXISTING ~xan6.cre~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x2d4) THEN BEGIN // protects against invalid files
+   REMOVE_KNOWN_SPELL SPWI315 // Wraithform
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Gives price to Root of the Problem
+ COPY_EXISTING ~blun10.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   WRITE_LONG 0x34 2750 // price
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Keep Soultaker from being treated as a quick item
+ COPY_EXISTING ~dagg10.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   WRITE_SHORT 0x1c 16 // category
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Keep these items from disappearing before picked up
+ COPY_EXISTING ~misc1h.itm~ ~override~
+               ~misc94.itm~ ~override~
+               ~misc95.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   READ_BYTE 0x18 "flags"
+   WRITE_BYTE 0x18 flags BOR 0b00000001 // flag: indestructible
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Restore Horn of Kazgaroth's price
+ COPY_EXISTING ~misc73.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   WRITE_LONG 0x34 18000 // price
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Changes target of scroll to reader (self)
+ COPY_EXISTING ~scrl07.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   READ_LONG 0x64 "abil_off"
+   READ_SHORT 0x68 "abil_num"
+   FOR (index = 0; index < abil_num; index = index + 1) BEGIN
+    READ_BYTE abil_off + (index * 0x38) + 0xc type
+    PATCH_IF (type = 1) BEGIN
+     WRITE_BYTE abil_off + (index * 0x38) + 0xc 5
+    END
+   END
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Restores colors for +2 large shield
+ COPY_EXISTING ~shld19.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   READ_LONG 0x6a "fx_loc"
+   READ_SHORT 0x70 "fx_num"
+   FOR (index = 0; index < fx_num; index = index + 1) BEGIN
+    READ_SHORT fx_loc + (index * 0x30) type
+    READ_LONG fx_loc + (index * 0x30) + 0x4 color
+    PATCH_IF (type = 7 && color = 50) BEGIN
+     WRITE_LONG fx_loc + (index * 0x30) + 0x4 25
+    END
+   END
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Adds berserk to vampiric sword
+ COPY_EXISTING ~sw1h19.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   READ_LONG 0x64 "abil_off"
+   READ_LONG 0x6a "fx_loc"
+   READ_SHORT 0x68 "abil_num"
+   READ_SHORT 0x70 "fx_index"
+   FOR (index = 0; index < abil_num; index = index + 1) BEGIN
+    READ_BYTE abil_off + (index * 0x38) "type"
+    READ_SHORT abil_off + (index * 0x38) + 0x1e "fx_num"
+    PATCH_IF (type = 1) BEGIN
+     patch = 1
+     FOR (index2 = 0; index2 < fx_num; index2 = index2 + 1) BEGIN
+      READ_SHORT fx_loc + ((index2 + fx_index) * 0x30) type
+      PATCH_IF (type = 3) BEGIN
+       patch = 0
+      END
+     END
+     PATCH_IF (patch = 1) BEGIN
+      INSERT_BYTES fx_loc + ((fx_num + fx_index) * 0x30) 0x30 // Add effect: Berserk self on hit
+      WRITE_SHORT fx_loc + ((fx_num + fx_index) * 0x30)       3   // Berserk
+      WRITE_BYTE fx_loc + ((fx_num + fx_index) * 0x30) + 0x02 1   // Target: self
+      WRITE_BYTE fx_loc + ((fx_num + fx_index) * 0x30) + 0x12 100 // Probability: 100
+      WRITE_LONG fx_loc + ((fx_num + fx_index) * 0x30) + 0x0e 60  // Duration: 60
+      fx_num = fx_num + 1
+     END
+    END
+    WRITE_SHORT abil_off + (index * 0x38) + 0x1e fx_num
+    WRITE_SHORT abil_off + (index * 0x38) + 0x20 fx_index
+    fx_index = fx_index + fx_num
+   END
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Sets category to Long swords
+ COPY_EXISTING ~sw1h20.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   WRITE_SHORT 0x1c 20 // category
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Raises price of +2 scimitar
+ COPY_EXISTING ~sw1h23.itm~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   WRITE_LONG 0x34 3000 // price
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Add Improved Invisibility to TotSC
+ COPY_EXISTING ~ulgoth.sto~ ~override~
+  PATCH_IF (SOURCE_SIZE > 0x9c) THEN BEGIN // protects against invalid files
+   READ_LONG 0x38 "num_itm"
+   PATCH_IF (num_itm = 57) BEGIN
+    ADD_STORE_ITEM SCRL1Y BEFORE POTN08 #1 #0 #0 IDENTIFIED #1
+   END
+  END
+ BUT_ONLY_IF_IT_CHANGES
+END
+ELSE BEGIN
+ PRINT ~This text exists only to confirm that the mac-fixes-by-devsin.tph file was proccessed and nothing was needed to be changed~
+END
