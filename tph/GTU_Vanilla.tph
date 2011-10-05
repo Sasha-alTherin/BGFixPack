@@ -11893,5 +11893,5 @@ STRING_SET 0 @0
           22174 @22174
           22180 @22180
           22181 @22181
- USING ~bg_fixpack/%LANGUAGE%/GTU_Vanilla.tra~
+ USING ~bgfixpack/languages/%LANGUAGE%/GTU_Vanilla.tra~
 END

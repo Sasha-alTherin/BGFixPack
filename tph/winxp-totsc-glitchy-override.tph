@@ -45,61 +45,54 @@ ACTION_IF ("%WEIDU_OS%" STRING_COMPARE_CASE "win32" = 0) AND (GAME_IS ~totsc~) T
        AND (FILE_EXISTS ~override/taloun.dlg~)
        AND (FILE_EXISTS ~override/therel.dlg~)
        AND (FILE_EXISTS ~override/ulcast.dlg~) THEN BEGIN
-       APPEND_OUTER ~bg_fixpack\info\change.log~ ~ISSUE WITH TOTSC ON WINDOWS XP -- SOME SYSTEMS
- It has been noted that a few Win XP systems some how cause the installation process to behave differently when ToTSC is installed. Therefore to ensure an equal platform for modding purposes, certain files need to be removed from the override folder.
-~
   PRINT ~Your installation suffers from merged override contents...
 Please consult accompaning documentation for more information.
-Moving 39 incorrect files from override to BG_FixPack/backup/manual
+Moving 39 incorrect files from override to BGFixPack/backup/manual
 Incorrect files will be restored upon proper uninstallation of this mod
 
 Please press ENTER to continue.~
   ACTION_READLN ~continue~
-  AT_NOW ~move "override/albert.cre" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/albert.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/ar2300.are" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/belt.cre" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/bolt02.itm" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/bolt03.itm" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/bolt04.itm" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/bolt05.itm" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/bolt06.itm" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/calaha.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/childulg.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/dradee.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/drizzt.cre" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/evalt.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/farthi.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/fenrus.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/flam01.itm" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/gatewere.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/gnoll5.bcs" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/gnoll5.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/islsir.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/jaheir6.cre" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/jorin.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/kryla.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/lahl.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/liia.cre" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/lothan.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/marale.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/memnis.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/mulahe.cre" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/palin.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/ring09.itm" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/sarevok.bcs" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/sppr403.spl" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/spwi313.spl" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/sw2h06.itm" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/taloun.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/therel.dlg" "BG_FixPack/backup/manual"~
-  AT_NOW ~move "override/ulcast.dlg" "BG_FixPack/backup/manual"~
-  APPEND_OUTER ~bg_fixpack\info\change.log~ ~Moved the following from override folder to BG_FixPack/backup/manual: albert.cre, albert.dlg, ar2300.are, belt.cre, bolt02.itm,
-  bolt03.itm, bolt04.itm, bolt05.itm, bolt06.itm, calaha.dlg, childulg.dlg, dradee.dlg, drizzt.cre, evalt.dlg, farthi.dlg, fenrus.dlg, flam01.itm, gatewere.dlg, gnoll5.bcs,
-  gnoll5.dlg, islsir.dlg, jaheir6.cre, jorin.dlg, kryla.dlg, lahl.dlg, liia.cre, lothan.dlg, marale.dlg, memnis.dlg, mulahe.dlg, palin.dlg, ring09.itm, sarevok.bcs, sppr403.spl
-  spwi313.spl, sw2h06.itm, taloun.dlg, therel.dlg, ulcast.dlg~
+  AT_NOW ~move "override/albert.cre" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/albert.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/ar2300.are" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/belt.cre" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/bolt02.itm" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/bolt03.itm" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/bolt04.itm" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/bolt05.itm" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/bolt06.itm" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/calaha.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/childulg.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/dradee.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/drizzt.cre" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/evalt.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/farthi.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/fenrus.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/flam01.itm" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/gatewere.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/gnoll5.bcs" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/gnoll5.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/islsir.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/jaheir6.cre" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/jorin.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/kryla.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/lahl.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/liia.cre" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/lothan.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/marale.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/memnis.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/mulahe.cre" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/palin.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/ring09.itm" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/sarevok.bcs" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/sppr403.spl" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/spwi313.spl" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/sw2h06.itm" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/taloun.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/therel.dlg" "BGFixPack/backup/manual"~
+  AT_NOW ~move "override/ulcast.dlg" "BGFixPack/backup/manual"~
  END
- AT_UNINSTALL ~move "BG_FixPack\backup\manual\*.*" "override"~
+ AT_UNINSTALL ~move "BGFixPack\backup\manual\*.*" "override"~
 END
 ELSE BEGIN
  PRINT ~Your installation does not suffer from merged override contents...~

@@ -7,7 +7,7 @@ ACTION_IF (("%WEIDU_OS%" STRING_COMPARE_CASE "osx" = 0) && (GAME_IS ~totsc~)) TH
 // ----------------------------------------------------------------------------
 // Correct scroll icons (iscrl5a-q); Karoug script (initinv2)
 //install missing Mac version files
- COPY ~bg_fixpack/mac/mac_files~ ~override~
+ COPY ~bgfixpack/files/mac~ ~override~
 // ----------------------------------------------------------------------------
 // Replaces entry for Wraithform
  COPY_EXISTING ~rndscrol.2da~ ~override~
@@ -221,5 +221,5 @@ ADD_STATE_TRIGGER silke 1 ~!Dead("Garrick")~
  BUT_ONLY_IF_IT_CHANGES
 END
 ELSE BEGIN
- PRINT ~This text exists only to confirm that the mac-fixes-by-devsin.tph file was proccessed and nothing was needed to be changed~
+ PRINT ~No need to process mac-fixes-by-devsin.tph as your machine is not a mac~
 END

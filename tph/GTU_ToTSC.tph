@@ -12686,5 +12686,5 @@ STRING_SET 0 @0
           24118 @24118
           24119 @24119
           24120 @24120
- USING ~bg_fixpack/%LANGUAGE%/GTU_ToTSC.tra~
+ USING ~bgfixpack/languages/%LANGUAGE%/GTU_ToTSC.tra~
 END
