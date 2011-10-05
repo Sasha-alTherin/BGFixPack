@@ -60,4 +60,13 @@ ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
  BUT_ONLY_IF_IT_CHANGES
 END
 
+// ----------------------------------------------------------------------------
+BEGIN @5 //~Core Components~
+REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+INCLUDE ~bgfixpack/tph/baldurdash.tph~
+INCLUDE ~bgfixpack/tph/restorations.tph~
+INCLUDE ~bgfixpack/tph/requestedfixes.tph~
+INCLUDE ~bgfixpack/tph/pulledfromub.tph~
+INCLUDE ~bgfixpack/tph/BGTListOfFixes.tph~
+INCLUDE ~bgfixpack/tph/dudleysourcefixes.tph~
 

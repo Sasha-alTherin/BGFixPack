@@ -1,0 +1,409 @@
+// ----------------------------------------------------------------------------
+//Ordulinian Quest Reward Fix resolves the dialog bug that caused the quest reward item to not be given, though it's clearly indicated in the corresponding dialog that an item is being presented.
+<<<<<<<< inlined/orduli.d
+REPLACE_ACTION_TEXT ~orduli~ ~GiveItem("CLCK06",LastTalkedToBy)~ ~GiveItemCreate("CLCK06",LastTalkedToBy(),1,0,0)~
+>>>>>>>>
+COMPILE ~inlined/orduli.d~
+// ----------------------------------------------------------------------------
+//Magic Missile Damage Fix corrects the damage done by Magic Missile (both enemies' and players') from 2D3 to 1D4 +1, as it should be. This fix replaces the Wand Of Magic Missiles fix previous as I was able to correct the damage properly. You can delete WAND03.ITM from Override. The FixPack will do this by itself.
+COPY_EXISTING ~spwi003.spl~ ~override~
+              ~spwi112.spl~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN
+  READ_LONG 0x6a ~fx_loc~
+  FOR (y = %fx_loc%; y < %SOURCE_SIZE%; y = y + 48) BEGIN
+   READ_SHORT %y% ~opcode~
+   PATCH_IF (%opcode% = 12) BEGIN
+    WRITE_LONG (%y% + 0x04) 1 // damage amount
+    WRITE_LONG (%y% + 0x1c) 1 // dice thrown
+    WRITE_LONG (%y% + 0x20) 4 // dice sides
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Aldeth Sashenstar Betrayal Fix restores this neglected event and ties up several loose ends with Aldeth's behavior in Chapter 7, as otherwise if he is spoken to after Candlekeep he will betray the player to... Biff The Understudy, as the Flaming Fist Enforcer creature definition was completely missing, as well as several dialog commands, creature AI and updates to two area scripts.
+// i've shamelessly taken Idobek's version and used it instead
+COMPILE ~BGFixpack/files/IdobeksFixpackFiles/aldeth.d~
+        ~BGFixpack/files/IdobeksFixpackFiles/flamal.baf~
+EXTEND_TOP ~ar0128.bcs~ ~BGFixpack/files/IdobeksFixpackFiles/ar0128.baf~
+EXTEND_TOP ~ar1100.bcs~ ~BGFixpack/files/IdobeksFixpackFiles/ar1100.baf~
+COPY ~BGFixpack/files/IdobeksFixpackFiles/flamal.cre~ ~override~
+COPY_EXISTING ~dabron.bcs~ ~override~
+   REPLACE_BCS_BLOCK ~BGFixpack/files/IdobeksFixpackFiles/old_dabron.baf~
+                     ~BGFixpack/files/IdobeksFixpackFiles/new_dabron.baf~
+COPY_EXISTING ~aldeth.cre~ ~override~
+  READ_LONG 0x2bc "itemsoffset"
+  READ_LONG 0x2c4 "#items"
+  WHILE ("%#items%" > 0) BEGIN
+    SET "item" = ("%itemsoffset%" + ("%#items%" - 1) * 0x14)
+    READ_LONG ("%item%" + 0x00) "itemresref1"
+    READ_LONG ("%item%" + 0x04) "itemresref2"
+    READ_BYTE ("%item%" + 0x10) "flags"
+    WHILE ("%itemresref1%" = 0x48315753)
+      AND ("%itemresref2%" = 0x00003330)
+      AND NOT (("%flags%" BAND 0b00000010) = 0b00000010) BEGIN
+        WRITE_BYTE ("%item%" + 0x10) ("%flags%" BOR 0b00000010)
+    READ_BYTE ("%item%" + 0x10) "flags"
+    END
+  SET "#items" = ("%#items%" - 1)
+  END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Game Crash When Entering AR0717 Fix resolves the invalid reference bug that caused a crash to desktop when entering the house just east of the carnival in the city of Baldur's Gate.
+// An area that crashed in BG City no longer does thanks to Idobek
+// Game Crash When Entering Area AR0717 Fix
+// Author: Idobek
+// Email: idobek@gibberlings3.net
+// Website: http://www.gibberlings3.net
+COPY_EXISTING ~ar0717.are~ ~override~
+ READ_LONG 0x54 "actorsoffset"
+ READ_SHORT 0x58 "#actors"
+ WHILE ("%#actors%" > 0) BEGIN
+  SET "actor" = ("%actorsoffset%" + ("%#actors%" - 1) * 0x110)
+  READ_LONG ("%actor%" + 0x80) "actorresref1"
+  READ_LONG ("%actor%" + 0x84) "actorresref2"
+  WHILE ("%actorresref1%" = 0x4c524947)
+   AND ("%actorresref2%" = 0x00314142) BEGIN
+   WRITE_ASCII ("%actor%" + 0x80) ~GIRBA1~
+   WRITE_SHORT ("%actor%" + 0x86) 0x0000
+   READ_LONG ("%actor%" + 0x80) "actorresref1"
+   READ_LONG ("%actor%" + 0x84) "actorresref2"
+  END
+  SET "#actors" = ("%#actors%" - 1)
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Tremain Belde'ar Dialog Crash Fix resolves the invalid replies counter in his dialog definition that would cause a crash to desktop if options 2 then 1 were chosen.
+<<<<<<<< inlined/tremai.d
+REPLACE ~tremai~
+IF ~~ THEN BEGIN 6
+SAY #12651
+IF ~~ THEN EXTERN ~VARCI~ 9
+END
+END
+>>>>>>>>
+COMPILE ~inlined/tremai.d~
+// ----------------------------------------------------------------------------
+//Alignment By Class Table Fix corrects the alignment restrictions for multi-class thieves, who were being restricted from all Lawful alignments instead of just Lawful Good. (This bug was also carried over into Baldur's Gate II: Shadows Of Amn.)
+COPY_EXISTING ~alignmnt.2da~ ~override~ // Hardcore fixes in Baldurdash & Idobek's FixPack
+ SET_2DA_ENTRY_LATER ~ALIGNMNT~ 13 2 ~1~
+ SET_2DA_ENTRY_LATER ~ALIGNMNT~ 13 3 ~1~
+ SET_2DA_ENTRY_LATER ~ALIGNMNT~ 14 2 ~1~
+ SET_2DA_ENTRY_LATER ~ALIGNMNT~ 14 3 ~1~
+ SET_2DA_ENTRY_LATER ~ALIGNMNT~ 15 2 ~1~
+ SET_2DA_ENTRY_LATER ~ALIGNMNT~ 15 3 ~1~
+ SET_2DA_ENTRY_LATER ~ALIGNMNT~ 17 2 ~1~
+ SET_2DA_ENTRY_LATER ~ALIGNMNT~ 17 3 ~1~
+ SET_2DA_ENTRIES_NOW ~ALIGNMNT~ 1
+ PRETTY_PRINT_2DA
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Gauntlets Of Ogre Power Fix corrects the undocumented restriction against these gauntlets being usable by Bards. This was also carried over into Baldur's Gate II: Shadows Of Amn, and Senior Designer David Gaider confirmed that Bards should be able to use this item.
+COPY_EXISTING ~brac06.itm~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN
+  READ_BYTE 0x1e "unusable1"
+  WRITE_BYTE 0x1e ("%unusable1%" BAND 0b10111111)
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Killing Marl XP Exploit Fix eliminates the exploit of being able to calm Marl down in Feldepost's Inn in Beregost for experience, and then kill him for more experience and no loss of reputation or consequences even though he is then a harmless, neutral innocent. Appropriate consequences will now apply.
+// being lazy -- used idobeks code & file
+COMPILE ~BGFixpack/files/IdobeksFixpackFiles/marl.d~
+// ----------------------------------------------------------------------------
+//Three Old Kegs Noblewoman Exploit Fix eliminates the exploit of charming this unnamed noblewoman and repeatedly talking to her for 500 gold each time. This was a definite bug caused by an embedded script command mismatch.
+<<<<<<<< inlined/nobw8.d
+REPLACE_TRANS_ACTION ~nobw8~ BEGIN 19 20 END BEGIN 0 END ~GiveItem("MISC20",LastTalkedToBy)~ ~GiveItemCreate("MISC20",LastTalkedToBy())~
+REPLACE_TRANS_ACTION ~nobw8~ BEGIN 19 20 END BEGIN 0 END ~Global("AcceptedJob","GLOBAL",2)~ ~SetGlobal("AcceptedJob","GLOBAL",2)~
+>>>>>>>>
+COMPILE ~inlined/nobw8.d~
+// ----------------------------------------------------------------------------
+//Taerom Fuirium Ankheg Shell Exploit Fix eliminates the exploit of being able to sell Ankheg shells repeatedly to the Beregost blacksmith. Another definite bug: the embedded script command to limit this to one choice between selling shells or making armour was present, but was not being accessed due to an invalid pointer reference.
+// being lazy -- used idobeks code & file
+COMPILE ~BGFixpack/files/IdobeksFixpackFiles/taerom.d~
+// ----------------------------------------------------------------------------
+//Gorpel Hind Summons Many Maulers Fix resolves the oversight where talking to Gorpel Hind repeatedly causes the Maulers Of The Undermountain to appear every time.
+<<<<<<<< inlined/gorpel.d
+REPLACE_TRIGGER_TEXT ~gorpel~ ~NumTimesTalkedTo()~ ~NumTimesTalkedTo(0)~
+REPLACE_ACTION_TEXT gretek ~ActionOverride("PARGUS",Enemy())~ ~~
+REPLACE_ACTION_TEXT gretek ~ActionOverride("WILF",Enemy())~ ~~
+REPLACE_ACTION_TEXT gretek ~ActionOverride("NADER",Enemy())~ ~~
+REPLACE_ACTION_TEXT gretek ~ActionOverride("ARLIN",Enemy())~ ~~
+REPLACE_ACTION_TEXT gretek ~ActionOverride("CATURAK",Enemy())~ ~SetGlobal("ab_bgf_gretekmad","GLOBAL",1)~
+REPLACE_ACTION_TEXT gretek ~Shout(99)~ ~~
+>>>>>>>>
+COMPILE ~inlined/gorpel.d~
+<<<<<<<< make_enemy.baf
+IF
+Global("ab_bgf_gretekmad","GLOBAL",1)
+!Global("ab_bgf_i_am_mad","LOCALS",1)
+THEN
+RESPONSE #100
+SetGlobal("ab_bgf_i_am_mad","LOCALS",1)
+Enemy()
+END
+>>>>>>>>
+EXTEND_BOTTOM ~abgfight.bcs~ ~make_enemy.baf~
+COPY_EXISTING ~gretek.cre~ ~override~
+              ~pargus.cre~ ~override~
+              ~wilf.cre~ ~override~
+              ~nader.cre~ ~override~
+              ~arlin.cre~ ~override~
+              ~catura.cre~ ~override~
+//get rid of offending shout script and add this one instead...
+ WRITE_ASCII_TERMINATE 0x248 ~abgfight~ //reassign override script to our value
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Arrow Of Biting Fix corrects the erroneous Strength bonus (that only hurled weapons should have) these arrows were giving. All three varieties (player's, enemies' and Eldoth's personal Poisoned Arrows) were affected.
+COPY_EXISTING_REGEXP ~arow05.itm~ ~override~
+                     ~arow12.itm~ ~override~
+                     ~arow14.itm~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+  READ_SHORT 0x1c "item_type"
+  PATCH_IF (%item_type% = 5) BEGIN
+   READ_LONG 0x64 "abil_off"
+   READ_SHORT 0x68 "abil_num"
+   FOR (index = 0; index < abil_num; index = index + 1) BEGIN
+    READ_BYTE ("%abil_off%" + ("%index%" * 0x38)) "type"
+    PATCH_IF ("%type%" = 2) THEN BEGIN // projectile ability check
+     READ_LONG (%abil_off% + (%index% * 0x38) + 0x26) "flags"
+     PATCH_IF (%flags% > 0) THEN BEGIN
+      WRITE_LONG (%abil_off% + (%index% * 0x38) + 0x26) 0
+     END
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Download Jalantha Mistmyr Pickpocket Exploit Fix 	Jalantha Mistmyr Pickpocket Exploit Fix corrects the oversight by which the body of Tremain Belde'ar's son can be pickpocketed from the Umberlant priestess (without her even noticing...) You'll still be able to filch the Geas Removal Scroll from her.
+<<<<<<<< jalant/stuffcheck.baf
+IF
+!Global("BOYBODY","GLOBAL",1)
+Dead("Jalantha")
+PartyHasItem("misc54")
+THEN
+RESPONSE #100
+SetGlobal("BOYBODY","GLOBAL",1)
+END
+>>>>>>>>
+//add it to the area script or create an area script if it's not there
+COPY_EXISTING ~ar0609.are~ ~override~
+ READ_ASCII 0x94 ~area_script~
+ INNER_ACTION BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%area_script%.bcs~) THEN BEGIN
+   EXTEND_BOTTOM ~%area_script%.bcs~ ~jalant/stuffcheck.baf~
+  END ELSE BEGIN
+   OUTER_SET assignit = 1
+   EXTEND_BOTTOM ~ar0609.bcs~ ~jalant/stuffcheck.baf~
+  END
+ END
+ PATCH_IF (%assignit%=1) BEGIN
+  WRITE_ASCII_TERMINATE 0x94 ~ar0609~
+ END
+BUT_ONLY_IF_IT_CHANGES
+// flag the item as unstealable in the cre file so that it can't be taken
+COPY_EXISTING ~jalant.cre~ ~override~
+ READ_LONG 700 ~itm_loc~
+ READ_LONG 704 ~itm_num~
+ FOR (y = 0; y < %itm_num%; y = y + 1) BEGIN
+  READ_ASCII %itm_loc% ~itm_name~
+  PATCH_IF (~MISC54~ STRING_EQUAL_CASE ~%itm_name%~) BEGIN
+   READ_LONG (%itm_loc% + 16) ~flag~
+   PATCH_IF !(%flag% = 2) BEGIN
+    WRITE_LONG (%itm_loc% + 16) 2
+   END
+  END
+  SET itm_loc = (%itm_loc% + 20)
+ END
+BUT_ONLY_IF_IT_CHANGES
+//block dialog states depending on status of body
+<<<<<<<< tenya2.d
+ADD_STATE_TRIGGER tenya2 0 ~GlobalLT("BOYBODY","GLOBAL",1)~
+ADD_STATE_TRIGGER tenya2 6 ~GlobalLT("BOYBODY","GLOBAL",1)~
+REPLACE_STATE_TRIGGER tenya2 11 ~Global("BOYBODY","GLOBAL",1)~
+ADD_TRANS_ACTION tenya2 BEGIN 11 END BEGIN END ~RandomWalk()~
+>>>>>>>>
+COMPILE ~tenya2.d~
+COPY_EXISTING ~tenya2.cre~ ~override~
+ WRITE_ASCII_TERMINATE 0x248 ~shout~ //override
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Ramazith Pickpocket Exploit Fix eliminates the exploit of being able to pickpocket Ramazith's Ring Of Protection +2 from him, meaning that he will drop another when slain at the top of his tower.
+// Prevent multiple pickpockets of Ramazith's pockets -- but you can still pick his pockets
+<<<<<<<< inlined/ramazi.d
+//These attempt to false the states so that they don't show again.
+ADD_TRANS_TRIGGER ramazi 7 ~False()~ DO 2
+ADD_TRANS_TRIGGER ramazi 8 ~False()~ DO 0
+>>>>>>>>
+COMPILE ~inlined/ramazi.d~
+<<<<<<<< ramazi/stuffcheck.baf
+//stole is set if taken by pick pocket
+IF
+Exists("Ramazith")
+!Global("ab_BGF_bothgone","GLOBAL",1) //not destroyed
+!HasItem("ring07","Ramazith") //stolen
+!HasItem("amul16","Ramazith") //stolen
+THEN
+RESPONSE #100
+SetGlobal("ab_BGF_bothstole","GLOBAL",1) //to destroy
+END
+
+IF
+Exists("Ramazith")
+!Global("ab_BGF_amulgone","GLOBAL",1) //not destroyed
+HasItem("ring07","Ramazith") //still got
+!HasItem("amul16","Ramazith") //stolen
+THEN
+RESPONSE #100
+SetGlobal("ab_BGF_amulstole","GLOBAL",1) //to destroy
+END
+
+IF
+Exists("Ramazith")
+!Global("ab_BGF_ringgone","GLOBAL",1) //not destroyed
+HasItem("amul16","Ramazith") //still got
+!HasItem("ring07","Ramazith") //stolen
+THEN
+RESPONSE #100
+SetGlobal("ab_BGF_ringstole","GLOBAL",1) //to destroy
+END
+
+//gone is set if destroyed because was stolen
+IF
+Exists("Ramazith")
+Global("ab_BGF_bothstole","GLOBAL",1) //to destroy
+HasItem("ring07","Ramazith") //has but shouldn't
+HasItem("amul16","Ramazith") //has but shouldn't
+THEN
+RESPONSE #100
+ActionOverride("Ramazith",DestroyItem("amul16")) //destroy
+ActionOverride("Ramazith",DestroyItem("ring07")) //destroy
+SetGlobal("ab_BGF_bothgone","GLOBAL",1) //told gone
+END
+
+IF
+Exists("Ramazith")
+Global("ab_BGF_amulstole","GLOBAL",1) //to destroy
+HasItem("amul16","Ramazith") //has but shouldn't
+THEN
+RESPONSE #100
+ActionOverride("Ramazith",DestroyItem("amul16")) //destroy
+SetGlobal("ab_BGF_amulgone","GLOBAL",1) //told gone
+END
+
+IF
+Exists("Ramazith")
+Global("ab_BGF_ringstole","GLOBAL",1) //to destroy
+HasItem("ring07","Ramazith") //has but shouldn't
+THEN
+RESPONSE #100
+ActionOverride("Ramazith",DestroyItem("ring07")) //destroy
+SetGlobal("ab_BGF_ringgone","GLOBAL",1) //told gone
+END
+>>>>>>>>
+COPY_EXISTING ~ramazi.cre~ ~override~
+ READ_ASCII 0x248 ~or_script~ //find override script
+ INNER_ACTION BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%or_script%.bcs~) THEN BEGIN //see if it's real
+   COPY_EXISTING ~%or_script%.bcs~ ~override/abgframi.bcs~ //copy it and give it our name
+   EXTEND_BOTTOM ~abgframi.bcs~ ~ramazi/stuffcheck.baf~ //add our stuff
+  END ELSE BEGIN //otherwise
+   EXTEND_BOTTOM ~abgframi.bcs~ ~ramazi/stuffcheck.baf~ //make new when add our stuff fails
+  END
+ END
+ WRITE_ASCII_TERMINATE 0x248 ~abgframi~ //reassign override script to our value
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Oublek Emerald Bounty Exploit Fix eliminates the exploit of being able to collect the bounty from Oublek twice if Prism's emeralds are returned to him one at a time.
+// An attempt to fix Oublek and the Bounty exploits
+<<<<<<<< inlined/oublek.d
+//OublekBounty1 is for brage
+//OublekBounty2 is for prism
+ADD_TRANS_TRIGGER ~oublek~ 9 ~Global("OublekBounty1","GLOBAL",0)~ DO 0
+ADD_TRANS_TRIGGER ~oublek~ 9 ~Global("OublekBounty2","GLOBAL",0)~ DO 1
+ADD_TRANS_TRIGGER ~oublek~ 9 ~Global("OublekBounty1","GLOBAL",0)
+Global("OublekBounty2","GLOBAL",0)~ DO 4
+ADD_TRANS_TRIGGER ~oublek~ 10 ~Global("OublekBounty1","GLOBAL",0)~ DO 1 5
+ADD_TRANS_TRIGGER ~oublek~ 10 ~Global("OublekBounty2","GLOBAL",0)~ DO 9 5
+>>>>>>>>
+COMPILE ~inlined/oublek.d~
+ACTION_IF !(GAME_IS ~bg1~) THEN BEGIN
+//put this in a library file at some point if it works
+OUTER_INNER_PATCH ~12~ BEGIN
+  WRITE_BYTE 1 0x09
+  READ_ASCII 1 tab (1)  // 0x09, tab
+  WRITE_BYTE 1 0x0a
+  READ_ASCII 1 lnl (1)  // 0x0a, Linux
+  WRITE_BYTE 0 0x0d
+  READ_ASCII 0 mnl (1)  // 0x0d, Mac
+  READ_ASCII 0 wnl (2)  // 0x0d0a, Windows
+END
+APPEND ~trigger.ids~ ~0x407A NumItemsParty(S:ResRef*,I:Num*)~
+              UNLESS ~0x407A[ %tab%]+NumItemsParty(S:ResRef\*,I:Num\*)~
+APPEND ~trigger.ids~ ~0x407B NumItemsPartyGT(S:ResRef*,I:Num*)~
+              UNLESS ~0x407B[ %tab%]+NumItemsPartyGT(S:ResRef\*,I:Num\*)~
+APPEND ~trigger.ids~ ~0x407C NumItemsPartyLT(S:ResRef*,I:Num*)~
+              UNLESS ~0x407C[ %tab%]+NumItemsPartyLT(S:ResRef\*,I:Num\*)~
+<<<<<<<< inlined/oublek.d
+ADD_TRANS_TRIGGER ~oublek~ 9 ~!NumItemsParty("misc43",2)~ DO 4
+ADD_TRANS_TRIGGER ~oublek~ 10 ~!NumItemsParty("misc43",2)~ DO 5
+REPLACE_TRANS_TRIGGER oublek BEGIN 9 END BEGIN 1 END ~PartyHasItem("MISC43")~ ~NumItemsParty("MISC43",2)~
+REPLACE_TRANS_TRIGGER oublek BEGIN 10 END BEGIN 9 END ~PartyHasItem("MISC43")~ ~NumItemsParty("MISC43",2)~
+>>>>>>>>
+COMPILE ~inlined/oublek.d~
+END
+// ----------------------------------------------------------------------------
+//Bandit Scalp Pickpocket Exploit Fix resolves the humourous oversight for all the bandits in the game (and there are 22 varieties of them) that their scalps could be pickpocketed from them.
+COPY_EXISTING_REGEXP ~.*\.cre~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN
+  READ_LONG 700 ~itm_loc~
+  READ_LONG 704 ~itm_num~
+  FOR (y = 0; y < %itm_num%; y = y + 1) BEGIN
+   READ_ASCII %itm_loc% ~itm_name~
+   PATCH_IF (~MISC86~ STRING_EQUAL_CASE ~%itm_name%~) BEGIN
+//    PATCH_PRINT ~%SOURCE_RES% has %itm_name%~
+    READ_LONG (%itm_loc% + 16) ~flag~
+    PATCH_IF !(%flag% = 2) BEGIN
+     WRITE_LONG (%itm_loc% + 16) 2
+    END
+   END
+   SET itm_loc = (%itm_loc% + 20)
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+//totsc only baldurdash patches
+ACTION_IF (GAME_IS ~totsc~) BEGIN
+// ----------------------------------------------------------------------------
+//Ulgoth's Beard Residents Hostile When Cult Attacks Fix corrects the leftover AI bug that would cause several Ulgoth's Beard residents to become hostile while fighting the Aec'Letec cult outdoors.
+ COPY_EXISTING ~cult3.cre~ ~override~
+  WRITE_ASCIIT 0x250 ~cultsht~
+ BUT_ONLY_IF_IT_CHANGES
+<<<<<<<< cult3.d
+REPLACE_ACTION_TEXT ~cult3~ ~ActionOverride("Cult Wizard",MoveToPoint(\[2900.904\]))~ ~ActionOverride("Cult Wizard 1",MoveToPoint([2900.904]))~
+REPLACE_ACTION_TEXT ~cult3~ ~ActionOverride("Cult Archer",MoveToPoint(\[2716.877\]))~ ~ActionOverride("cult fodder",MoveToPoint([2716.877]))~
+>>>>>>>>
+ COMPILE ~cult3.d~
+// ----------------------------------------------------------------------------
+//Bone Wardstone Doesn't Disable Rune Traps Fix resolves the bug with this "key" not disabling the traps as indicated due to an incorrect range reference.
+ COPY_EXISTING ~trapdis.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+   REPLACE_TEXTUALLY ~Range(LastTrigger,5)~ ~Range(LastTrigger,9)~
+  COMPILE_BAF_TO_BCS
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Thief Scimitar Use Fix corrects the inconsistency of thieves not being able to use any Scimitars but Drizzt Do'Urden's. As scimitars are a rarity, Drizzt's are by far the most powerful, there's no good reason why they should be restricted in the first place (as they are equivalent in damage to a long sword and have a faster speed factor) and thieves have full access to Scimitars in Baldur's Gate 2, I've opened the rest up to thief use.
+ COPY_EXISTING ~sw1h20.itm~ ~override~
+               ~sw1h22.itm~ ~override~
+               ~sw1h23.itm~ ~override~
+  READ_BYTE 0x20 "unusable3"
+  WRITE_BYTE 0x20 ("%unusable3%" BAND 0b10110111)
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//Albert Giving No Reward For Rufie Fix corrects the puzzling omission of Albert saying that he is giving the player "... another of his chew toys..." (Rufie's) when leaving, but giving nothing. He now provides an appropriate "chew toy," perhaps retrieved from someone in the area. :^)
+<<<<<<<< inlined/albert.d
+REPLACE_ACTION_TEXT ~albert~ ~AddexperienceParty(1000)~
+                             ~AddexperienceParty(1000)
+                              GiveItemCreate("MISC35",LastTalkedToBy(),0,0,0)~
+>>>>>>>>
+ COMPILE ~inlined/albert.d~
+END

@@ -1,0 +1,9 @@
+IF
+  GlobalGT("Chapter","GLOBAL",5)
+  Global("DukeThanks","GLOBAL",1)
+  Exists("Aldeth")
+  !Dead("Aldeth") 
+THEN
+  RESPONSE #100
+    ActionOverride("Aldeth",DestroySelf())
+END

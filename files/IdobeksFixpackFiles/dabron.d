@@ -1,0 +1,1 @@
+ADD_STATE_TRIGGER ~DABRON~ 0 ~Global("AldethMove","GLOBAL",0)~

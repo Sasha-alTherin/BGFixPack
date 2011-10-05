@@ -1,0 +1,183 @@
+// ----------------------------------------------------------------------------
+// Container highlights not correctly highlighting container
+//Dudley info:
+//AR0105.ARE
+//   1. Blade and Stars, 1st level - has a barrel and sack with mismatched highlights.
+//AR0004.ARE
+//   1. Cabinet highlight is not accurately drawn around the container.
+//AR0018.ARE
+//   1. Two cabinets and wardrobe highlights are not accurately drawn around the containers.
+//AR0101.ARE
+//   1. Chest highlight in lounge is not accurately drawn around the container.
+//AR0709.ARE
+//   1. Barrel highlight is not accurately drawn around the container.
+// AR0715.ARE
+//   1. Barrel highlight is not accurately drawn around the container.
+COPY_EXISTING ~ar0105.are~ ~override~
+              ~ar0004.are~ ~override~
+              ~ar0018.are~ ~override~
+              ~ar0101.are~ ~override~
+              ~ar0709.are~ ~override~
+              ~ar0715.are~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 284) BEGIN
+  READ_LONG 0x70 contoff
+  READ_SHORT 0x74 contnum
+  READ_LONG 0x7c vertexoff
+  READ_SHORT 0x80 vertexnum
+// note to self vertex points are long and x's are first
+  FOR (x=0;x<%contnum%;x+=1) BEGIN
+   READ_LONG (%contoff% + (%x% * 192) + 0x50) vertexindex
+   READ_LONG (%contoff% + (%x% * 192) + 0x54) vertexcount
+   READ_SHORT (%contoff% + (%x% * 192) + (0x38 + 0)) corner1 //x low
+   READ_SHORT (%contoff% + (%x% * 192) + (0x38 + 2)) corner2 //y low
+   READ_SHORT (%contoff% + (%x% * 192) + (0x38 + 4)) corner3 //x high
+   READ_SHORT (%contoff% + (%x% * 192) + (0x38 + 6)) corner4 //y high
+   SET bbf=0
+   SET vc=0
+//   PATCH_PRINT ~Container #%x%: Bounding Box -- C1: %corner1% C2: %corner2% C3: %corner3% C4: %corner4%~
+   FOR (v=0;v<%vertexnum%;v+=1) BEGIN
+    PATCH_IF (%v% >= %vertexindex%) BEGIN
+     PATCH_IF (%vc% < %vertexcount%) BEGIN
+      READ_SHORT (%vertexoff% + (%v% * 4)) x_vertex
+      READ_SHORT (%vertexoff% + (%v% * 4) + 2) y_vertex
+//      PATCH_PRINT ~Vertex %v% -- X: %x_vertex% -- Y: %y_vertex%~
+      SET vc=%vc%+1
+      PATCH_IF ((%x% = 0) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0105~)) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) (%y_vertex% + 6)
+       PATCH_IF (%bbf% =0) BEGIN
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 2)) (%corner2% + 6)
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 6)) (%corner4% + 6)
+        SET bbf=1
+       END
+      END
+      PATCH_IF ((%x% = 1) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0105~)) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) (%y_vertex% - 6)
+       PATCH_IF (%bbf% =0) BEGIN
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 2)) (%corner2% - 6)
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 6)) (%corner4% - 6)
+        SET bbf=1
+       END
+      END
+      PATCH_IF ((%x% = 2) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0004~)) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) (%y_vertex% + 6)
+       PATCH_IF (%bbf% =0) BEGIN
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 2)) (%corner2% + 6)
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 6)) (%corner4% + 6)
+        SET bbf=1
+       END
+      END
+      PATCH_IF ((%x% = 2) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0018~))
+            OR ((%x% = 1) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0018~))
+            OR ((%x% = 0) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0018~)) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) (%y_vertex% + 12)
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) (%x_vertex% - 6)
+       PATCH_IF (%bbf% =0) BEGIN
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 0)) (%corner1% - 6) //x low
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 2)) (%corner2% + 12)
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 4)) (%corner3% - 6) //x high
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 6)) (%corner4% + 12)
+        SET bbf=1
+       END
+      END
+      PATCH_IF ((%x% = 3) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0101~)
+            AND (%x_vertex% = 1165)) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) (%x_vertex% + 3)
+       PATCH_IF (%bbf% =0) BEGIN
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 0)) (%corner1% + 3) //x low
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 4)) (%corner3% + 3) //x high
+        SET bbf=1
+       END
+      END
+      PATCH_IF ((%x% = 0) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0709~))
+            OR ((%x% = 0) AND (~%SOURCE_RES%~ STRING_EQUAL_CASE ~ar0715~)) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) (%y_vertex% - 4)
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) (%x_vertex% - 1)
+       PATCH_IF (%bbf% =0) BEGIN
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 0)) (%corner1% - 1) //x low
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 2)) (%corner2% - 4)
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 4)) (%corner3% - 1) //x high
+        WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 6)) (%corner4% - 4)
+        SET bbf=1
+       END
+      END
+     END
+    END
+// break vertex loop when done
+    PATCH_IF (%vc% >= %vertexcount%) BEGIN
+     SET v = %vertexnum%
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+//AR0159.ARE
+//   1. Barrel highlight is not accurately drawn around the container.
+//PLAINAB NOTE: This one couldn't be done with simple math to adjust the outline.
+//I was forced to hard write the values.
+COPY_EXISTING ~ar0159.are~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 284) BEGIN
+  READ_LONG 0x70 contoff
+  READ_SHORT 0x74 contnum
+  READ_LONG 0x7c vertexoff
+  READ_SHORT 0x80 vertexnum
+// note to self vertex points are long and x's are first
+  FOR (x=0;x<%contnum%;x+=1) BEGIN
+   READ_LONG (%contoff% + (%x% * 192) + 0x50) vertexindex
+   READ_LONG (%contoff% + (%x% * 192) + 0x54) vertexcount
+   WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 0)) 125 //x low
+   WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 2)) 238 //y low
+   WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 4)) 144 //x high
+   WRITE_SHORT (%contoff% + (%x% * 192) + (0x38 + 6)) 266 //y high
+   SET vc=0
+   FOR (v=0;v<%vertexnum%;v+=1) BEGIN
+    PATCH_IF (%v% >= %vertexindex%) BEGIN
+     PATCH_IF (%vc% < %vertexcount%) BEGIN
+      READ_SHORT (%vertexoff% + (%v% * 4)) x_vertex
+      READ_SHORT (%vertexoff% + (%v% * 4) + 2) y_vertex
+      PATCH_IF (%x% = 0) AND (%vc% = 0) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 144
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 260
+      END
+      PATCH_IF (%x% = 0) AND (%vc% = 1) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 140
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 266
+      END
+      PATCH_IF (%x% = 0) AND (%vc% = 2) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 130
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 266
+      END
+      PATCH_IF (%x% = 0) AND (%vc% = 3) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 125
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 260
+      END
+      PATCH_IF (%x% = 0) AND (%vc% = 4) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 125
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 243
+      END
+      PATCH_IF (%x% = 0) AND (%vc% = 5) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 128
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 239
+      END
+      PATCH_IF (%x% = 0) AND (%vc% = 6) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 133
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 238
+      END
+      PATCH_IF (%x% = 0) AND (%vc% = 7) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 140
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 239
+      END
+      PATCH_IF (%x% = 0) AND (%vc% = 8) BEGIN
+       WRITE_SHORT (%vertexoff% + (%v% * 4)) 144
+       WRITE_SHORT (%vertexoff% + (%v% * 4) + 2) 244
+      END
+      SET vc=%vc%+1
+     END
+    END
+// break vertex loop when done
+    PATCH_IF (%vc% >= %vertexcount%) BEGIN
+     SET v = %vertexnum%
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES

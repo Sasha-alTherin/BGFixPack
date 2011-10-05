@@ -1,0 +1,10 @@
+IF
+  Allegiance(Myself,NEUTRAL)
+  See([PC])
+  NumTimesTalkedTo(0)
+  Global("AldethMove","GLOBAL",0)
+  Dead("Aldeth") // Aldeth Sashenstar
+THEN
+  RESPONSE #100
+    Dialogue([PC])
+END

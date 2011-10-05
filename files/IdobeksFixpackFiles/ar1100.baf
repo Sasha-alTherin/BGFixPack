@@ -1,0 +1,18 @@
+IF
+  GlobalGT("Chapter","GLOBAL",5)
+  Global("AldethMove","GLOBAL",1)
+  Exists("Aldeth")
+  !Dead("Aldeth") 
+THEN
+  RESPONSE #100
+    ActionOverride("Aldeth",DestroySelf())
+END
+
+IF
+   Global("Chapter","GLOBAL",7)
+   Global("HelpAldeth","GLOBAL",2)
+   OpenState("Door0127",FALSE)
+THEN
+   RESPONSE #100
+      OpenDoor("Door0127")
+END
