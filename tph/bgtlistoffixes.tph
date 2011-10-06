@@ -118,10 +118,6 @@ BUT_ONLY_IF_IT_CHANGES
 COPY_EXISTING ~FLAM.CRE~ ~override~
   WRITE_BYTE 0x270 0xff
 BUT_ONLY_IF_IT_CHANGES
-//ISLSIR: The Sirine Queen is now female in gender to give her correct casting sounds
-COPY_EXISTING ~ISLSIR.CRE~ ~override~
-  WRITE_BYTE 0x275 2 //general parameter
-BUT_ONLY_IF_IT_CHANGES
 //SKELETS: Randomly spawning skeletons now have their correct immunities
 COPY_EXISTING ~SKELETS.CRE~ ~override~
   ADD_CRE_ITEM ~RING99~ #0 #0 #0 ~UNSTEALABLE&UNDROPPABLE~ ~LRING~
@@ -140,6 +136,10 @@ BUT_ONLY_IF_IT_CHANGES
 
 //totsc only stuff
 ACTION_IF (GAME_IS ~totsc~) BEGIN
+//ISLSIR: The Sirine Queen is now female in gender to give her correct casting sounds
+COPY_EXISTING ~ISLSIR.CRE~ ~override~
+  WRITE_BYTE 0x275 2 //general parameter
+BUT_ONLY_IF_IT_CHANGES
 //LEAGGU4: Some Merchant League Guards no longer have an old woman’s greeting
 COPY_EXISTING ~LEAGGU4.CRE~ ~override~
   SAY 0xa4 #4964

@@ -23,8 +23,14 @@ BUT_ONLY_IF_IT_CHANGES
 // ----------------------------------------------------------------------------
 //Aldeth Sashenstar Betrayal Fix restores this neglected event and ties up several loose ends with Aldeth's behavior in Chapter 7, as otherwise if he is spoken to after Candlekeep he will betray the player to... Biff The Understudy, as the Flaming Fist Enforcer creature definition was completely missing, as well as several dialog commands, creature AI and updates to two area scripts.
 // i've shamelessly taken Idobek's version and used it instead
+ACTION_IF (GAME_IS ~bg1~) THEN BEGIN
+COMPILE ~BGFixpack/files/IdobeksFixpackFiles/VanillaRemakes/aldeth.d~
+        ~BGFixpack/files/IdobeksFixpackFiles/VanillaRemakes/flamal.baf~
+END
+ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
 COMPILE ~BGFixpack/files/IdobeksFixpackFiles/aldeth.d~
         ~BGFixpack/files/IdobeksFixpackFiles/flamal.baf~
+END
 EXTEND_TOP ~ar0128.bcs~ ~BGFixpack/files/IdobeksFixpackFiles/ar0128.baf~
 EXTEND_TOP ~ar1100.bcs~ ~BGFixpack/files/IdobeksFixpackFiles/ar1100.baf~
 COPY ~BGFixpack/files/IdobeksFixpackFiles/flamal.cre~ ~override~
