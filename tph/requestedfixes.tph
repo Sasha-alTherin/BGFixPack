@@ -84,12 +84,3 @@ Global("MineFlood","GLOBAL",1)~
 ADD_TRANS_ACTION ~yeslij~ BEGIN 3 END BEGIN END ~SetGlobal("MineFlood","GLOBAL",2)~
 >>>>>>>>
 COMPILE ~.../d-inlined/dlg-changes.d~
-// ----------------------------------------------------------------------------
-// Some books need price and weight
-COPY_EXISTING ~book27.itm~ ~override~
-              ~book39.itm~ ~override~
- PATCH_IF (%SOURCE_SIZE% > 0x70) BEGIN                    //avoid bad files
-  WRITE_LONG 0x34 2 // price
-  WRITE_LONG 0x4c 2 // weight
- END
-BUT_ONLY_IF_IT_CHANGES

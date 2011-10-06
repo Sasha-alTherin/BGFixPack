@@ -29,11 +29,14 @@ EXTEND_TOP ~ar0128.bcs~ ~BGFixpack/files/IdobeksFixpackFiles/ar0128.baf~
 EXTEND_TOP ~ar1100.bcs~ ~BGFixpack/files/IdobeksFixpackFiles/ar1100.baf~
 COPY ~BGFixpack/files/IdobeksFixpackFiles/flamal.cre~ ~override~
 COPY_EXISTING ~dabron.bcs~ ~override~
-   REPLACE_BCS_BLOCK ~BGFixpack/files/IdobeksFixpackFiles/old_dabron.baf~
-                     ~BGFixpack/files/IdobeksFixpackFiles/new_dabron.baf~
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY EXACT_MATCH ~See([PC])~ ~See([PC])
+NumTimesTalkedTo(0)~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
 COPY_EXISTING ~aldeth.cre~ ~override~
   READ_LONG 0x2bc "itemsoffset"
-  READ_LONG 0x2c4 "#items"
+  READ_LONG 0x2c0 "#items"
   WHILE ("%#items%" > 0) BEGIN
     SET "item" = ("%itemsoffset%" + ("%#items%" - 1) * 0x14)
     READ_LONG ("%item%" + 0x00) "itemresref1"
@@ -100,11 +103,9 @@ BUT_ONLY_IF_IT_CHANGES
 // ----------------------------------------------------------------------------
 //Gauntlets Of Ogre Power Fix corrects the undocumented restriction against these gauntlets being usable by Bards. This was also carried over into Baldur's Gate II: Shadows Of Amn, and Senior Designer David Gaider confirmed that Bards should be able to use this item.
 COPY_EXISTING ~brac06.itm~ ~override~
- PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN
-  READ_BYTE 0x1e "unusable1"
-  WRITE_BYTE 0x1e ("%unusable1%" BAND 0b10111111)
- END
-BUT_ONLY_IF_IT_CHANGES
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ WRITE_BYTE %wipt_Off_u1% (%wipt_r_u1% BAND 0b10111111)
+BUT_ONLY
 // ----------------------------------------------------------------------------
 //Killing Marl XP Exploit Fix eliminates the exploit of being able to calm Marl down in Feldepost's Inn in Beregost for experience, and then kill him for more experience and no loss of reputation or consequences even though he is then a harmless, neutral innocent. Appropriate consequences will now apply.
 // being lazy -- used idobeks code & file
@@ -154,26 +155,18 @@ COPY_EXISTING ~gretek.cre~ ~override~
 BUT_ONLY_IF_IT_CHANGES
 // ----------------------------------------------------------------------------
 //Arrow Of Biting Fix corrects the erroneous Strength bonus (that only hurled weapons should have) these arrows were giving. All three varieties (player's, enemies' and Eldoth's personal Poisoned Arrows) were affected.
-COPY_EXISTING_REGEXP ~arow05.itm~ ~override~
-                     ~arow12.itm~ ~override~
-                     ~arow14.itm~ ~override~
- PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
-  READ_SHORT 0x1c "item_type"
-  PATCH_IF (%item_type% = 5) BEGIN
-   READ_LONG 0x64 "abil_off"
-   READ_SHORT 0x68 "abil_num"
-   FOR (index = 0; index < abil_num; index = index + 1) BEGIN
-    READ_BYTE ("%abil_off%" + ("%index%" * 0x38)) "type"
-    PATCH_IF ("%type%" = 2) THEN BEGIN // projectile ability check
-     READ_LONG (%abil_off% + (%index% * 0x38) + 0x26) "flags"
-     PATCH_IF (%flags% > 0) THEN BEGIN
-      WRITE_LONG (%abil_off% + (%index% * 0x38) + 0x26) 0
-     END
+ACTION_FOR_EACH ab_file IN ~arow05.itm~ ~arow12.itm~ ~arow14.itm~ BEGIN
+ COPY_EXISTING_REGEXP ~%ab_file%~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  PATCH_IF (%wipt_r_it% = 5) BEGIN
+   FOR (index=0;index<%wipt_abil_num%;index+=1) BEGIN
+    PATCH_IF ( $wipt_r_attack("%index%") = 2) AND ( $wipt_r_flagb1("%index%") > 0) BEGIN
+     WRITE_SHORT $wipt_Off_flagb1("%index%") 0
     END
    END
   END
- END
-BUT_ONLY_IF_IT_CHANGES
+ BUT_ONLY_IF_IT_CHANGES
+END
 // ----------------------------------------------------------------------------
 //Download Jalantha Mistmyr Pickpocket Exploit Fix 	Jalantha Mistmyr Pickpocket Exploit Fix corrects the oversight by which the body of Tremain Belde'ar's son can be pickpocketed from the Umberlant priestess (without her even noticing...) You'll still be able to filch the Geas Removal Scroll from her.
 <<<<<<<< jalant/stuffcheck.baf
@@ -392,12 +385,12 @@ REPLACE_ACTION_TEXT ~cult3~ ~ActionOverride("Cult Archer",MoveToPoint(\[2716.877
  BUT_ONLY_IF_IT_CHANGES
 // ----------------------------------------------------------------------------
 //Thief Scimitar Use Fix corrects the inconsistency of thieves not being able to use any Scimitars but Drizzt Do'Urden's. As scimitars are a rarity, Drizzt's are by far the most powerful, there's no good reason why they should be restricted in the first place (as they are equivalent in damage to a long sword and have a faster speed factor) and thieves have full access to Scimitars in Baldur's Gate 2, I've opened the rest up to thief use.
- COPY_EXISTING ~sw1h20.itm~ ~override~
-               ~sw1h22.itm~ ~override~
-               ~sw1h23.itm~ ~override~
-  READ_BYTE 0x20 "unusable3"
-  WRITE_BYTE 0x20 ("%unusable3%" BAND 0b10110111)
- BUT_ONLY_IF_IT_CHANGES
+ ACTION_FOR_EACH ab_file IN ~sw1h20.itm~ ~sw1h22.itm~ ~sw1h23.itm~ BEGIN
+  COPY_EXISTING ~%ab_file%~ ~override~
+   LAUNCH_PATCH_MACRO ~wipt_item_reader~
+   WRITE_BYTE %wipt_Off_u3% (%wipt_r_u3% BAND 0b10110111)
+  BUT_ONLY
+ END
 // ----------------------------------------------------------------------------
 //Albert Giving No Reward For Rufie Fix corrects the puzzling omission of Albert saying that he is giving the player "... another of his chew toys..." (Rufie's) when leaving, but giving nothing. He now provides an appropriate "chew toy," perhaps retrieved from someone in the area. :^)
 <<<<<<<< inlined/albert.d

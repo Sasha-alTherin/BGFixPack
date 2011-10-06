@@ -1,12 +1,12 @@
 //ISSUE WITH TOTSC ON WINDOWS XP -- SOME SYSTEMS
 //problem only affects Windows XP with ToTSC installed
 //so we find windows users using ToTSC
-PRINT ~Processing winxp-totsc-glitchy-override.tph~
-ACTION_IF ("%WEIDU_OS%" STRING_COMPARE_CASE "win32" = 0) AND (GAME_IS ~totsc~) THEN BEGIN
 //begin looking for problem files and move them to backup folder
 //but some users might have one or two of the files for some reason, but not all of them
 //make sure all are there first
- ACTION_IF (FILE_EXISTS ~override/albert.cre~)
+PRINT ~Processing winxp-totsc-glitchy-override.tph~
+ ACTION_IF (("%WEIDU_OS%" STRING_COMPARE_CASE "win32" = 0) AND (GAME_IS ~totsc~))
+       AND ( (FILE_EXISTS ~override/albert.cre~)
        AND (FILE_EXISTS ~override/albert.dlg~)
        AND (FILE_EXISTS ~override/ar2300.are~)
        AND (FILE_EXISTS ~override/belt.cre~)
@@ -44,7 +44,7 @@ ACTION_IF ("%WEIDU_OS%" STRING_COMPARE_CASE "win32" = 0) AND (GAME_IS ~totsc~) T
        AND (FILE_EXISTS ~override/sw2h06.itm~)
        AND (FILE_EXISTS ~override/taloun.dlg~)
        AND (FILE_EXISTS ~override/therel.dlg~)
-       AND (FILE_EXISTS ~override/ulcast.dlg~) THEN BEGIN
+       AND (FILE_EXISTS ~override/ulcast.dlg~) ) THEN BEGIN
   PRINT ~Your installation suffers from merged override contents...
 Please consult accompaning documentation for more information.
 Moving 39 incorrect files from override to BGFixPack/backup/manual
@@ -92,8 +92,11 @@ Please press ENTER to continue.~
   AT_NOW ~move "override/therel.dlg" "BGFixPack/backup/manual"~
   AT_NOW ~move "override/ulcast.dlg" "BGFixPack/backup/manual"~
  END
- AT_UNINSTALL ~move "BGFixPack\backup\manual\*.*" "override"~
-END
-ELSE BEGIN
+ ELSE BEGIN
  PRINT ~Your installation does not suffer from merged override contents...~
-END
+ END
+ ACTION_IF (FILE_EXISTS ~BGFixPack/backup/manual/ulcast.dlg~) THEN BEGIN
+  AT_UNINSTALL ~move "BGFixPack\backup\manual\*.*" "override"~
+  PRINT ~Returning your install to the way we found it before installation~
+ END
+

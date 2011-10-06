@@ -1,0 +1,135 @@
+//define variables so that people know what they are:
+
+//define header entries
+/* pattern: variable = description
+un = unidentified name
+in = identified name    
+ri = replacement item   
+fl1 = flag bit 1              
+fl2 = flag bit 2            
+fl3 = flag bit 3
+fl4 = flag bit 4         
+it = item type          
+u1 = usability bit 1    
+u2 = usability bit 2          
+u3 = usability bit 3        
+u4 = usability bit 4
+ia = item animation      
+ml = minimum level
+ms = minimum strength   
+msb = minimum strength bonus  
+k1 = kit bit 1              
+mi = minimum intelligence
+k2 = kit bit 2           
+md = minimum dexterity  
+k3 = kit bit 3          
+mw = minimum wisdom
+k4 = kit bit 4              
+mc = minimum constitution
+wp = weapon proficiency  
+mch = minimum charisma  
+pr = price              
+st = stack                    
+ii = inventory icon         
+lo = lore to id
+gi = ground icon         
+we = weight             
+ud = unidentified description
+id = identifed description  
+di = description icon
+en = enchantment
+*/
+
+//define ability entries
+/* pattern: variable = description
+attack = attack type
+id_req = id required to use
+useloc = use location
+useico = use icon
+target = target type
+tarnum = target number
+range = range
+projec = projectile type
+speed = speed
+thac0b = thac0 bonus
+dsides = dice sides
+dthrow = dice thrown
+damagb = damage bonus
+damagt = damage type
+charge = charges
+chardp = charge depletion
+flagb1 = flag bit 1
+flagb2 = flag bit 2
+proani = projectile animation
+ohand = overhand
+bhand = backhand
+thrust = thrust
+arrow = is arrow?
+bolt = is bolt?
+other = is other type of missile?
+*/
+
+//define effect entries
+/* pattern: variable = description
+opco = opcode         
+targ = target         
+powr = power     
+par1 = parameter 1  
+par2 = parameter 2  
+tmod = timing mode   
+resi = resistance  
+dura = duration
+pro1 = probability 1  
+pro2 = probability 2  
+reso = resource  
+diet = dice thrown
+dies = dice sides
+savt = saving throw
+savb = saving bonus
+*/
+
+/* Variable patterns and other useful variables available by having used the macro
+NOTE: In the following var refers to one of the listed variables above AND index refers to the index # of the given ability or effect
+For header
+wipt_Off_var = the offset that that var was read from and can have a new value written to
+wipt_SoW_var = the size of write for that var entry (byte, short, long, ascii)
+wipt_AcL_var = the ascii length for that var 0=non-ascii;8=file name ascii;32=object name & script variable ascii
+wipt_Bit_var = used to determine if the var can or should utilze the bitwise operators
+For read values from the header
+wipt_r_var = the value that was read from the offset of the given var
+
+For effects (equipping and ability)
+wipt_Off_var_index = the offset that that var was read from and can have a new value written to
+wipt_SoW_var_index = the size of write for that var entry (byte, short, long, ascii)
+wipt_AcL_var_index = the ascii length for that var 0=non-ascii;8=file name ascii;32=object name & script variable ascii
+wipt_Bit_var_index = used to determine if the var can or should utilze the bitwise operators
+wipt_total_fx = total number of effects both equipping and ability
+wipt_eqfx_idx = starting index number for equipping effects
+wipt_eqfx_num = number of equipping effects
+wipt_fx_off = offset of start of effects
+wipt_abilfx_idx_index = starting index number for effects of the given ability index
+wipt_abilfx_num_index = number of effects for the given ability index
+wipt_fx_size = total size in bytes for one complete effect entry
+For read values from the effects
+wipt_r_var_index = the value that was read from the offset of the given var in the given effect index
+
+For ability headers
+wipt_Off_var_index = the offset that that var was read from and can have a new value written to
+wipt_SoW_var_index = the size of write for that var entry (byte, short, long, ascii)
+wipt_AcL_var_index = the ascii length for that var 0=non-ascii;8=file name ascii;32=object name & script variable ascii
+wipt_Bit_var_index = used to determine if the var can or should utilze the bitwise operators
+wipt_abil_off = offset of start of ability headers
+wipt_abil_num = number of ability headers
+wipt_abil_size = total size in bytes for one complete ability entry
+For read values from the ability headers
+wipt_r_var_index = the value that was read from the offset of the given var in the given ability index
+
+When using the patch function ~wipt_item_writer~ you assign your values to any variable listed above for the patch macro ~wipt_item_reader~
+Follow these patterns:
+wipt_w_var = values to be written to header entries
+wipt_w_var_index = values to be written to the ability or effect entries
+
+When using the patch function ~wipt_new_eqfx~ you assign your new values in the following manner:
+wipt_n_var = new values to be written to the new equipping effect entry
+*/
+////////////////////////////////////////////////////////

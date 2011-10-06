@@ -1,0 +1,366 @@
+DEFINE_PATCH_MACRO ~wipt_item_reader~ BEGIN
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+  DEFINE_ARRAY h_entry BEGIN un  in  ri   fl1  fl2  fl3  fl4  it   u1   u2   u3   u4   ia   ml   ms   msb  k1   mi   k2   md   k3   mw   k4   mc   wp   mch  pr   st   ii   lo   gi   we   ud   id   di   en   END
+  DEFINE_ARRAY h_offst BEGIN 0x8 0xc 0x10 0x18 0x19 0x1a 0x1b 0x1c 0x1e 0x1f 0x20 0x21 0x22 0x24 0x26 0x28 0x29 0x2a 0x2b 0x2c 0x2d 0x2e 0x2f 0x30 0x31 0x32 0x34 0x38 0x3a 0x42 0x44 0x4c 0x50 0x54 0x58 0x60 END
+  DEFINE_ARRAY h_SoWrt BEGIN 4   4   8    1    1    1    1    2    1    1    1    1    2    1    1    1    1    1    1    1    1    1    1    1    1    1    4    2    8    2    8    4    4    4    8    4    END
+  DEFINE_ARRAY h_AsciL BEGIN 0   0   8    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    8    0    8    0    0    0    8    0    END
+  DEFINE_ARRAY h_Bit   BEGIN 0   0   0    1    1    1    1    0    1    1    1    1    0    0    0    0    1    0    1    0    1    0    1    0    0    0    0    0    0    0    0    0    0    0    0    0    END
+  FOR(hi=0;hi<36;hi+=1)BEGIN
+   SET $wipt_Off($h_entry("%hi%")) = $h_offst("%hi%") //set offset for entry
+   SET $wipt_SoW($h_entry("%hi%")) = $h_SoWrt("%hi%") //set size of write for entry
+   SET $wipt_AcL($h_entry("%hi%")) = $h_AsciL("%hi%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+   SET $wipt_Bit($h_entry("%hi%")) = $h_Bit("%hi%")   //set whether entry should be written in bit format
+   PATCH_IF ($h_SoWrt("%hi%") = 1) BEGIN
+    READ_BYTE $wipt_Off($h_entry("%hi%")) $wipt_r($h_entry("%hi%"))
+   END
+   PATCH_IF ($h_SoWrt("%hi%") = 2) BEGIN
+    READ_SHORT $wipt_Off($h_entry("%hi%")) $wipt_r($h_entry("%hi%"))
+   END
+   PATCH_IF ($h_SoWrt("%hi%") = 4) BEGIN
+    READ_LONG $wipt_Off($h_entry("%hi%")) $wipt_r($h_entry("%hi%"))
+   END
+   PATCH_IF ($h_SoWrt("%hi%") = 8) AND ($h_AsciL("%hi%") = 8) BEGIN
+    READ_ASCII $wipt_Off($h_entry("%hi%")) $wipt_r($h_entry("%hi%")) (8) NULL
+   END
+   PATCH_IF ($h_SoWrt("%hi%") = 8) AND ($h_AsciL("%hi%") = 32) BEGIN
+    READ_ASCII $wipt_Off($h_entry("%hi%")) $wipt_r($h_entry("%hi%")) (32) NULL
+   END
+  END
+//begin ability to access abilities and effects
+  SET wipt_abil_size = 0x38
+  SET wipt_fx_size = 0x30
+  DEFINE_ARRAY h_entry BEGIN abil_off abil_num fx_off eqfx_idx eqfx_num END
+  DEFINE_ARRAY h_offst BEGIN 0x64     0x68     0x6a   0x6e     0x70     END
+  DEFINE_ARRAY h_SoWrt BEGIN 4        2        4      2        2        END
+  DEFINE_ARRAY h_AsciL BEGIN 0        0        0      0        0        END
+  DEFINE_ARRAY h_Bit   BEGIN 0        0        0      0        0        END
+  FOR(hmi=0;hmi<5;hmi+=1)BEGIN
+   SET $wipt_Off($h_entry("%hmi%")) = $h_offst("%hmi%") //set offset for entry
+   SET $wipt_SoW($h_entry("%hmi%")) = $h_SoWrt("%hmi%") //set size of write for entry
+   SET $wipt_AcL($h_entry("%hmi%")) = $h_AsciL("%hmi%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+   SET $wipt_Bit($h_entry("%hmi%")) = $h_Bit("%hmi%")   //set whether entry should be written in bit format
+   PATCH_IF ($h_SoWrt("%hmi%") = 2) BEGIN
+    READ_SHORT $h_offst("%hmi%") $wipt($h_entry("%hmi%"))
+   END
+   PATCH_IF ($h_SoWrt("%hmi%") = 4) BEGIN
+    READ_LONG $h_offst("%hmi%") $wipt($h_entry("%hmi%"))
+   END
+  END
+  SET wipt_total_fx = %wipt_eqfx_num%
+//begin ability to read and edit Equipping effects
+  FOR(el1=%wipt_eqfx_idx%;el1<%wipt_eqfx_num%;el1+=1)BEGIN
+   SET wipt_fx_location=(%wipt_fx_off% + (%el1%*%wipt_fx_size%))
+   DEFINE_ARRAY e_entry BEGIN opco targ powr par1 par2 tmod resi dura pro1 pro2 reso diet dies savt savb END
+   DEFINE_ARRAY e_offst BEGIN 0x0  0x2  0x3  0x4  0x8  0xc  0xd  0xe  0x12 0x13 0x14 0x1c 0x20 0x24 0x28 END
+   DEFINE_ARRAY e_SoWrt BEGIN 2    1    1    4    4    1    1    4    1    1    8    4    4    4    4    END
+   DEFINE_ARRAY e_AsciL BEGIN 0    0    0    0    0    0    0    0    0    0    8    0    0    0    0    END
+   DEFINE_ARRAY e_Bit   BEGIN 0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    END
+   FOR(ei=0;ei<15;ei+=1)BEGIN
+    SET $wipt_Off($e_entry("%ei%")"%el1%") = %wipt_fx_location% + $e_offst("%ei%") //set offset for entry
+    SET $wipt_SoW($e_entry("%ei%")"%el1%") = $e_SoWrt("%ei%") //set size of write for entry
+    SET $wipt_AcL($e_entry("%ei%")"%el1%") = $e_AsciL("%ei%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+    SET $wipt_Bit($e_entry("%ei%")"%el1%") = $e_Bit("%ei%")   //set whether entry should be written in bit format
+    PATCH_IF ($e_SoWrt("%ei%") = 1) BEGIN
+     READ_BYTE $wipt_Off($e_entry("%ei%")"%el1%") $wipt_r($e_entry("%ei%")"%el1%")
+    END
+    PATCH_IF ($e_SoWrt("%ei%") = 2) BEGIN
+     READ_SHORT $wipt_Off($e_entry("%ei%")"%el1%") $wipt_r($e_entry("%ei%")"%el1%")
+    END
+    PATCH_IF ($e_SoWrt("%ei%") = 4) BEGIN
+     READ_LONG $wipt_Off($e_entry("%ei%")"%el1%") $wipt_r($e_entry("%ei%")"%el1%")
+    END
+    PATCH_IF ($e_SoWrt("%ei%") = 8) AND ($e_AsciL("%ei%") = 8) BEGIN
+     READ_ASCII $wipt_Off($e_entry("%ei%")"%el1%") $wipt_r($e_entry("%ei%")"%el1%") (8) NULL
+    END
+    PATCH_IF ($e_SoWrt("%ei%") = 8) AND ($e_AsciL("%ei%") = 32) BEGIN
+     READ_ASCII $wipt_Off($e_entry("%ei%")"%el1%") $wipt_r($e_entry("%ei%")"%el1%") (32) NULL
+    END
+   END //end array loop
+  END //end loop through equiping effects
+//begin ability to read and edit ability headers
+  FOR(al1=0;al1<%wipt_abil_num%;al1+=1)BEGIN
+   SET wipt_abil_location=(%wipt_abil_off% + (%al1%*%wipt_abil_size%))
+   DEFINE_ARRAY a_entry BEGIN attack id_req useloc useico target tarnum range projec speed thac0b dsides dthrow damagb damagt charge chardp flagb1 flagb2 proani ohand bhand thrust arrow bolt other END
+   DEFINE_ARRAY a_offst BEGIN 0x0    0x1    0x2    0x4    0xc    0xd    0xe   0x10   0x12  0x14   0x16   0x18   0x1a   0x1c   0x22   0x24   0x26   0x27   0x2a   0x2c  0x2e  0x30   0x32  0x34 0x36  END
+   DEFINE_ARRAY a_SoWrt BEGIN 1      1      1      8      1      1      2     2      2     2      2      2      2      2      2      2      1      1      2      2     2     2      2     2    2     END
+   DEFINE_ARRAY a_AsciL BEGIN 0      0      0      8      0      0      0     0      0     0      0      0      0      0      0      0      0      0      0      0     0     0      0     0    0     END
+   DEFINE_ARRAY a_Bit   BEGIN 0      1      0      0      0      0      0     0      0     0      0      0      0      0      0      0      1      1      0      0     0     0      0     0    0     END
+   FOR(ai=0;ai<25;ai+=1)BEGIN
+    SET $wipt_Off($a_entry("%ai%")"%al1%") = %wipt_abil_location% + $a_offst("%ai%") //set offset for entry
+    SET $wipt_SoW($a_entry("%ai%")"%al1%") = $a_SoWrt("%ai%") //set size of write for entry
+    SET $wipt_AcL($a_entry("%ai%")"%al1%") = $a_AsciL("%ai%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+    SET $wipt_Bit($a_entry("%ai%")"%al1%") = $a_Bit("%ai%")   //set whether entry should be written in bit format
+    PATCH_IF ($a_SoWrt("%ai%") = 1) BEGIN
+     READ_BYTE $wipt_Off($a_entry("%ai%")"%al1%") $wipt_r($a_entry("%ai%")"%al1%")
+    END
+    PATCH_IF ($a_SoWrt("%ai%") = 2) BEGIN
+     READ_SHORT $wipt_Off($a_entry("%ai%")"%al1%") $wipt_r($a_entry("%ai%")"%al1%")
+    END //end short read compare write
+    PATCH_IF ($a_SoWrt("%ai%") = 4) BEGIN
+     READ_LONG $wipt_Off($a_entry("%ai%")"%al1%") $wipt_r($a_entry("%ai%")"%al1%")
+    END //end long read compare write
+    PATCH_IF ($a_SoWrt("%ai%") = 8) AND ($a_AsciL("%ai%") = 8) BEGIN
+     READ_ASCII $wipt_Off($a_entry("%ai%")"%al1%") $wipt_r($a_entry("%ai%")"%al1%") (8) NULL
+    END
+    PATCH_IF ($a_SoWrt("%ai%") = 8) AND ($a_AsciL("%ai%") = 32) BEGIN
+     READ_ASCII $wipt_Off($a_entry("%ai%")"%al1%") $wipt_r($a_entry("%ai%")"%al1%") (32) NULL
+    END
+   END
+//begin ability to read and edit ability effects
+   DEFINE_ARRAY a_entry BEGIN abilfx_num abilfx_idx END
+   DEFINE_ARRAY a_offst BEGIN 0x1e       0x20       END
+   DEFINE_ARRAY a_SoWrt BEGIN 2          2          END
+   DEFINE_ARRAY a_AsciL BEGIN 0          0          END
+   DEFINE_ARRAY a_Bit   BEGIN 0          0          END
+   FOR(ami=0;ami<2;ami+=1)BEGIN
+    SET $wipt_Off($a_entry("%ami%")"%al1%") = %wipt_abil_location% + $a_offst("%ami%") //set offset for entry
+    PATCH_IF (%ami% = 0) BEGIN
+     READ_SHORT %wipt_abil_location% + $a_offst("%ami%") $wipt_abilfx_num("%al1%")
+    END
+    PATCH_IF (%ami% = 1) BEGIN
+     READ_SHORT %wipt_abil_location% + $a_offst("%ami%") $wipt_abilfx_idx("%al1%")
+    END
+   END
+   SET wipt_total_fx+=$wipt_abilfx_num("%al1%")
+   FOR(el2=$wipt_abilfx_idx("%al1%");el2<($wipt_abilfx_idx("%al1%")+$wipt_abilfx_num("%al1%"));el2+=1)BEGIN
+    SET wipt_abilfx_location=(%wipt_fx_off% + (%el2%*%wipt_fx_size%))
+    DEFINE_ARRAY ae_entry BEGIN opco targ powr par1 par2 tmod resi dura pro1 pro2 reso diet dies savt savb END
+    DEFINE_ARRAY ae_offst BEGIN 0x0  0x2  0x3  0x4  0x8  0xc  0xd  0xe  0x12 0x13 0x14 0x1c 0x20 0x24 0x28 END
+    DEFINE_ARRAY ae_SoWrt BEGIN 2    1    1    4    4    1    1    4    1    1    8    4    4    4    4    END
+    DEFINE_ARRAY ae_AsciL BEGIN 0    0    0    0    0    0    0    0    0    0    8    0    0    0    0    END
+    DEFINE_ARRAY ae_Bit   BEGIN 0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    END
+    FOR(aei=0;aei<15;aei+=1)BEGIN
+     SET $wipt_Off($ae_entry("%aei%")"%el2%") = %wipt_abilfx_location% + $ae_offst("%aei%") //set offset for entry
+     SET $wipt_SoW($ae_entry("%aei%")"%el2%") = $ae_SoWrt("%aei%") //set size of write for entry
+     SET $wipt_AcL($ae_entry("%aei%")"%el2%") = $ae_AsciL("%aei%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+     SET $wipt_Bit($ae_entry("%aei%")"%el2%") = $ae_Bit("%aei%")   //set whether entry should be written in bit format
+     PATCH_IF ($ae_SoWrt("%aei%") = 1) BEGIN
+      READ_BYTE $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_r($ae_entry("%aei%")"%el2%")
+     END //end byte read compare write
+     PATCH_IF ($ae_SoWrt("%aei%") = 2) BEGIN
+      READ_SHORT $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_r($ae_entry("%aei%")"%el2%")
+     END //end short read compare write
+     PATCH_IF ($ae_SoWrt("%aei%") = 4) BEGIN
+      READ_LONG $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_r($ae_entry("%aei%")"%el2%")
+     END //end long read compare write
+     PATCH_IF ($ae_SoWrt("%aei%") = 8) AND ($ae_AsciL("%aei%") = 8) BEGIN
+      READ_ASCII $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_r($ae_entry("%aei%")"%el2%") (8) NULL
+     END
+     PATCH_IF ($ae_SoWrt("%aei%") = 8) AND ($ae_AsciL("%aei%") = 32) BEGIN
+      READ_ASCII $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_r($ae_entry("%aei%")"%el2%") (32) NULL
+     END
+    END
+   END
+  END //end ability header read
+ END
+END//end function define
+
+DEFINE_PATCH_FUNCTION ~wipt_item_writer~ BEGIN
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+  DEFINE_ARRAY h_entry BEGIN un  in  ri   fl1  fl2  fl3  fl4  it   u1   u2   u3   u4   ia   ml   ms   msb  k1   mi   k2   md   k3   mw   k4   mc   wp   mch  pr   st   ii   lo   gi   we   ud   id   di   en   END
+  DEFINE_ARRAY h_offst BEGIN 0x8 0xc 0x10 0x18 0x19 0x1a 0x1b 0x1c 0x1e 0x1f 0x20 0x21 0x22 0x24 0x26 0x28 0x29 0x2a 0x2b 0x2c 0x2d 0x2e 0x2f 0x30 0x31 0x32 0x34 0x38 0x3a 0x42 0x44 0x4c 0x50 0x54 0x58 0x60 END
+  DEFINE_ARRAY h_SoWrt BEGIN 4   4   8    1    1    1    1    2    1    1    1    1    2    1    1    1    1    1    1    1    1    1    1    1    1    1    4    2    8    2    8    4    4    4    8    4    END
+  DEFINE_ARRAY h_AsciL BEGIN 0   0   8    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    8    0    8    0    0    0    8    0    END
+  DEFINE_ARRAY h_Bit   BEGIN 0   0   0    1    1    1    1    0    1    1    1    1    0    0    0    0    1    0    1    0    1    0    1    0    0    0    0    0    0    0    0    0    0    0    0    0    END
+  FOR(hi=0;hi<36;hi+=1)BEGIN
+   SET $wipt_Off($h_entry("%hi%")) = $h_offst("%hi%") //set offset for entry
+   SET $wipt_SoW($h_entry("%hi%")) = $h_SoWrt("%hi%") //set size of write for entry
+   SET $wipt_AcL($h_entry("%hi%")) = $h_AsciL("%hi%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+   SET $wipt_Bit($h_entry("%hi%")) = $h_Bit("%hi%")   //set whether entry should be written in bit format
+   PATCH_IF (VARIABLE_IS_SET $wipt_w($h_entry("%hi%")) ) BEGIN
+    PATCH_IF ($h_SoWrt("%hi%") = 1) BEGIN
+     WRITE_BYTE $wipt_Off($h_entry("%hi%")) $wipt_w($h_entry("%hi%"))
+    END
+    PATCH_IF ($h_SoWrt("%hi%") = 2) BEGIN
+     WRITE_SHORT $wipt_Off($h_entry("%hi%")) $wipt_w($h_entry("%hi%"))
+    END
+    PATCH_IF ($h_SoWrt("%hi%") = 4) BEGIN
+     WRITE_LONG $wipt_Off($h_entry("%hi%")) $wipt_w($h_entry("%hi%"))
+    END
+    PATCH_IF ($h_SoWrt("%hi%") = 8) AND ($h_AsciL("%hi%") = 8) BEGIN
+     WRITE_ASCIIE $wipt_Off($h_entry("%hi%")) $wipt_w($h_entry("%hi%")) (8)
+    END
+    PATCH_IF ($h_SoWrt("%hi%") = 8) AND ($h_AsciL("%hi%") = 32) BEGIN
+     WRITE_ASCIIE $wipt_Off($h_entry("%hi%")) $wipt_w($h_entry("%hi%")) (32)
+    END
+   END
+  END
+//begin ability to access abilities and effects
+//pre-set by using wipt_item_reader which will be a requirement
+//  SET wipt_abil_size = 0x38
+//  SET wipt_fx_size = 0x30
+  DEFINE_ARRAY h_entry BEGIN abil_off abil_num fx_off eqfx_idx eqfx_num END
+  DEFINE_ARRAY h_offst BEGIN 0x64     0x68     0x6a   0x6e     0x70     END
+  DEFINE_ARRAY h_SoWrt BEGIN 4        2        4      2        2        END
+  DEFINE_ARRAY h_AsciL BEGIN 0        0        0      0        0        END
+  DEFINE_ARRAY h_Bit   BEGIN 0        0        0      0        0        END
+  FOR(hmi=0;hmi<5;hmi+=1)BEGIN
+   SET $wipt_Off($h_entry("%hmi%")) = $h_offst("%hmi%") //set offset for entry
+   SET $wipt_SoW($h_entry("%hmi%")) = $h_SoWrt("%hmi%") //set size of write for entry
+   SET $wipt_AcL($h_entry("%hmi%")) = $h_AsciL("%hmi%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+   SET $wipt_Bit($h_entry("%hmi%")) = $h_Bit("%hmi%")   //set whether entry should be written in bit format
+   PATCH_IF ($h_SoWrt("%hmi%") = 2) BEGIN
+    READ_SHORT $h_offst("%hmi%") $wipt($h_entry("%hmi%"))
+   END
+   PATCH_IF ($h_SoWrt("%hmi%") = 4) BEGIN
+    READ_LONG $h_offst("%hmi%") $wipt($h_entry("%hmi%"))
+   END
+  END
+//pre-set by using wipt_item_reader which will be a requirement
+//  SET wipt_total_fx = %wipt_eqfx_num%
+//begin ability to read and edit Equipping effects
+  FOR(el1=%wipt_eqfx_idx%;el1<%wipt_eqfx_num%;el1+=1)BEGIN
+   SET wipt_fx_location=(%wipt_fx_off% + (%el1%*%wipt_fx_size%))
+   DEFINE_ARRAY e_entry BEGIN opco targ powr par1 par2 tmod resi dura pro1 pro2 reso diet dies savt savb END
+   DEFINE_ARRAY e_offst BEGIN 0x0  0x2  0x3  0x4  0x8  0xc  0xd  0xe  0x12 0x13 0x14 0x1c 0x20 0x24 0x28 END
+   DEFINE_ARRAY e_SoWrt BEGIN 2    1    1    4    4    1    1    4    1    1    8    4    4    4    4    END
+   DEFINE_ARRAY e_AsciL BEGIN 0    0    0    0    0    0    0    0    0    0    8    0    0    0    0    END
+   DEFINE_ARRAY e_Bit   BEGIN 0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    END
+   FOR(ei=0;ei<15;ei+=1)BEGIN
+    SET $wipt_Off($e_entry("%ei%")"%el1%") = %wipt_fx_location% + $e_offst("%ei%") //set offset for entry
+    SET $wipt_SoW($e_entry("%ei%")"%el1%") = $e_SoWrt("%ei%") //set size of write for entry
+    SET $wipt_AcL($e_entry("%ei%")"%el1%") = $e_AsciL("%ei%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+    SET $wipt_Bit($e_entry("%ei%")"%el1%") = $e_Bit("%ei%")   //set whether entry should be written in bit format
+    PATCH_IF (VARIABLE_IS_SET $wipt_w($e_entry("%ei%")"%el1%") ) BEGIN
+     PATCH_IF ($e_SoWrt("%ei%") = 1) BEGIN
+      WRITE_BYTE $wipt_Off($e_entry("%ei%")"%el1%") $wipt_w($e_entry("%ei%")"%el1%")
+     END
+     PATCH_IF ($e_SoWrt("%ei%") = 2) BEGIN
+      WRITE_SHORT $wipt_Off($e_entry("%ei%")"%el1%") $wipt_w($e_entry("%ei%")"%el1%")
+     END
+     PATCH_IF ($e_SoWrt("%ei%") = 4) BEGIN
+      WRITE_LONG $wipt_Off($e_entry("%ei%")"%el1%") $wipt_w($e_entry("%ei%")"%el1%")
+     END
+     PATCH_IF ($e_SoWrt("%ei%") = 8) AND ($e_AsciL("%ei%") = 8) BEGIN
+      WRITE_ASCIIE $wipt_Off($e_entry("%ei%")"%el1%") $wipt_w($e_entry("%ei%")"%el1%") (8)
+     END
+     PATCH_IF ($e_SoWrt("%ei%") = 8) AND ($e_AsciL("%ei%") = 32) BEGIN
+      WRITE_ASCIIE $wipt_Off($e_entry("%ei%")"%el1%") $wipt_w($e_entry("%ei%")"%el1%") (32)
+     END
+    END //end variable is set
+   END //end array loop
+  END //end loop through equiping effects
+//begin ability to read and edit ability headers
+  FOR(al1=0;al1<%wipt_abil_num%;al1+=1)BEGIN
+   SET wipt_abil_location=(%wipt_abil_off% + (%al1%*%wipt_abil_size%))
+   DEFINE_ARRAY a_entry BEGIN attack id_req useloc useico target tarnum range projec speed thac0b dsides dthrow damagb damagt charge chardp flagb1 flagb2 proani ohand bhand thrust arrow bolt other END
+   DEFINE_ARRAY a_offst BEGIN 0x0    0x1    0x2    0x4    0xc    0xd    0xe   0x10   0x12  0x14   0x16   0x18   0x1a   0x1c   0x22   0x24   0x26   0x27   0x2a   0x2c  0x2e  0x30   0x32  0x34 0x36  END
+   DEFINE_ARRAY a_SoWrt BEGIN 1      1      1      8      1      1      2     2      2     2      2      2      2      2      2      2      1      1      2      2     2     2      2     2    2     END
+   DEFINE_ARRAY a_AsciL BEGIN 0      0      0      8      0      0      0     0      0     0      0      0      0      0      0      0      0      0      0      0     0     0      0     0    0     END
+   DEFINE_ARRAY a_Bit   BEGIN 0      1      0      0      0      0      0     0      0     0      0      0      0      0      0      0      1      1      0      0     0     0      0     0    0     END
+   FOR(ai=0;ai<25;ai+=1)BEGIN
+    SET $wipt_Off($a_entry("%ai%")"%al1%") = %wipt_abil_location% + $a_offst("%ai%") //set offset for entry
+    SET $wipt_SoW($a_entry("%ai%")"%al1%") = $a_SoWrt("%ai%") //set size of write for entry
+    SET $wipt_AcL($a_entry("%ai%")"%al1%") = $a_AsciL("%ai%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+    SET $wipt_Bit($a_entry("%ai%")"%al1%") = $a_Bit("%ai%")   //set whether entry should be written in bit format
+    PATCH_IF (VARIABLE_IS_SET $wipt_w($a_entry("%ai%")"%al1%") ) BEGIN
+     PATCH_IF ($a_SoWrt("%ai%") = 1) BEGIN
+      WRITE_BYTE $wipt_Off($a_entry("%ai%")"%al1%") $wipt_w($a_entry("%ai%")"%al1%")
+     END
+     PATCH_IF ($a_SoWrt("%ai%") = 2) BEGIN
+      WRITE_SHORT $wipt_Off($a_entry("%ai%")"%al1%") $wipt_w($a_entry("%ai%")"%al1%")
+     END //end short read compare write
+     PATCH_IF ($a_SoWrt("%ai%") = 4) BEGIN
+      WRITE_LONG $wipt_Off($a_entry("%ai%")"%al1%") $wipt_w($a_entry("%ai%")"%al1%")
+     END //end long read compare write
+     PATCH_IF ($a_SoWrt("%ai%") = 8) AND ($a_AsciL("%ai%") = 8) BEGIN
+      WRITE_ASCIIE $wipt_Off($a_entry("%ai%")"%al1%") $wipt_w($a_entry("%ai%")"%al1%") (8)
+     END
+     PATCH_IF ($a_SoWrt("%ai%") = 8) AND ($a_AsciL("%ai%") = 32) BEGIN
+      WRITE_ASCIIE $wipt_Off($a_entry("%ai%")"%al1%") $wipt_w($a_entry("%ai%")"%al1%") (32)
+     END
+    END //end variable is set
+   END
+//begin ability to read and edit ability effects
+   DEFINE_ARRAY a_entry BEGIN abilfx_num abilfx_idx END
+   DEFINE_ARRAY a_offst BEGIN 0x1e       0x20       END
+   DEFINE_ARRAY a_SoWrt BEGIN 2          2          END
+   DEFINE_ARRAY a_AsciL BEGIN 0          0          END
+   DEFINE_ARRAY a_Bit   BEGIN 0          0          END
+   FOR(ami=0;ami<2;ami+=1)BEGIN
+    SET $wipt_Off($a_entry("%ami%")"%al1%") = %wipt_abil_location% + $a_offst("%ami%") //set offset for entry
+    PATCH_IF (%ami% = 0) BEGIN
+     READ_SHORT %wipt_abil_location% + $a_offst("%ami%") $wipt_abilfx_num("%al1%")
+    END
+    PATCH_IF (%ami% = 1) BEGIN
+     READ_SHORT %wipt_abil_location% + $a_offst("%ami%") $wipt_abilfx_idx("%al1%")
+    END
+   END
+//pre-set by using wipt_item_reader which will be a requirement
+//   SET wipt_total_fx+=$wipt_abilfx_num("%al1%")
+   FOR(el2=$wipt_abilfx_idx("%al1%");el2<($wipt_abilfx_idx("%al1%")+$wipt_abilfx_num("%al1%"));el2+=1)BEGIN
+    SET wipt_abilfx_location=(%wipt_fx_off% + (%el2%*%wipt_fx_size%))
+    DEFINE_ARRAY ae_entry BEGIN opco targ powr par1 par2 tmod resi dura pro1 pro2 reso diet dies savt savb END
+    DEFINE_ARRAY ae_offst BEGIN 0x0  0x2  0x3  0x4  0x8  0xc  0xd  0xe  0x12 0x13 0x14 0x1c 0x20 0x24 0x28 END
+    DEFINE_ARRAY ae_SoWrt BEGIN 2    1    1    4    4    1    1    4    1    1    8    4    4    4    4    END
+    DEFINE_ARRAY ae_AsciL BEGIN 0    0    0    0    0    0    0    0    0    0    8    0    0    0    0    END
+    DEFINE_ARRAY ae_Bit   BEGIN 0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    END
+    FOR(aei=0;aei<15;aei+=1)BEGIN
+     SET $wipt_Off($ae_entry("%aei%")"%el2%") = %wipt_abilfx_location% + $ae_offst("%aei%") //set offset for entry
+     SET $wipt_SoW($ae_entry("%aei%")"%el2%") = $ae_SoWrt("%aei%") //set size of write for entry
+     SET $wipt_AcL($ae_entry("%aei%")"%el2%") = $ae_AsciL("%aei%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+     SET $wipt_Bit($ae_entry("%aei%")"%el2%") = $ae_Bit("%aei%")   //set whether entry should be written in bit format
+     PATCH_IF (VARIABLE_IS_SET $wipt_w($ae_entry("%aei%")"%el2%") ) BEGIN
+      PATCH_IF ($ae_SoWrt("%aei%") = 1) BEGIN
+       WRITE_BYTE $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_w($ae_entry("%aei%")"%el2%")
+      END //end byte read compare write
+      PATCH_IF ($ae_SoWrt("%aei%") = 2) BEGIN
+       WRITE_SHORT $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_w($ae_entry("%aei%")"%el2%")
+      END //end short read compare write
+      PATCH_IF ($ae_SoWrt("%aei%") = 4) BEGIN
+       WRITE_LONG $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_w($ae_entry("%aei%")"%el2%")
+      END //end long read compare write
+      PATCH_IF ($ae_SoWrt("%aei%") = 8) AND ($ae_AsciL("%aei%") = 8) BEGIN
+       WRITE_ASCIIE $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_r($ae_entry("%aei%")"%el2%") (8)
+      END
+      PATCH_IF ($ae_SoWrt("%aei%") = 8) AND ($ae_AsciL("%aei%") = 32) BEGIN
+       WRITE_ASCIIE $wipt_Off($ae_entry("%aei%")"%el2%") $wipt_w($ae_entry("%aei%")"%el2%") (32)
+      END
+     END //end variable is set
+    END
+   END
+  END
+ END
+END//end function define
+
+//Used code from miloch to create the function...
+DEFINE_PATCH_FUNCTION ~wipt_new_eqfx~ BEGIN
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ SET wipt_insert_loc = (%wipt_fx_off% + (%wipt_fx_size% * %wipt_eqfx_num%))
+ INSERT_BYTES %wipt_insert_loc% %wipt_fx_size%
+ SET wipt_fx_location=%wipt_insert_loc%
+ DEFINE_ARRAY e_entry BEGIN opco targ powr par1 par2 tmod resi dura pro1 pro2 reso diet dies savt savb END
+ DEFINE_ARRAY e_offst BEGIN 0x0  0x2  0x3  0x4  0x8  0xc  0xd  0xe  0x12 0x13 0x14 0x1c 0x20 0x24 0x28 END
+ DEFINE_ARRAY e_SoWrt BEGIN 2    1    1    4    4    1    1    4    1    1    8    4    4    4    4    END
+ DEFINE_ARRAY e_AsciL BEGIN 0    0    0    0    0    0    0    0    0    0    8    0    0    0    0    END
+ DEFINE_ARRAY e_Bit   BEGIN 0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    END
+ FOR(ei=0;ei<15;ei+=1)BEGIN
+  SET $wipt_Off($e_entry("%ei%")) = %wipt_fx_location% + $e_offst("%ei%") //set offset for entry
+  SET $wipt_SoW($e_entry("%ei%")) = $e_SoWrt("%ei%") //set size of write for entry
+  SET $wipt_AcL($e_entry("%ei%")) = $e_AsciL("%ei%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+  SET $wipt_Bit($e_entry("%ei%")) = $e_Bit("%ei%")   //set whether entry should be written in bit format
+  PATCH_IF (VARIABLE_IS_SET $wipt_n($e_entry("%ei%")) ) BEGIN
+   PATCH_IF ($e_SoWrt("%ei%") = 1) BEGIN
+    WRITE_BYTE $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%"))
+   END
+   PATCH_IF ($e_SoWrt("%ei%") = 2) BEGIN
+    WRITE_SHORT $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%"))
+   END
+   PATCH_IF ($e_SoWrt("%ei%") = 4) BEGIN
+    WRITE_LONG $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%"))
+   END
+   PATCH_IF ($e_SoWrt("%ei%") = 8) AND ($e_AsciL("%ei%") = 8) BEGIN
+    WRITE_ASCIIE $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%")) (8)
+   END
+   PATCH_IF ($e_SoWrt("%ei%") = 8) AND ($e_AsciL("%ei%") = 32) BEGIN
+    WRITE_ASCIIE $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%")) (32)
+   END
+  END //end variable is set
+ END //end array loop
+ WRITE_SHORT %wipt_Off_eqfx_num% (%wipt_eqfx_num% + 1)
+ FOR (i1 = 0; i1 < %wipt_abil_num%; i1 += 1) BEGIN //Update 1st effect indices
+  PATCH_IF ($wipt_abilfx_idx("%i1%") > %wipt_eqfx_idx%) BEGIN //If ability after eq effects
+   WRITE_SHORT $wipt_Off_abilfx_idx("%i1%") ($wipt_abilfx_idx("%i1%") + 1) //Increase 1st effect index by 1
+  END
+ END
+END //end function define

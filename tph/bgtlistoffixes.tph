@@ -141,7 +141,7 @@ BUT_ONLY_IF_IT_CHANGES
 //totsc only stuff
 ACTION_IF (GAME_IS ~totsc~) BEGIN
 //LEAGGU4: Some Merchant League Guards no longer have an old woman’s greeting
-COPY_EXISTING ~/LEAGGU4.CRE~ ~override~
+COPY_EXISTING ~LEAGGU4.CRE~ ~override~
   SAY 0xa4 #4964
   SAY 0x10c #4964
   SAY 0xec #12566

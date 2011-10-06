@@ -28,44 +28,41 @@ ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
  INCLUDE ~bgfixpack/tph/gtu_totsc.tph~
 END
 //the following are dependent upon the new gtu.
-COPY_EXISTING ~misc55.itm~ ~override~ //match new description -- makes sense
- PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
-  WRITE_LONG 0x4c 175 // weight
- END
-BUT_ONLY_IF_IT_CHANGES
-COPY_EXISTING ~potn46.itm~ ~override~  //match new description -- makes sense
-              ~potn47.itm~ ~override~  //match new description -- makes sense
-              ~potn48.itm~ ~override~  //match new description -- makes sense
-              ~dagg04.itm~ ~override~ //match other daggers & description change -- makes sense
- PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
-  WRITE_LONG 0x4c 1 // weight
- END
-BUT_ONLY_IF_IT_CHANGES
+INCLUDE ~BGFixPack\tph\wipt.tph~
+ACTION_FOR_EACH ab_file IN ~dagg04.itm~ ~potn46.itm~ ~potn47.itm~ ~potn48.itm~ BEGIN
+ COPY_EXISTING ~%ab_file%~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 1 END
+ BUT_ONLY
+END
+COPY_EXISTING ~misc55.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 175 END
+BUT_ONLY
+
 ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
- COPY_EXISTING ~misc65.itm~ ~override~ //assign id name to general and modify description
-  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
-   WRITE_LONG 0x8 15843 //general name
-   WRITE_LONG 0x4c 185 // weight
-  END
- BUT_ONLY_IF_IT_CHANGES
- COPY_EXISTING ~misc67.itm~ ~override~ //assign id name to general and modify description
-  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
-   WRITE_LONG 0x8 16324 // unid name
-  END
- BUT_ONLY_IF_IT_CHANGES
- COPY_EXISTING ~misc68.itm~ ~override~ //assign general to id name
-  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
-   WRITE_LONG 0xc 16624 // id name
-  END
- BUT_ONLY_IF_IT_CHANGES
+ COPY_EXISTING ~misc65.itm~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 185 wipt_w_un = 15843 END
+ BUT_ONLY
+ COPY_EXISTING ~misc67.itm~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_un = 16324 END
+ BUT_ONLY
+ COPY_EXISTING ~misc68.itm~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_in = 16624 wipt_w_id = 16625 END
+ BUT_ONLY
 END
 
 // ----------------------------------------------------------------------------
 BEGIN @5 //~Core Components~
 REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+INCLUDE ~bgfixpack/tph/wipt.tph~ //loads up macro/functions
 INCLUDE ~bgfixpack/tph/baldurdash.tph~
 INCLUDE ~bgfixpack/tph/restorations.tph~
 INCLUDE ~bgfixpack/tph/requestedfixes.tph~
+INCLUDE ~bgfixpack/tph/basicitemfixes.tph~
 INCLUDE ~bgfixpack/tph/pulledfromub.tph~
 INCLUDE ~bgfixpack/tph/BGTListOfFixes.tph~
 INCLUDE ~bgfixpack/tph/dudleysourcefixes.tph~
