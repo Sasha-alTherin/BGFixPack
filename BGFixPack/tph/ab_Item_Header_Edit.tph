@@ -1,0 +1,44 @@
+DEFINE_ACTION_FUNCTION ~ab_Item_Header_Edit~ BEGIN
+ACTION_IF (FILE_EXISTS_IN_GAME ~%ab_file%~) THEN BEGIN
+COPY_EXISTING ~%ab_file%~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+  PATCH_IF (VARIABLE_IS_SET ~ab_we~) BEGIN
+   WRITE_LONG 0x4c %ab_we% // weight
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_un~) BEGIN
+   WRITE_LONG 0x8 %ab_un% // unid name
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_in~) BEGIN
+   WRITE_LONG 0xc %ab_in% // id name
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_di~) BEGIN
+   WRITE_ASCIIE 0x58 ~%ab_di%~ // Description Icon
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_ii~) BEGIN
+   WRITE_ASCIIE 0x3a ~%ab_ii%~ // inventory icon
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_gi~) BEGIN
+   WRITE_ASCIIE 0x44 ~%ab_gi%~ // ground icon
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_pr~) BEGIN
+   WRITE_LONG 0x34 %ab_pr% // price
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_ca~) BEGIN
+   WRITE_SHORT 0x1c %ab_ca% // category
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_fl~) BEGIN
+   READ_BYTE 0x18 "flags"
+   WRITE_BYTE 0x18 flags BOR %ab_fl% // flag: indestructible value in bit format
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_u1~) BEGIN
+   READ_BYTE 0x1e "unusable1"
+   WRITE_BYTE 0x1e ("%unusable1%" BAND %ab_u1%)  //class usable byte 1
+  END
+  PATCH_IF (VARIABLE_IS_SET ~ab_u3~) BEGIN
+   READ_BYTE 0x20 "unusable3"
+   WRITE_BYTE 0x20 ("%unusable3%" BAND %ab_u3%)  //class usable byte 3
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END
+END//end function define

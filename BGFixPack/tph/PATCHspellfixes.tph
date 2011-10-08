@@ -1,0 +1,16 @@
+// ----------------------------------------------------------------------------
+//Magic Missile Damage Fix
+COPY_EXISTING ~spwi003.spl~ ~override~
+              ~spwi112.spl~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN
+  READ_LONG 0x6a ~fx_loc~
+  FOR (y = %fx_loc%; y < %SOURCE_SIZE%; y = y + 48) BEGIN
+   READ_SHORT %y% ~opcode~
+   PATCH_IF (%opcode% = 12) BEGIN
+    WRITE_LONG (%y% + 0x04) 1 // damage amount
+    WRITE_LONG (%y% + 0x1c) 1 // dice thrown
+    WRITE_LONG (%y% + 0x20) 4 // dice sides
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES

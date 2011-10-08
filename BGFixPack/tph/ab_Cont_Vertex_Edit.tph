@@ -1,0 +1,111 @@
+DEFINE_ACTION_FUNCTION ~ab_Cont_Vertex_Edit~ BEGIN
+INCLUDE ~bgfixpack\tph\wapt.tph~
+COPY_EXISTING ~%ab_file%~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 284) BEGIN
+  LAUNCH_PATCH_MACRO ~wapt_Q_ARE_InitVars~        //launch variable initiation macro
+  FOR (x=0;x<%Q_Num_Conta%;x+=1) BEGIN                                   //loop through containers
+   PATCH_IF (%x% = %ab_cont_idx%) BEGIN                                  //do stuff if only correct container
+    READ_LONG (%Q_Off_Conta% + (%x% * 192) + 0x50) vertexindex           //get index into vertex points
+    READ_LONG (%Q_Off_Conta% + (%x% * 192) + 0x54) vertexcount           //get number of vertex points for container
+    PATCH_IF (VARIABLE_IS_SET ~ab_bbox_Xlo~) BEGIN
+     WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 0)) %ab_bbox_Xlo% //write correct bounding box x low value
+    END
+    PATCH_IF (VARIABLE_IS_SET ~ab_bbox_Ylo~) BEGIN
+     WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 2)) %ab_bbox_Ylo% //write correct bounding box y low value
+    END
+    PATCH_IF (VARIABLE_IS_SET ~ab_bbox_Xhi~) BEGIN
+     WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 4)) %ab_bbox_Xhi% //write correct bounding box x high value
+    END
+    PATCH_IF (VARIABLE_IS_SET ~ab_bbox_Yhi~) BEGIN
+     WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 6)) %ab_bbox_Yhi% //write correct bounding box y high value
+    END
+    SET idx = 0
+    FOR (v=%vertexindex%;v<(%vertexindex% + %vertexcount%);v+=1) BEGIN   //loop through vertex points for container
+     PATCH_IF (VARIABLE_IS_SET $ab_Vx_X("%idx%") ) BEGIN                   //if variable has been set
+      WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4) + 0) $ab_Vx_X("%idx%")        //write new x value
+     END
+     PATCH_IF (VARIABLE_IS_SET $ab_Vx_Y("%idx%") ) BEGIN                   //if variable has been set
+      WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) $ab_Vx_Y("%idx%")        //write new y value
+     END
+     SET idx = %idx% + 1
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END //end function define
+
+DEFINE_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ BEGIN
+INCLUDE ~bgfixpack\tph\wapt.tph~
+COPY_EXISTING ~%ab_file%~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 284) BEGIN
+  LAUNCH_PATCH_MACRO ~wapt_Q_ARE_InitVars~                                    //launch variable initiation macro
+  FOR (x=0;x<%Q_Num_Conta%;x+=1) BEGIN                                   //loop through containers
+   PATCH_IF (%x% = %ab_cont_idx%) BEGIN                                  //if matching container
+    READ_LONG (%Q_Off_Conta% + (%x% * 192) + 0x50) vertexindex           //get index into vertex points
+    READ_LONG (%Q_Off_Conta% + (%x% * 192) + 0x54) vertexcount           //get number of vertex points for container
+    READ_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 0)) x_lo           //get x low value
+    READ_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 2)) y_lo           //get y low value
+    READ_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 4)) x_hi           //get x high value
+    READ_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 6)) y_hi           //get y high value
+    SET bb_x=0                                                           //bounding box x values not modified
+    SET bb_y=0                                                           //bounding box y values not modified
+    FOR (v=%vertexindex%;v<(%vertexindex% + %vertexcount%);v+=1) BEGIN   //loop through vertex points for container
+     PATCH_IF (VARIABLE_IS_SET ~ab_shift_X~) AND (%ab_add_x% = 1) BEGIN  //if shifting x values and adding
+      READ_SHORT (%Q_Off_Vertx% + (%v% * 4)) x_vertex
+      WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4)) (%x_vertex% + %ab_shift_X%)  //shift x vertex points
+      PATCH_IF (%bb_x% =0) BEGIN
+       PATCH_IF (%x_vertex% = %x_lo%) BEGIN
+        WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 0)) (%x_lo% + %ab_shift_X%) //x low
+       END
+       PATCH_IF (%x_vertex% = %x_hi%) BEGIN
+        WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 4)) (%x_hi% + %ab_shift_X%) //x high
+       END
+       SET bb_x=1                                                        //bounding box x values modified
+      END
+     END
+     PATCH_IF (VARIABLE_IS_SET ~ab_shift_Y~) AND (%ab_add_y% = 1) BEGIN  //if shifting y values and adding
+      READ_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) y_vertex
+      WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) (%y_vertex% + %ab_shift_Y%) //shift y vertex points
+      PATCH_IF (%bb_y% =0) BEGIN
+       PATCH_IF (%y_vertex% = %y_lo%) BEGIN
+        WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 2)) (%y_lo% + %ab_shift_Y%) //y low
+       END
+       PATCH_IF (%y_vertex% = %y_hi%) BEGIN
+        WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 6)) (%y_hi% + %ab_shift_Y%) //y high
+       END
+       SET bb_y=1                                                        //bounding box y values modified
+      END
+     END
+     PATCH_IF (VARIABLE_IS_SET ~ab_shift_X~) AND (%ab_add_x% = 0) BEGIN  //if shifting x values and subtracting
+      READ_SHORT (%Q_Off_Vertx% + (%v% * 4)) x_vertex
+      WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4)) (%x_vertex% - %ab_shift_X%)  //shift x vertex points
+      PATCH_IF (%bb_x% =0) BEGIN
+       PATCH_IF (%x_vertex% = %x_lo%) BEGIN
+        WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 0)) (%x_lo% - %ab_shift_X%) //x low
+       END
+       PATCH_IF (%x_vertex% = %x_hi%) BEGIN
+        WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 4)) (%x_hi% - %ab_shift_X%) //x high
+       END
+       SET bb_x=1                                                        //bounding box x values modified
+      END
+     END
+     PATCH_IF (VARIABLE_IS_SET ~ab_shift_Y~) AND (%ab_add_y% = 0) BEGIN  //if shifting y values and subtracting
+      READ_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) y_vertex
+      WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) (%y_vertex% - %ab_shift_Y%) //shift y vertex points
+      PATCH_IF (%bb_y% =0) BEGIN
+       PATCH_IF (%y_vertex% = %y_lo%) BEGIN
+        WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 2)) (%y_lo% - %ab_shift_Y%) //y low
+       END
+       PATCH_IF (%y_vertex% = %y_hi%) BEGIN
+        WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 6)) (%y_hi% - %ab_shift_Y%) //y high
+       END
+       SET bb_y=1                                                        //bounding box y values modified
+      END
+     END
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END //end function define

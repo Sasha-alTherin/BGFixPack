@@ -1,0 +1,54 @@
+//scriptfixes.tph -- patches which solely affect scripts
+// ----------------------------------------------------------------------------
+// Voices during cutscene were too close -- a slight pause was given
+// non-dudley & non-baldurdash
+COPY_EXISTING ~ch1cut03.bcs~ ~override~
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY EXACT_MATCH ~MoveToPoint([3280.1330])~ ~MoveToPoint([3280.1330])
+Wait(2)~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+COPY_EXISTING AR0612.BCS OVERRIDE
+  DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~Exists(\"TRALIT\")~ ~Exists("TRALITHAN")~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+COPY_EXISTING AR0613.BCS OVERRIDE
+  DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~Exists(\"KALESS\")~ ~Exists("KALESSIA")~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+COPY_EXISTING AR0614.BCS OVERRIDE
+  DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~Exists(\"WIRTHI\")~ ~Exists("WIRTHING")~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+COPY_EXISTING AR0616.BCS OVERRIDE
+  DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~Exists(\"PANGWA\")~ ~Exists("PANG")~
+  REPLACE_TEXTUALLY ~Exists(\"DHANIA\")~ ~Exists("DHANIAL")~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+COPY_EXISTING AR0800.BCS OVERRIDE
+  DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~Exists(\"BERSCH\")~ ~Exists("HERSCHEL")~
+  REPLACE_TEXTUALLY ~CreateCreature(\"BERSCH\",~ ~CreateCreature("HERSCH",~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+COPY_EXISTING AR1300.BCS OVERRIDE
+  DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~Exists(\"ALANBL\")~ ~Exists("ALAN")~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+
+ACTION_IF (GAME_IS ~totsc~) BEGIN
+// ----------------------------------------------------------------------------
+//Bone Wardstone Doesn't Disable Rune Traps Fix
+ COPY_EXISTING ~trapdis.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+   REPLACE_TEXTUALLY ~Range(LastTrigger,5)~ ~Range(LastTrigger,9)~
+  COMPILE_BAF_TO_BCS
+ BUT_ONLY_IF_IT_CHANGES
+
+ END

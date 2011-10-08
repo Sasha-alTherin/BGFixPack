@@ -1,0 +1,248 @@
+//areafixes.tph -- patches which are strictly limited to ARE files
+// ----------------------------------------------------------------------------
+// Game Crash When Entering Area AR0717 Fix
+// Author: Idobek
+// Email: idobek@gibberlings3.net
+// Website: http://www.gibberlings3.net
+COPY_EXISTING ~ar0717.are~ ~override~
+ READ_LONG 0x54 "actorsoffset"
+ READ_SHORT 0x58 "#actors"
+ WHILE ("%#actors%" > 0) BEGIN
+  SET "actor" = ("%actorsoffset%" + ("%#actors%" - 1) * 0x110)
+  READ_LONG ("%actor%" + 0x80) "actorresref1"
+  READ_LONG ("%actor%" + 0x84) "actorresref2"
+  WHILE ("%actorresref1%" = 0x4c524947)
+   AND ("%actorresref2%" = 0x00314142) BEGIN
+   WRITE_ASCII ("%actor%" + 0x80) ~GIRBA1~
+   WRITE_SHORT ("%actor%" + 0x86) 0x0000
+   READ_LONG ("%actor%" + 0x80) "actorresref1"
+   READ_LONG ("%actor%" + 0x84) "actorresref2"
+  END
+  SET "#actors" = ("%#actors%" - 1)
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Container highlights not correctly highlighting container
+// ----------------------------------------------------------------------------
+//Dudley info:
+//AR0105.ARE
+//   1. Blade and Stars, 1st level - has a barrel and sack with mismatched highlights.
+//AR0004.ARE
+//   1. Cabinet highlight is not accurately drawn around the container.
+//AR0018.ARE
+//   1. Two cabinets and wardrobe highlights are not accurately drawn around the containers.
+//AR0101.ARE
+//   1. Chest highlight in lounge is not accurately drawn around the container.
+//AR0709.ARE
+//   1. Barrel highlight is not accurately drawn around the container.
+// AR0715.ARE
+//   1. Barrel highlight is not accurately drawn around the container.
+//AR0159.ARE
+//   1. Barrel highlight is not accurately drawn around the container.
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Edit~
+INT_VAR
+ab_bbox_Xlo = 125 //bounding box low x value
+ab_bbox_Ylo = 238 //bounding box low y value
+ab_bbox_Xhi = 144 //bounding box high x value
+ab_bbox_Yhi = 266 //bounding box high y value
+ab_cont_idx = 0   //index number of container to edit -- 0 for first; 1 for second; 2 for third; etc...
+ab_Vx_X_0 = 144     //x value for point 0
+ab_Vx_Y_0 = 260     //y value for point 0
+ab_Vx_X_1 = 140     //x value for point 1
+ab_Vx_Y_1 = 266     //y value for point 1
+ab_Vx_X_2 = 130     //x value for point 2
+ab_Vx_Y_2 = 266     //y value for point 2
+ab_Vx_X_3 = 125     //x value for point 3
+ab_Vx_Y_3 = 260     //y value for point 3
+ab_Vx_X_4 = 125     //x value for point 4
+ab_Vx_Y_4 = 243     //y value for point 4
+ab_Vx_X_5 = 128     //x value for point 5
+ab_Vx_Y_5 = 239     //y value for point 5
+ab_Vx_X_6 = 133     //x value for point 6
+ab_Vx_Y_6 = 238     //y value for point 6
+ab_Vx_X_7 = 140     //x value for point 7
+ab_Vx_Y_7 = 239     //y value for point 7
+ab_Vx_X_8 = 144     //x value for point 8
+ab_Vx_Y_8 = 244     //y value for point 8
+STR_VAR
+ab_file = ~ar0159.are~  //file to edit
+END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Edit~ INT_VAR ab_bbox_Xlo = 1168 ab_cont_idx = 3 ab_Vx_X_0 = 1168 ab_Vx_X_1 = 1168 ab_Vx_X_2 = 1168
+STR_VAR ab_file = ~ar0101.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~
+INT_VAR
+ab_cont_idx = 0   //index number of container to edit -- 0 for first; 1 for second; 2 for third; etc...
+ab_shift_Y = 6    //shift ALL y coordinates by value
+ab_add_y = 1      //1=add;0=subtract
+STR_VAR
+ab_file = ~ar0105.are~  //file to edit
+END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 1 ab_shift_Y = 6 ab_add_y = 0 STR_VAR ab_file = ~ar0105.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 2 ab_shift_Y = 6 ab_add_y = 1 STR_VAR ab_file = ~ar0004.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 12 ab_add_y = 1 ab_shift_X = 6 ab_add_x = 0 STR_VAR ab_file = ~ar0018.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 1 ab_shift_Y = 12 ab_add_y = 1 ab_shift_X = 6 ab_add_x = 0 STR_VAR ab_file = ~ar0018.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 2 ab_shift_Y = 12 ab_add_y = 1 ab_shift_X = 6 ab_add_x = 0 STR_VAR ab_file = ~ar0018.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 4 ab_add_y = 0 ab_shift_X = 1 ab_add_x = 0 STR_VAR ab_file = ~ar0709.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 4 ab_add_y = 0 ab_shift_X = 1 ab_add_x = 0 STR_VAR ab_file = ~ar0715.are~ END
+// ----------------------------------------------------------------------------
+// List of things that BGT found needing to be fixed
+// AR0300 (renamed AR7400): Door 1 to the Counting House set as locked as described by Jacil
+// door labeled Door0307 is locked in vanilla and not locked in totsc -- lock it to be consistent?
+COPY_EXISTING ~ar0300.are~ ~override~
+ READ_LONG 0x00a4 ~doornum~
+ READ_LONG 0x00a8 ~dooroff~
+ FOR(x=0;x<%doornum%;x+=1)BEGIN
+  READ_ASCII (%dooroff% + (200*%x%)) ~doorname~
+//  PATCH_PRINT ~Door#: %doornum%  -- has name: %doorname%~
+  PATCH_IF (~Door0307~ STRING_EQUAL_CASE ~%doorname%~) BEGIN
+   READ_LONG (%dooroff% + (200*%x%)+0x0028) ~flags~
+   WRITE_LONG (%dooroff% + (200*%x%)+0x0028) (%flags% BOR 0b0000000000010)
+   SET x=%doornum%
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+//AR3300, FW3300, AR6700 (BG1, BGTutu, BGT)
+//code from Ascension64
+COPY_EXISTING ~AR3300.ARE~ ~override~ //AR3300, FW3300, AR6700 (BG1, BGTutu, BGT)
+ READ_LONG 0xA4 nDoors
+ READ_LONG 0xA8 offDoors
+ READ_LONG 0x7C offPoints
+ READ_LONG 0x80 nPoints
+ SET i = 0
+ FOR (i = 0; i < nDoors; i += 1) BEGIN
+  READ_ASCII ( %offDoors% + %i% * 0xC8 + 0x20 ) DoorId
+  PATCH_IF ( "%DoorId%" STRING_EQUAL "DOOR3304" ) BEGIN
+   READ_LONG ( %offDoors% + %i% * 0xC8 + 0x48 ) idxPointsImpededOpen
+   READ_SHORT ( %offDoors% + %i% * 0xC8 + 0x4C ) nPointsImpededOpen
+   SET j = 0
+   FOR (j = %idxPointsImpededOpen%; j < %idxPointsImpededOpen% + %nPointsImpededOpen%; j += 1) BEGIN
+    READ_SHORT ( %offPoints% + %j% * 0x4) x
+    READ_SHORT ( %offPoints% + %j% * 0x4 + 0x2) y
+    PATCH_IF ( x = 243 && y = 326 ) BEGIN
+     WRITE_SHORT ( %offPoints% + %j% * 0x4) 233
+     WRITE_SHORT ( %offPoints% + %j% * 0x4 + 0x2) 302
+    END
+    PATCH_IF ( x = 243 && y = 327 ) BEGIN
+     WRITE_SHORT ( %offPoints% + %j% * 0x4) 233
+     WRITE_SHORT ( %offPoints% + %j% * 0x4 + 0x2) 304
+    END
+    PATCH_IF ( x = 242 && y = 325 ) BEGIN
+     WRITE_SHORT ( %offPoints% + %j% * 0x4) 232
+     WRITE_SHORT ( %offPoints% + %j% * 0x4 + 0x2) 304
+    END
+    PATCH_IF ( x = 233 && y = 303 ) BEGIN
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//~Replace missing ambient sounds with existing sounds~
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH file IN ~ar0100.are~ ~ar0200.are~ ~ar0300.are~ ~ar0400.are~ ~ar0600.are~ ~ar0621.are~
+~ar0800.are~ ~ar1100.are~ ~ar1200.are~ ~ar1400.are~ ~ar1900.are~ ~ar3300.are~ ~ar4200.are~ ~ar4300.are~
+~ar4700.are~ ~ar5400.are~ ~ar5500.are~ BEGIN
+COPY_EXISTING ~%file%~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN // avoid invalid file
+  READ_SHORT 0x82 "amb_num"
+  READ_LONG  0x84 "amb_off"
+  FOR (index = 0 ; index < amb_num ; index = index + 1) BEGIN
+   FOR (index2 = 0 ; index2 < 10 ; index2 = index2 + 1) BEGIN
+    READ_ASCII ("%amb_off%" + 0x30 + ("%index2%" * 0x08) + (0xd4 * "%index%")) "resref"
+    PATCH_IF (("%resref%" STRING_COMPARE_CASE "") AND ("%resref%" STRING_COMPARE_CASE "none")) BEGIN
+     SET "exists" = 0
+     INNER_PATCH_FILE ~%resref%.wav~ BEGIN
+      SET "exists" = 1
+     END
+     PATCH_IF ("%exists%" = 0) BEGIN
+      PATCH_IF (~%resref%~ STRING_COMPARE_REGEXP ~AMB_M46A~ =0) BEGIN
+       WRITE_ASCII ("%amb_off%" + 0x30 + ("%index2%" * 0x08) + (0xd4 * "%index%")) "AMB_E46A"
+      END
+      PATCH_IF (~%resref%~ STRING_COMPARE_REGEXP ~AMB_M46B~ =0) BEGIN
+       WRITE_ASCII ("%amb_off%" + 0x30 + ("%index2%" * 0x08) + (0xd4 * "%index%")) "AMB_E46B"
+      END
+      PATCH_IF (~%resref%~ STRING_COMPARE_REGEXP ~AMB_E05C~ =0) BEGIN
+       WRITE_ASCII ("%amb_off%" + 0x30 + ("%index2%" * 0x08) + (0xd4 * "%index%")) "AMB_E05D"
+      END
+     END
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END //end action for each
+// ----------------------------------------------------------------------------
+//~Make detected trapped containers undetected~
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH file IN ~ar0500~ ~ar0511~ ~ar0512~ ~ar0513~ ~ar0514~ ~ar1501~ ~ar1502~ ~ar1503~ ~ar1504~ ~ar3336~ BEGIN
+ACTION_IF (FILE_EXISTS_IN_GAME ~%file%.are~) THEN BEGIN  //one line allows for use with totsc and vanilla files rather than duplicate blocks for each game
+COPY_EXISTING_REGEXP ~%file%.are~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 0xd4) BEGIN
+  READ_LONG  0x70 "cont_off"
+  READ_SHORT 0x74 "cont_num"
+  FOR (index = 0; index < cont_num; index += 1) BEGIN
+   READ_SHORT ("%cont_off%" + 0x30 + ("%index%" * 0xc0)) "trapped"
+   READ_SHORT ("%cont_off%" + 0x32 + ("%index%" * 0xc0)) "detected"
+/* fix detected container trap --  */
+   PATCH_IF (("%trapped%" = 1) AND ("%detected%" = 1)) BEGIN
+    WRITE_SHORT ("%cont_off%" + 0x32 + ("%index%" * 0xc0)) 0
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END
+END
+
+ACTION_IF (GAME_IS ~totsc~) BEGIN
+//AR0511 (renamed ARD011): Trap 4 added flag ‘Detectable trap’; Trap 15 corrected to Proximity trigger, was Info trigger;
+//Corrected undroppable Lard Shield (SHLD18) to a droppable one (SHLD15)
+//dudley -- Change Item 3 in Container 8 from HELM13.ITM to HELM10.ITM.
+COPY_EXISTING ~ar0511.are~ ~override~
+ READ_SHORT 0x005a ~regionnum~
+ READ_LONG 0x005c ~regionoff~
+ FOR(x1=0;x1<%regionnum%;x1+=1)BEGIN
+  READ_ASCII (%regionoff% + (0xc4*%x1%)) ~regionname~ (5)
+  PATCH_IF (~Trap4~ STRING_EQUAL_CASE ~%regionname%~) BEGIN
+   READ_LONG (%regionoff% + (0xc4*%x1%)+0x0060) ~flags~
+   WRITE_LONG (%regionoff% + (0xc4*%x1%)+0x0060) (%flags% BOR 0b1000)
+   SET x1=%regionnum%
+  END
+ END
+ FOR(x2=0;x2<%regionnum%;x2+=1)BEGIN
+  READ_ASCII (%regionoff% + (0xc4*%x2%)) ~regionname~ (7)
+  PATCH_IF (~Trap 15~ STRING_EQUAL_CASE ~%regionname%~) BEGIN
+   WRITE_SHORT (%regionoff% + (0xc4*%x2%)+0x0020) 0
+   SET x2=%regionnum%
+  END
+ END
+ READ_SHORT 0x0076 ~itemnum~
+ READ_LONG 0x0078 ~itemoff~
+ FOR(x3=0;x3<%itemnum%;x3+=1)BEGIN
+  READ_ASCII (%itemoff% + (%x3%*0x14)) ~itemname~
+  PATCH_IF (~shld18~ STRING_EQUAL_CASE ~%itemname%~) BEGIN
+   WRITE_ASCII (%itemoff% + (%x3%*0x14)) ~shld15~ (8)
+   SET x3=%itemnum%
+  END
+ END
+ FOR(x4=0;x4<%itemnum%;x4+=1)BEGIN
+  READ_ASCII (%itemoff% + (%x4%*0x14)) ~itemname~
+  PATCH_IF (~helm13~ STRING_EQUAL_CASE ~%itemname%~) BEGIN
+   WRITE_ASCII (%itemoff% + (%x4%*0x14)) ~helm10~ (8)
+   SET x4=%itemnum%
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+//AR2000 (renamed ARW000): Spawn Point 2 changed location Y value to 170; was 17
+COPY_EXISTING ~ar2000.are~ ~override~
+ READ_LONG 0x0060 ~spawnoff~
+ READ_LONG 0x0064 ~spawnnum~
+ FOR(x=0;x<%spawnnum%;x+=1)BEGIN
+  READ_ASCII (%spawnoff% + (%x%*0xc8)) ~spawnname~ (13)
+  READ_SHORT (%spawnoff% + (%x%*0xc8) + 0x22) ~ycoord~
+  PATCH_IF (~Spawn Point 2~ STRING_EQUAL_CASE ~%spawnname%~) AND (%ycoord% = 17) BEGIN
+   WRITE_SHORT (%spawnoff% + (%x%*0xc8) + 0x22) 170
+   SET x=%spawnnum%
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END //end TOTSC patches

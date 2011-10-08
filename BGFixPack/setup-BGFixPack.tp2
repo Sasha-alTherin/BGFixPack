@@ -1,0 +1,332 @@
+// ----------------------------------------------------------------------------
+// Name:    BGFixPack
+// Author:  Sasha al'Therin (aka plainab) (aka you ain't getting my real name LOL)
+// Date:    Ongoing
+// Version: 0.0014
+// ----------------------------------------------------------------------------
+BACKUP ~BGFixPack/backup~
+AUTHOR ~~
+
+ASK_EVERY_COMPONENT
+VERSION ~0.0014~
+
+LANGUAGE ~English~ ~English~ ~BGFixPack/languages/English/setup.tra~
+
+BEGIN @1 //~Required for all Components/patches~
+INCLUDE ~BGFixPack\tph\pre-winxp-totsc-glitchy-override.tph~
+INCLUDE ~BGFixPack\tph\pre-mac-fixes-by-devsin.tph~
+
+
+// ----------------------------------------------------------------------------
+BEGIN @5 //~Core Components~
+REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+INCLUDE ~bgfixpack/tph/wipt.tph~ //loads up macro/functions
+INCLUDE ~bgfixpack\tph\ab_Cont_Vertex_Edit.tph~
+INCLUDE ~BGFixPack\tph\ab_Item_Header_Edit.tph~
+INCLUDE ~BGFixPack\tph\ab_2da_Edit.tph~
+
+INCLUDE ~bgfixpack/tph/PATCHallotherfixes.tph~
+INCLUDE ~bgfixpack/tph/PATCHareafixes.tph~
+INCLUDE ~bgfixpack/tph/PATCHcreaturefixes.tph~
+INCLUDE ~bgfixpack/tph/PATCHdialogfixes.tph~
+INCLUDE ~bgfixpack/tph/PATCHitemfixes.tph~
+INCLUDE ~bgfixpack/tph/PATCHscriptfixes.tph~
+INCLUDE ~bgfixpack/tph/PATCHsituationfixes.tph~
+INCLUDE ~bgfixpack/tph/PATCHspellfixes.tph~
+
+// ----------------------------------------------------------------------------
+//GAME TEXT UPDATE
+BEGIN @2 //~Game Text Update AND File Adjustments to Match~
+REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+REQUIRE_PREDICATE (~%LANGUAGE%~ STRING_COMPARE_CASE ~English~ =0) @4 //~English language version required to install GTU~
+ACTION_IF (GAME_IS ~bg1~) THEN BEGIN
+ INCLUDE ~bgfixpack/tph/gtu_vanilla.tph~
+END
+ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
+ INCLUDE ~bgfixpack/tph/gtu_totsc.tph~
+END
+//the following are dependent upon the new gtu.
+INCLUDE ~BGFixPack\tph\wipt.tph~
+ACTION_FOR_EACH ab_file IN ~dagg04.itm~ ~potn46.itm~ ~potn47.itm~ ~potn48.itm~ BEGIN
+ COPY_EXISTING ~%ab_file%~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 1 END
+ BUT_ONLY
+END
+COPY_EXISTING ~misc55.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 175 END
+BUT_ONLY
+
+ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
+ COPY_EXISTING ~misc65.itm~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 185 wipt_w_un = 15843 END
+ BUT_ONLY
+ COPY_EXISTING ~misc67.itm~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_un = 16324 END
+ BUT_ONLY
+ COPY_EXISTING ~misc68.itm~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_in = 16624 wipt_w_id = 16625 END
+ BUT_ONLY
+END
+
+// ----------------------------------------------------------------------------
+BEGIN @7 //~Optional: Oublek & Prism - No Exploit & Multiple Ways to Solve Quest~
+REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+INCLUDE ~bgfixpack\tph\wapt.tph~ //definitions for the various Weidu Area Patching Tool macros and functions
+LAUNCH_ACTION_FUNCTION ~wapt_add_container~
+INT_VAR //integer variables
+wapt_num_new_Conta = 2
+//data for container 1
+wapt_use_point_x_1 = 641 wapt_use_point_y_1 = 2713 wapt_type_1 = 6 wapt_lock_diff_1 = 30 wapt_flags_1 = 0b00000001 wapt_trap_detect_diff_1 = 100 wapt_trap_disarm_diff_1 = 100 wapt_trap_launch_x_1 = 641 wapt_trap_launch_y_1 = 2713 wapt_num_items_1 = 1 wapt_vertices_1 = 6
+//data for container 2
+wapt_use_point_x_2 = 641 wapt_use_point_y_2 = 2713 wapt_type_2 = 6 wapt_lock_diff_2 = 70 wapt_flags_2 = 0b00000001 wapt_trap_detect_diff_2 = 100 wapt_trap_disarm_diff_2 = 100 wapt_trap_launch_x_2 = 641 wapt_trap_launch_y_2 = 2713 wapt_num_items_2 = 1 wapt_vertices_2 = 6
+//Vertex points for container 1:
+wapt_vx_1 = 564 wapt_vy_1 = 2559 wapt_vx_2 = 578 wapt_vy_2 = 2552 wapt_vx_3 = 590 wapt_vy_3 = 2556 wapt_vx_4 = 586 wapt_vy_4 = 2561 wapt_vx_5 = 580 wapt_vy_5 = 2563 wapt_vx_6 = 570 wapt_vy_6 = 2562
+//Vertex points for container 2:
+wapt_vx_7 = 638 wapt_vy_7 = 2544 wapt_vx_8 = 635 wapt_vy_8 = 2550 wapt_vx_9 = 627 wapt_vy_9 = 2554 wapt_vx_10 = 614 wapt_vy_10 = 2555 wapt_vx_11 = 626 wapt_vy_11 = 2543 wapt_vx_12 = 635 wapt_vy_12 = 2541
+STR_VAR //string variables
+wapt_area = ~ar5400~ wapt_object_name_1 = ~A6StatueRightEye~ wapt_object_name_2 = ~A6StatueLeftEye~
+END //end launch command
+//create left eye emerald
+COPY_EXISTING ~misc43.itm~ ~override/abgfEyeL.itm~
+ SAY UNIDENTIFIED_DESC ~An Emerald is a brilliant green beryl, cleaved along straight box like lines, with rectangular cutting in the finished gem.  Emeralds are often connected with health, and so are used ornamentally for such a purpose. This emerald is marked with a small 'L'. It had been stolen by Prism for his use in a statue of his lady love, Ellesime. It is surmised that this gem was intended to be used as the left eye. Whether or not it was used in the statue, there is a bounty for returning it to the proper authorities.~
+ SAY IDENTIFIED_DESC ~An Emerald is a brilliant green beryl, cleaved along straight box like lines, with rectangular cutting in the finished gem.  Emeralds are often connected with health, and so are used ornamentally for such a purpose. This emerald is marked with a small 'L'. It had been stolen by Prism for his use in a statue of his lady love, Ellesime. It is surmised that this gem was intended to be used as the left eye. Whether or not it was used in the statue, there is a bounty for returning it to the proper authorities.~
+BUT_ONLY_IF_IT_CHANGES
+//create right eye emerald
+COPY_EXISTING ~misc43.itm~ ~override/abgfEyeR.itm~
+ SAY UNIDENTIFIED_DESC ~An Emerald is a brilliant green beryl, cleaved along straight box like lines, with rectangular cutting in the finished gem.  Emeralds are often connected with health, and so are used ornamentally for such a purpose. This emerald is marked with a small 'R'. It had been stolen by Prism for his use in a statue of his lady love, Ellesime. It is surmised that this gem was intended to be used as the right eye. Whether or not it was used in the statue, there is a bounty for returning it to the proper authorities.~
+ SAY IDENTIFIED_DESC ~An Emerald is a brilliant green beryl, cleaved along straight box like lines, with rectangular cutting in the finished gem.  Emeralds are often connected with health, and so are used ornamentally for such a purpose. This emerald is marked with a small 'R'. It had been stolen by Prism for his use in a statue of his lady love, Ellesime. It is surmised that this gem was intended to be used as the right eye. Whether or not it was used in the statue, there is a bounty for returning it to the proper authorities.~
+BUT_ONLY_IF_IT_CHANGES
+//change the emeralds that prism carries
+COPY_EXISTING ~prism.cre~ ~override~
+ REMOVE_CRE_ITEM ~misc43~
+ REPLACE_CRE_ITEM ~abgfEyeL~ #1 #0 #0 ~identified~ ~qitem1~
+ REPLACE_CRE_ITEM ~abgfEyeR~ #1 #0 #0 ~identified~ ~qitem2~
+BUT_ONLY_IF_IT_CHANGES
+//compile the dialog changes to oublek and prism
+COPY ~bgfixpack/files/oublek/oublek.dlg~ ~override~ //replace earlier 'fixed' file with original cause it is easier than trying to undo the changes made to all versions
+COMPILE ~bgfixpack/files/oublek/oublek.d~
+//check existance of area script and add rep penalty for taking gems from statue
+COPY_EXISTING ~ar5400.are~ ~override~
+ LAUNCH_PATCH_MACRO ~wapt_header_initvars~
+ INNER_ACTION BEGIN
+  EXTEND_BOTTOM ~%wapt_h_AreBS%.bcs~ ~bgfixpack/files/oublek/ar5400.baf~ //add our stuff -- creates new if doesn't exist
+ END
+BUT_ONLY_IF_IT_CHANGES
+//check existance of area script and add global sets to complete quest
+COPY_EXISTING ~ar4800.are~ ~override~
+ LAUNCH_PATCH_MACRO ~wapt_header_initvars~
+ INNER_ACTION BEGIN
+  EXTEND_BOTTOM ~%wapt_h_AreBS%.bcs~ ~bgfixpack/files/oublek/ar4800.baf~ //add our stuff -- creates new if doesn't exist
+ END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// ----------------------------------------------------------------------------
+// Bandit scalp pickpocket fix -- moved to a different slot
+// ----------------------------------------------------------------------------
+BEGIN @8 // ~Optional: Multi-player friendly pickpocket fix for bandit scalps~
+REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+//reverses default installed patch and patches differently
+COPY_EXISTING_REGEXP ~.*\.cre~ ~override~
+ READ_LONG 0x2b8 ~itm_slots~
+ READ_LONG 700 ~itm_loc~
+ READ_LONG 704 ~itm_num~
+ SET has = 0
+ SET move = 0
+ SET itm_loc2 = %itm_loc%
+//search cres for scalp and flag to be moved
+ FOR (z=0;z<%itm_num%;z+=1) BEGIN
+  READ_ASCII %itm_loc% ~itm_name~
+  PATCH_IF (~MISC86~ STRING_EQUAL_CASE ~%itm_name%~) BEGIN
+   SPRINT ~itmname~ ~%itm_name%~
+   PATCH_PRINT ~%SOURCE_RES% has %itmname%~
+//ensure there is no "unstealable" flag set
+   PATCH_PRINT ~Removing any and all flags set to prevent pickpocket of %itmname% on %SOURCE_FILE%~
+   WRITE_LONG (%itm_loc% + 16) 0
+   SET has = 1
+   SET index = %z%
+   SET z = %itm_num% //get out of loop after scalp has been found and tagged for adjustment
+  END
+  SET itm_loc = (%itm_loc% + 20)
+ END
+ PATCH_IF (%has% = 1) BEGIN
+// check equipable slots for an empty one
+  FOR (y=1;y<13;y+=1) BEGIN
+   READ_SHORT (%itm_slots% + (%y% * 2)) ~ref~
+   PATCH_IF (%ref% = 0xffff) BEGIN
+    PATCH_PRINT ~Slot %y% is empty~
+    SET newhome = %y%
+    SET y = 14
+    SET move = 1
+   END
+  END
+  PATCH_IF (%move% = 1) BEGIN
+//if marked to move blank out old slot reference and assign new
+   FOR (x=0;x<38;x+=1) BEGIN
+    READ_SHORT (%itm_slots% + (%x% * 2)) ~ref1~
+    PATCH_IF (%ref1% = %index%) BEGIN
+     PATCH_PRINT ~Moved %itmname% from slot %x% to slot %newhome%~
+     WRITE_SHORT (%itm_slots% + (%x% * 2)) 0xffff
+     WRITE_SHORT (%itm_slots% + (%newhome% * 2)) %index%
+    END
+   END
+  END
+//if no useable equipable slots leave in inventory and flag
+  PATCH_IF (%move% = 0) AND (%has% = 1) BEGIN
+   FOR (a=0;a<%itm_num%;a+=1) BEGIN
+    READ_ASCII %itm_loc2% ~itm_name~
+    PATCH_IF (~MISC86~ STRING_EQUAL_CASE ~%itm_name%~) BEGIN
+     READ_LONG (%itm_loc2% + 16) ~flag~
+     PATCH_IF !(%flag% = 2) BEGIN
+      PATCH_PRINT ~No useable equipable slots. Left in inventory and flagged to prevent pickpocket.~
+      WRITE_LONG (%itm_loc2% + 16) 2
+     END
+    END
+    SET itm_loc2 = (%itm_loc2% + 20)
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+
+
+//-------------------------------------------------------------------------------
+// Restore Chapter 5 start to Vanilla BG behaviour
+//-------------------------------------------------------------------------------
+BEGIN @9 // ~Restore Chapter 5 start to Vanilla BG behaviour~
+REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+REQUIRE_PREDICATE (GAME_IS ~totsc~) ~SKIPPING Only for TOTSC~
+INCLUDE ~BGFixPack\tph\endch4.tph~ //compiles script and removes area script reference from area file
+INCLUDE ~bgfixpack\tph\wapt.tph~ //defines Qwinn's Macros
+INCLUDE ~bgfixpack\tph\ab_FlorTrig.tph~ //defines ab_Add_Area_Floor_Trigger function
+LAUNCH_ACTION_FUNCTION ~ab_Add_Area_Floor_Trigger~
+//integers defined
+INT_VAR
+ab_new_triggers = 2             //number of new triggers you are adding
+ab_new_vertex_points = 10       //number of new coordinate points (pairs of vertices) for all your triggers
+//first trigger entries have _0 added to the variable name
+RT_BBOX_LOW_X_0 = 380             //bounding box low x value LEFT
+RT_BBOX_LOW_Y_0 = 1062            //bounding box low y value TOP
+RT_BBOX_HIGH_X_0 = 541            //bounding box high x value RIGHT
+RT_BBOX_HIGH_Y_0 = 1277           //bounding box high y value BOTTOM
+RT_VERTEX_PAIRS_0 = 6             //number of x y coordinate pairs making up new region
+RT_FLAGS_0 = 0b0000000000000010   //flag values set in bit format from right to left 1 turns on 0 turns off
+RT_TRAP_DET_DIFF_0 = 100          //trap detection difficulty percentage
+RT_TRAP_REM_DIFF_0 = 100          //trap removal difficulty percentage
+RT_TRAP_IS_SET_0 = 1              //Is the region trapped? 0=no;1=yes
+RT_TRAP_DETECTED_0 = 0            //Is the region trap already detected? 0=no;1=yes
+RT_LAUNCH_POINT_X_0 = 404         //Main use point x value
+RT_LAUNCH_POINT_Y_0 = 1300        //Main use point y value
+RT_ALT_USE_POINT_X_0 = 0                //alternate use point x value
+RT_ALT_USE_POINT_Y_0 = 0                //alternate use point y value
+//second trigger entries have _1 added to the variable name
+RT_BBOX_LOW_X_1 = 1523
+RT_BBOX_LOW_Y_1 = 272
+RT_BBOX_HIGH_X_1 = 1629
+RT_BBOX_HIGH_Y_1 = 356
+RT_VERTEX_PAIRS_1 = 4
+RT_FLAGS_1 = 0b0000000000000010
+RT_TRAP_DET_DIFF_1 = 100
+RT_TRAP_REM_DIFF_1 = 100
+RT_TRAP_IS_SET_1 = 1
+RT_TRAP_DETECTED_1 = 0
+RT_LAUNCH_POINT_X_1 = 1620
+RT_LAUNCH_POINT_Y_1 = 340
+RT_ALT_USE_POINT_X_1 = 0                //alternate use point x value
+RT_ALT_USE_POINT_Y_1 = 0                //alternate use point y value
+//vertex entries have incremental numbers attached per pair starting with 0
+//vertex entries for trigger 1
+ab_VX_X0 = 380                 //Point #0 X value
+ab_VX_Y0 = 1076                //Point #0 Y value
+ab_VX_X1 = 510                 //Point #1 X value
+ab_VX_Y1 = 1160                //Point #1 Y value
+ab_VX_X2 = 439                 //Point #2 X value
+ab_VX_Y2 = 1263                //Point #2 Y value
+ab_VX_X3 = 468                 //Point #3 X value
+ab_VX_Y3 = 1277                //Point #3 Y value
+ab_VX_X4 = 541                 //Point #4 X value
+ab_VX_Y4 = 1148                //Point #4 Y value
+ab_VX_X5 = 393                 //Point #5 X value
+ab_VX_Y5 = 1062                //Point #5 Y value
+//vertex entries for trigger 2
+ab_VX_X6 = 1523                //Point #0 X value
+ab_VX_Y6 = 292                 //Point #0 Y value
+ab_VX_X7 = 1607                //Point #1 X value
+ab_VX_Y7 = 356                 //Point #1 Y value
+ab_VX_X8 = 1629                //Point #2 X value
+ab_VX_Y8 = 334                 //Point #2 Y value
+ab_VX_X9 = 1550                //Point #3 X value
+ab_VX_Y9 = 272                 //Point #3 Y value
+//strings defined
+STR_VAR
+ab_file = ~ar1803.are~          //area file to edit requires extension to be included
+//first trigger entries have _0 added to the variable name
+RT_NAME_0 = ~Chapter trigger 1~   //name of floor trigger
+RT_REGION_SCRIPT_0 = ~endch4~     //name of script for trigger
+RT_KEY_ITEM_0 = ~~                       //key item reference if one is required
+RT_DIALOG_FILE_0 = ~~                   //dialog file if the region can talk in pst
+//second trigger entries have _1 added to the variable name
+RT_NAME_1 = ~Chapter trigger 2~   //name of floor trigger
+RT_REGION_SCRIPT_1 = ~endch4~     //name of script for trigger
+RT_KEY_ITEM_1 = ~~                       //key item reference if one is required
+RT_DIALOG_FILE_1 = ~~                   //dialog file if the region can talk in pst
+END
+
+//-------------------------------------------------------------------------------
+// Friendly Arm Inn Hidden Container Restoration
+//-------------------------------------------------------------------------------
+BEGIN @10 // ~Friendly Arm Inn Hidden Container Restoration~
+REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+REQUIRE_PREDICATE !(GAME_IS ~totsc~) ~SKIPPING Only for non-TOTSC games~
+INCLUDE ~bgfixpack\tph\wapt.tph~
+COPY_EXISTING ~AR2300.ARE~ ~override/AR2300.ARE~
+ LAUNCH_PATCH_MACRO ~wapt_Q_ARE_InitVars~        //launch variable initiation macro
+//make sure container does not already exist
+ SET container_exists = 0
+ FOR (i = 0; i < "%Q_Num_Conta%"; i += 1) BEGIN
+  READ_ASCII ("%Q_Off_Conta%" + "%i%" * 0xc0) container_name (12)
+  PATCH_IF (("%container_name%" STRING_CONTAINS_REGEXP "Container 1[^0-9]") = 0) BEGIN
+   SET container_exists = 1
+  END
+ END
+ PATCH_IF ("%container_exists%" != 1) BEGIN
+  LAUNCH_PATCH_MACRO ~wapt_Q_AREAdd_InitVars~     //launch variable initiation macro for adding new sections
+  SET "Q_New_Conta" = 1
+  SET "Q_New_Items" = 1
+  SET "Q_New_Vertx" = 5                      //set number of new vertex/coordinate pairs to add
+  LAUNCH_PATCH_MACRO ~wapt_Q_AREAdd_Process~      //launch macro that adds new space for above listed entries
+//container writes
+//%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0)
+  WRITE_ASCII (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0)) ~Container 1~ //Name
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x20) 2527 //locX
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x22) 3781 //locY
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x24) 1 //Type
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x26) 100 //Lock difficulty
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x2e) 100 //Trap removal difficulty
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x34) 2528 //Trap locX
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x36) 3775 //Trap locY
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x38) 2551 //Bound left
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x3a) 3757 //Bound top
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x3c) 2555 //Bound right
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x3e) 3762 //Bound bottom
+//vertex writes
+//%Q_NewOffset_Vertx%
+  WRITE_SHORT (%Q_NewOffset_Vertx%) 2552
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x2) 3757
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x4) 2555
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x6) 3757
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x8) 2555
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0xa) 3759
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0xc) 2553
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0xe) 3762
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x10) 2551
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x12) 3759
+//item writes
+//%Q_NewOffset_Items% + (%Q_Siz_Items% * 0)
+  WRITE_ASCII (%Q_NewOffset_Items% + (%Q_Siz_Items% * 0)) ~RING08~
+ END
+BUT_ONLY_IF_IT_CHANGES

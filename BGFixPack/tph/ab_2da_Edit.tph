@@ -1,0 +1,14 @@
+DEFINE_ACTION_FUNCTION ~ab_2da_Edit~ INT_VAR level_to_edit = 0 new_value = 0 BEGIN
+COPY_EXISTING ~%file%.2da~ ~override~
+ COUNT_2DA_COLS ~cols~
+ COUNT_2DA_ROWS %cols% ~rows~
+ FOR (x=0;x<%rows%;x+=1) BEGIN
+  READ_2DA_ENTRY %x% 0 %cols% ~level~
+  PATCH_IF (IS_AN_INT %level%) AND (%level% = %level_to_edit%) BEGIN
+   SET y = (%cols% - 1)
+   SET_2DA_ENTRY %x% %y% %cols% %new_value%
+   SET x = %rows%
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END //end function define

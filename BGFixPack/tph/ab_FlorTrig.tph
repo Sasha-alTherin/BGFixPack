@@ -1,0 +1,56 @@
+
+DEFINE_ACTION_FUNCTION ~ab_Add_Area_Floor_Trigger~ BEGIN
+COPY_EXISTING ~%ab_file%~ ~override~
+ LAUNCH_PATCH_MACRO ~wapt_Q_ARE_InitVars~        //launch variable initiation macro
+ LAUNCH_PATCH_MACRO ~wapt_Q_AREAdd_InitVars~     //launch variable initiation macro for adding new sections
+ SET "Q_New_Trigg" = %ab_new_triggers%                      //set number of new region triggers to add
+ SET "Q_New_Vertx" = %ab_new_vertex_points%                     //set number of new vertex/coordinate pairs to add
+ LAUNCH_PATCH_MACRO ~wapt_Q_AREAdd_Process~      //launch macro that adds new space for above listed entries
+
+ SET vert_entry = %Q_Num_Vertx% - %Q_New_Vertx%
+ FOR(index=0;index<%ab_new_triggers%;index+=1) BEGIN
+  SET new_loc = %Q_NewOffset_Trigg% + (%Q_Siz_Trigg% * %index%)
+  WRITE_SHORT (%new_loc% + 0x20) 0                            //always 0 for floor triggers
+//integer writes
+  WRITE_SHORT (%new_loc% + 0x22) $RT_BBOX_LOW_X("%index%")
+  WRITE_SHORT (%new_loc% + 0x24) $RT_BBOX_LOW_Y("%index%")
+  WRITE_SHORT (%new_loc% + 0x26) $RT_BBOX_HIGH_X("%index%")
+  WRITE_SHORT (%new_loc% + 0x28) $RT_BBOX_HIGH_Y("%index%")
+  SET RT_VERTEX_PAIRS = $RT_VERTEX_PAIRS("%index%")
+  WRITE_SHORT (%new_loc% + 0x2a) $RT_VERTEX_PAIRS("%index%")
+  WRITE_SHORT (%new_loc% + 0x68) $RT_TRAP_DET_DIFF("%index%")
+  WRITE_SHORT (%new_loc% + 0x6a) $RT_TRAP_REM_DIFF("%index%")
+  WRITE_SHORT (%new_loc% + 0x6c) $RT_TRAP_IS_SET("%index%")
+  WRITE_SHORT (%new_loc% + 0x63) $RT_TRAP_DETECTED("%index%")
+  WRITE_SHORT (%new_loc% + 0x70) $RT_LAUNCH_POINT_X("%index%")
+  WRITE_SHORT (%new_loc% + 0x72) $RT_LAUNCH_POINT_Y("%index%")
+  WRITE_SHORT (%new_loc% + 0x84) $RT_ALT_USE_POINT_X("%index%")
+  WRITE_SHORT (%new_loc% + 0x86) $RT_ALT_USE_POINT_Y("%index%")
+//set flags by bit
+  READ_LONG (%new_loc% + 0x60) ~flag_bits~
+  WRITE_LONG (%new_loc% + 0x60) (%flag_bits% BOR $RT_FLAGS("%index%"))          //flags set by bit
+//string writes
+  SPRINT RT_NAME $RT_NAME(~%index%~)
+  WRITE_EVALUATED_ASCII (%new_loc% + 0) ~%RT_NAME%~ (32)              //name
+  SPRINT RT_KEY_ITEM $RT_KEY_ITEM(~%index%~)
+  WRITE_EVALUATED_ASCII (%new_loc% + 0x74) ~%RT_KEY_ITEM%~            //item to use as key
+  SPRINT RT_REGION_SCRIPT $RT_REGION_SCRIPT(~%index%~)
+  WRITE_EVALUATED_ASCII (%new_loc% + 0x7c) ~%RT_REGION_SCRIPT%~ (8)   //script for trigger
+  PATCH_IF (GAME_IS ~pst~) BEGIN
+   SPRINT RT_DIALOG_FILE $RT_DIALOG_FILE(~%index%~)
+   WRITE_EVALUATED_ASCII (%new_loc% + 0xbc) ~%RT_DIALOG_FILE%~ (8)              //dialog file used only in pst
+  END
+//enter correct index into vertex pairs
+  WRITE_LONG (%new_loc% + 0x2c) %vert_entry%                          //index of vertices
+  SET vert_entry = %vert_entry% + %RT_VERTEX_PAIRS%
+ END //end for loop
+ FOR (idx=0;idx<%ab_new_vertex_points%;idx+=1) BEGIN
+  SPRINT ab_VX_X ~ab_VX_X%idx%~
+  SET ab_VX_X = EVALUATE_BUFFER ~%%ab_VX_X%%~
+  SPRINT ab_VX_Y ~ab_VX_Y%idx%~
+  SET ab_VX_Y = EVALUATE_BUFFER ~%%ab_VX_Y%%~
+  WRITE_SHORT (%Q_NewOffset_Vertx% +(%idx%*4) +0) %ab_VX_X%
+  WRITE_SHORT (%Q_NewOffset_Vertx% +(%idx%*4) +2) %ab_VX_Y%
+ END
+BUT_ONLY_IF_IT_CHANGES
+END //end function define
