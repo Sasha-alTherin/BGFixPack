@@ -1,15 +1,5 @@
-// ----------------------------------------------------------------------------
-// Music fix
-//note to self make sure files are included in the directory...
-COPY ~bgfixpack/files/mus~ ~music~
-COPY ~readme.txt~ ~backup/manual~
- READ_ASCII 0x17 ~name~ (32)
- INNER_ACTION BEGIN
-  ACTION_IF (~%name%~ STRING_EQUAL_CASE ~Baldur's Gate: The Original Saga~ ) THEN BEGIN
-   COPY ~bgfixpack/files/sagamus~ ~music~
-  END
- END
-BUT_ONLY
+//2DA-Corrections.tph
+PRINT ~Processing 2DA-Corrections.tph~
 // ----------------------------------------------------------------------------
 // Several 2da files get fixed
 // ----------------------------------------------------------------------------

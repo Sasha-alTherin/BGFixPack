@@ -1,0 +1,47 @@
+//launch the list of patches
+INCLUDE ~bgfixpack\modules\CUTSCENES-GorionCutscene.tph~
+INCLUDE ~bgfixpack\modules\CUTSCENES-GorionSarevokVoiceOverlapFix.tph~
+INCLUDE ~bgfixpack\modules\MUSIC-MusicFixesAllAndSagaOnly.tph~
+INCLUDE ~bgfixpack\modules\SCRIPTS-ScriptingNameMatching.tph~
+INCLUDE ~bgfixpack\modules\2DA-Corrections.tph~
+INCLUDE ~bgfixpack\modules\AREA-CrashFixes.tph~
+INCLUDE ~bgfixpack\modules\AREA-MissingAmbients.tph~
+INCLUDE ~bgfixpack\modules\AREA-RealignContainerHighlights.tph~
+INCLUDE ~bgfixpack\modules\AREA-ModifyFacingDirection.tph~
+INCLUDE ~bgfixpack\modules\AREA-FixDetectedAndTraplessTraps.tph~
+INCLUDE ~bgfixpack\modules\DIALOG-BasicCorrections.tph~
+INCLUDE ~bgfixpack\modules\CREATURES-BasicCorrections.tph~
+INCLUDE ~bgfixpack\modules\STORES-GullykinStoreFix.tph~
+INCLUDE ~bgfixpack\modules\SPELLS-MagicMissileDamageFix.tph~
+INCLUDE ~bgfixpack\modules\ITEMS-BasicCorrections.tph~
+INCLUDE ~bgfixpack\modules\UNLOCKED-MinorExistingContent.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-LothanderAndMarekOtherSolutions.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-GorpelAndGretekSolutions.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-YeslickKickoutLoopFix.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-BoyBodyAndJalanthaMistmyr.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-AldethBetrayalFixByIdobek.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-RamazithsMultiplePickpocketExploit.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-MonksSpeakOfDeadOnlyWhenDead.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-BetterRatQuestCount.tph~
+INCLUDE ~bgfixpack\modules\ISSUES-BanditScalpPickPocketProblems.tph~
+//should only use one of the two oublek patches. however, the tweak is designed to remove any changes made by the first
+INCLUDE ~bgfixpack\modules\ISSUES-OublekEmeraldBountyExploit.tph~
+//INCLUDE ~bgfixpack\modules\ISSUES-OublekEmeraldBountyExploitTWEAK.tph~
+
+ACTION_IF !(GAME_IS ~totsc~) AND (GAME_IS ~bg1~) BEGIN
+// INCLUDE ~bgfixpack\modules\not-totsc\AREA-NonToTSC-RestoreHiddenFAIContainerTWEAKS.tph~
+END
+
+ACTION_IF (GAME_IS ~totsc~) BEGIN
+ INCLUDE ~bgfixpack\modules\totsc\SCRIPTS-ToTSC-BasicCorrections.tph~
+ INCLUDE ~bgfixpack\modules\totsc\DIALOG-ToTSC-BasicCorrections.tph~
+ INCLUDE ~bgfixpack\modules\totsc\CREATURES-ToTSC-BasicCorrections.tph~
+ INCLUDE ~bgfixpack\modules\totsc\ITEMS-ToTSC-BasicCorrections.tph~
+ INCLUDE ~bgfixpack\modules\totsc\AREA-ToTSC-BasicCorrections.tph~
+ INCLUDE ~bgfixpack\modules\totsc\ISSUES-ToTSC-UlgothsResidentsHostileFix.tph~
+ INCLUDE ~bgfixpack\modules\totsc\ISSUES-ToTSC-CountingHouseConflicts.tph~
+// INCLUDE ~bgfixpack\modules\totsc\ISSUES-ToTSC-Chapter5StartBehaviorTWEAKS.tph~
+END
+
+//test patch
+//INCLUDE ~bgfixpack/tph/testpatch.tph~

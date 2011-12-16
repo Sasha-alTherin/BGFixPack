@@ -1,0 +1,60 @@
+//ISSUE WITH TOTSC ON WINDOWS XP -- SOME SYSTEMS
+//problem only affects Windows XP with ToTSC installed
+//so we find windows users using ToTSC
+//begin looking for problem files and move them to backup folder
+//but some users might have one or two of the files for some reason, but not all of them
+//make sure all are there first
+ ACTION_IF (("%WEIDU_OS%" STRING_COMPARE_CASE "win32" = 0) AND (GAME_IS ~totsc~))
+       AND ( (FILE_EXISTS ~override/albert.cre~)
+       AND (FILE_EXISTS ~override/albert.dlg~)
+       AND (FILE_EXISTS ~override/ar2300.are~)
+       AND (FILE_EXISTS ~override/belt.cre~)
+       AND (FILE_EXISTS ~override/bolt02.itm~)
+       AND (FILE_EXISTS ~override/bolt03.itm~)
+       AND (FILE_EXISTS ~override/bolt04.itm~)
+       AND (FILE_EXISTS ~override/bolt05.itm~)
+       AND (FILE_EXISTS ~override/bolt06.itm~)
+       AND (FILE_EXISTS ~override/calaha.dlg~)
+       AND (FILE_EXISTS ~override/childulg.dlg~)
+       AND (FILE_EXISTS ~override/dradee.dlg~)
+       AND (FILE_EXISTS ~override/drizzt.cre~)
+       AND (FILE_EXISTS ~override/evalt.dlg~)
+       AND (FILE_EXISTS ~override/farthi.dlg~)
+       AND (FILE_EXISTS ~override/fenrus.dlg~)
+       AND (FILE_EXISTS ~override/flam01.itm~)
+       AND (FILE_EXISTS ~override/gatewere.dlg~)
+       AND (FILE_EXISTS ~override/gnoll5.bcs~)
+       AND (FILE_EXISTS ~override/gnoll5.dlg~)
+       AND (FILE_EXISTS ~override/islsir.dlg~)
+       AND (FILE_EXISTS ~override/jaheir6.cre~)
+       AND (FILE_EXISTS ~override/jorin.dlg~)
+       AND (FILE_EXISTS ~override/kryla.dlg~)
+       AND (FILE_EXISTS ~override/lahl.dlg~)
+       AND (FILE_EXISTS ~override/liia.cre~)
+       AND (FILE_EXISTS ~override/lothan.dlg~)
+       AND (FILE_EXISTS ~override/marale.dlg~)
+       AND (FILE_EXISTS ~override/memnis.dlg~)
+       AND (FILE_EXISTS ~override/mulahe.cre~)
+       AND (FILE_EXISTS ~override/palin.dlg~)
+       AND (FILE_EXISTS ~override/ring09.itm~)
+       AND (FILE_EXISTS ~override/sarevok.bcs~)
+       AND (FILE_EXISTS ~override/sppr403.spl~)
+       AND (FILE_EXISTS ~override/spwi313.spl~)
+       AND (FILE_EXISTS ~override/sw2h06.itm~)
+       AND (FILE_EXISTS ~override/taloun.dlg~)
+       AND (FILE_EXISTS ~override/therel.dlg~)
+       AND (FILE_EXISTS ~override/ulcast.dlg~) ) THEN BEGIN
+  ACTION_FOR_EACH ~file~ IN "albert.cre" "albert.dlg" "ar2300.are" "belt.cre" "bolt02.itm" "bolt03.itm" "bolt04.itm" "bolt05.itm" "bolt06.itm" "calaha.dlg"
+                            "childulg.dlg" "dradee.dlg" "drizzt.cre" "evalt.dlg" "farthi.dlg" "fenrus.dlg" "flam01.itm" "gatewere.dlg" "gnoll5.bcs"
+                            "gnoll5.dlg" "islsir.dlg" "jaheir6.cre" "jorin.dlg" "kryla.dlg" "lahl.dlg" "liia.cre" "lothan.dlg" "marale.dlg" "memnis.dlg"
+                            "mulahe.cre" "palin.dlg" "ring09.itm" "sarevok.bcs" "sppr403.spl" "spwi313.spl" "sw2h06.itm" "taloun.dlg" "therel.dlg"
+                            "ulcast.dlg" BEGIN
+   AT_NOW ~move "override/%file%" "BGFixPack/backup/manual"~
+   PRINT ~moved %file% to BGFixPack/backup/manual~
+  END
+ END
+ ACTION_IF (FILE_EXISTS ~BGFixPack/backup/manual/ulcast.dlg~) THEN BEGIN
+  AT_UNINSTALL ~move "BGFixPack\backup\manual\*.*" "override"~
+  PRINT ~Returning your install to the way we found it before installation~
+ END
+

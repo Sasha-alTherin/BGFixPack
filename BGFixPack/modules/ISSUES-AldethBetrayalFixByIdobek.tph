@@ -1,0 +1,39 @@
+//ISSUES-AldethBetrayalFixByIdobek.tph
+PRINT ~Processing ISSUES-AldethBetrayalFixByIdobek.tph~
+// ----------------------------------------------------------------------------
+//Aldeth Sashenstar Betrayal Fix
+// i've shamelessly taken Idobek's version and used it instead
+ACTION_IF (GAME_IS ~bg1~) THEN BEGIN
+COMPILE ~BGFixpack/files/IdobeksFixpackFiles/VanillaRemakes/aldeth.d~
+        ~BGFixpack/files/IdobeksFixpackFiles/VanillaRemakes/flamal.baf~
+END
+ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
+COMPILE ~BGFixpack/files/IdobeksFixpackFiles/aldeth.d~
+        ~BGFixpack/files/IdobeksFixpackFiles/flamal.baf~
+END
+EXTEND_TOP ~ar0128.bcs~ ~BGFixpack/files/IdobeksFixpackFiles/ar0128.baf~
+EXTEND_TOP ~ar1100.bcs~ ~BGFixpack/files/IdobeksFixpackFiles/ar1100.baf~
+COPY ~BGFixpack/files/IdobeksFixpackFiles/flamal.cre~ ~override~
+COPY_EXISTING ~dabron.bcs~ ~override~
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY EXACT_MATCH ~See([PC])~ ~See([PC])
+NumTimesTalkedTo(0)~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+COPY_EXISTING ~aldeth.cre~ ~override~
+  READ_LONG 0x2bc "itemsoffset"
+  READ_LONG 0x2c0 "#items"
+  WHILE ("%#items%" > 0) BEGIN
+    SET "item" = ("%itemsoffset%" + ("%#items%" - 1) * 0x14)
+    READ_LONG ("%item%" + 0x00) "itemresref1"
+    READ_LONG ("%item%" + 0x04) "itemresref2"
+    READ_BYTE ("%item%" + 0x10) "flags"
+    WHILE ("%itemresref1%" = 0x48315753)
+      AND ("%itemresref2%" = 0x00003330)
+      AND NOT (("%flags%" BAND 0b00000010) = 0b00000010) BEGIN
+        WRITE_BYTE ("%item%" + 0x10) ("%flags%" BOR 0b00000010)
+    READ_BYTE ("%item%" + 0x10) "flags"
+    END
+  SET "#items" = ("%#items%" - 1)
+  END
+BUT_ONLY_IF_IT_CHANGES

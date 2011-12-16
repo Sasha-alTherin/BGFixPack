@@ -1,0 +1,30 @@
+//CUTSCENES-GorionCutscene.tph
+PRINT ~Processing CUTSCENES-GorionCutscene.tph~
+COMPILE ~bgfixpack/files/abgfc1c1.baf~
+<<<<<<<< gorion.d
+ADD_TRANS_TRIGGER ~gorion~ 0 ~HPPercentLT(Player1,100)~ DO 0
+ADD_TRANS_TRIGGER ~gorion~ 7 ~HPPercentLT(Player1,100)~ DO 0
+ADD_TRANS_TRIGGER ~gorion~ 8 ~HPPercentLT(Player1,100)~ DO 0
+ADD_TRANS_TRIGGER ~gorion~ 9 ~HPPercentLT(Player1,100)~ DO 0
+EXTEND_TOP ~gorion~ 0
+IF ~!HPPercentLT(Player1,100)~ THEN REPLY #16435 /* ~I'm ready to go right now.~ */ DO ~ClearAllActions()
+StartCutSceneMode()
+StartCutScene("abgfc1c1")~ EXIT
+END
+EXTEND_TOP ~gorion~ 7
+IF ~!HPPercentLT(Player1,100)~ THEN REPLY #16435 /* ~I'm ready to go right now.~ */ DO ~ClearAllActions()
+StartCutSceneMode()
+StartCutScene("abgfc1c1")~ EXIT
+END
+EXTEND_TOP ~gorion~ 8
+IF ~!HPPercentLT(Player1,100)~ THEN REPLY #16435 /* ~I'm ready to go right now.~ */ DO ~ClearAllActions()
+StartCutSceneMode()
+StartCutScene("abgfc1c1")~ EXIT
+END
+EXTEND_TOP ~gorion~ 9
+IF ~!HPPercentLT(Player1,100)~ THEN REPLY #16435 /* ~I'm ready to go right now.~ */ DO ~ClearAllActions()
+StartCutSceneMode()
+StartCutScene("abgfc1c1")~ EXIT
+END
+>>>>>>>>
+COMPILE ~gorion.d~

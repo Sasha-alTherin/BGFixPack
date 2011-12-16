@@ -1,0 +1,25 @@
+//ISSUES-BetterRatQuestCount.tph
+PRINT ~Processing ISSUES-BetterRatQuestCount.tph~
+// ----------------------------------------------------------------------------
+// Some instances of the rats not getting counted -- change to a more reliable method
+// non-dudley & non-baldurdash
+COPY_EXISTING ~rat2.cre~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 724) BEGIN
+  WRITE_ASCII 0x280 ~ab_bgf_rats~
+  WRITE_ASCII 0x250 ~~ (8)
+ END
+BUT_ONLY_IF_IT_CHANGES
+<<<<<<<< inlined/ar2606.baf
+IF
+NumDeadGT("ab_bgf_rats",4)
+THEN
+RESPONSE #100
+SetGlobal("RatsKilled","GLOBAL",5)
+END
+>>>>>>>>
+COMPILE ~inlined/ar2606.baf~
+COPY_EXISTING ~ar2606.are~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 284) BEGIN
+  WRITE_ASCII 0x94 ~ar2606~
+ END
+BUT_ONLY_IF_IT_CHANGES

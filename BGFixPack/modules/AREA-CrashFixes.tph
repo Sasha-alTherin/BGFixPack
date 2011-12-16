@@ -1,0 +1,60 @@
+//AREA-CrashFixes.tph
+PRINT ~Processing AREA-CrashFixes.tph~
+// ----------------------------------------------------------------------------
+//AR3300, FW3300, AR6700 (BG1, BGTutu, BGT)
+//code from Ascension64
+COPY_EXISTING ~AR3300.ARE~ ~override~ //AR3300, FW3300, AR6700 (BG1, BGTutu, BGT)
+ READ_LONG 0xA4 nDoors
+ READ_LONG 0xA8 offDoors
+ READ_LONG 0x7C offPoints
+ READ_LONG 0x80 nPoints
+ SET i = 0
+ FOR (i = 0; i < nDoors; i += 1) BEGIN
+  READ_ASCII ( %offDoors% + %i% * 0xC8 + 0x20 ) DoorId
+  PATCH_IF ( "%DoorId%" STRING_EQUAL "DOOR3304" ) BEGIN
+   READ_LONG ( %offDoors% + %i% * 0xC8 + 0x48 ) idxPointsImpededOpen
+   READ_SHORT ( %offDoors% + %i% * 0xC8 + 0x4C ) nPointsImpededOpen
+   SET j = 0
+   FOR (j = %idxPointsImpededOpen%; j < %idxPointsImpededOpen% + %nPointsImpededOpen%; j += 1) BEGIN
+    READ_SHORT ( %offPoints% + %j% * 0x4) x
+    READ_SHORT ( %offPoints% + %j% * 0x4 + 0x2) y
+    PATCH_IF ( x = 243 && y = 326 ) BEGIN
+     WRITE_SHORT ( %offPoints% + %j% * 0x4) 233
+     WRITE_SHORT ( %offPoints% + %j% * 0x4 + 0x2) 302
+    END
+    PATCH_IF ( x = 243 && y = 327 ) BEGIN
+     WRITE_SHORT ( %offPoints% + %j% * 0x4) 233
+     WRITE_SHORT ( %offPoints% + %j% * 0x4 + 0x2) 304
+    END
+    PATCH_IF ( x = 242 && y = 325 ) BEGIN
+     WRITE_SHORT ( %offPoints% + %j% * 0x4) 232
+     WRITE_SHORT ( %offPoints% + %j% * 0x4 + 0x2) 304
+    END
+    PATCH_IF ( x = 233 && y = 303 ) BEGIN
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Game Crash When Entering Area AR0717 Fix
+// Author: Idobek
+// Email: idobek@gibberlings3.net
+// Website: http://www.gibberlings3.net
+COPY_EXISTING ~ar0717.are~ ~override~
+ READ_LONG 0x54 "actorsoffset"
+ READ_SHORT 0x58 "#actors"
+ WHILE ("%#actors%" > 0) BEGIN
+  SET "actor" = ("%actorsoffset%" + ("%#actors%" - 1) * 0x110)
+  READ_LONG ("%actor%" + 0x80) "actorresref1"
+  READ_LONG ("%actor%" + 0x84) "actorresref2"
+  WHILE ("%actorresref1%" = 0x4c524947)
+   AND ("%actorresref2%" = 0x00314142) BEGIN
+   WRITE_ASCII ("%actor%" + 0x80) ~GIRBA1~
+   WRITE_SHORT ("%actor%" + 0x86) 0x0000
+   READ_LONG ("%actor%" + 0x80) "actorresref1"
+   READ_LONG ("%actor%" + 0x84) "actorresref2"
+  END
+  SET "#actors" = ("%#actors%" - 1)
+ END
+BUT_ONLY_IF_IT_CHANGES

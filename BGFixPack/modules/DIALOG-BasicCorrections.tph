@@ -1,3 +1,5 @@
+//DIALOG-BasicCorrections.tph
+PRINT ~Processing DIALOG-BasicCorrections.tph~
 // ----------------------------------------------------------------------------
 //Ordulinian Quest Reward Fix
 <<<<<<<< inlined/orduli.d
@@ -85,7 +87,6 @@ REPLACE_ACTION_TEXT deltan2 ~GiveItemCreate("MISC55",LastTalkedToBy)~ ~GiveItemC
 REPLACE_ACTION_TEXT deltan2 ~GiveItemCreate("SCRL2R",LastTalkedToBy)~ ~GiveItemCreate("SCRL2R",LastTalkedToBy(),0,0,0)~
 REPLACE_ACTION_TEXT narlen ~GiveItemCreate("MISC36",LastTalkedToBy)~ ~GiveItemCreate("MISC36",LastTalkedToBy(),0,0,0)~
 REPLACE_ACTION_TEXT quinn ~GiveItemCreate("MISC32",LastTalkedToBy)~ ~GiveItemCreate("MISC32",LastTalkedToBy(),0,0,0)~
-REPLACE_ACTION_TEXT taerom ~GiveItemCreate("PLAT06",LastTalkedToBy)~ ~GiveItemCreate("PLAT06",LastTalkedToBy(),0,0,0)~
 REPLACE_ACTION_TEXT tersus ~GiveItemCreate("LEAT01",Player1)~ ~GiveItemCreate("LEAT01",Player1,0,0,0)~
 REPLACE_ACTION_TEXT tersus ~GiveItemCreate("LEAT01",Player2)~ ~GiveItemCreate("LEAT01",Player2,0,0,0)~
 REPLACE_ACTION_TEXT tersus ~GiveItemCreate("LEAT01",Player3)~ ~GiveItemCreate("LEAT01",Player3,0,0,0)~
@@ -124,7 +125,6 @@ REPLACE_TRANS_ACTION ~iron12~ BEGIN 4 END BEGIN 0 END ~EscapeArea~ ~EscapeArea()
 REPLACE_TRIGGER_TEXT jared ~SetGlobal("HelpJared","GLOBAL",0)~ ~Global("HelpJared","GLOBAL",0)~ //2, 3, 4
 REPLACE_TRIGGER_TEXT ~jared~ ~ReactionGLT(LastTalkedToBy,NEUTRAL_UPPER)~ ~ReactionGT(LastTalkedToBy(),NEUTRAL_UPPER)~
 REPLACE_TRIGGER_TEXT ~lahl~ ~Random(~ ~RandomNum(~
-REPLACE_ACTION_TEXT ~marl~ ~MoveToPoint(\[.\])~ ~MoveToPoint([701.773])~
 REPLACE_TRIGGER_TEXT ~minern~ ~Global("SpokenToEmerson",0)~ ~Global("SpokenToEmerson","GLOBAL",0)~
 REPLACE_TRIGGER_TEXT MTOB6 ~SetGlobal("Warning","GLOBAL",1)~ ~Global("Warning","GLOBAL",1)~ //5
 REPLACE_TRIGGER_TEXT ~nobl10~ ~ReactionGT(HOSTILE_UPPER)~ ~ReactionGT(LastTalkedToBy(),HOSTILE_UPPER)~
@@ -145,56 +145,3 @@ REPLACE_ACTION_TEXT messed ~Die()~ ~~
 REPLACE_ACTION_TEXT nobl5 ~Dialog(\[PC\])~ ~~
 >>>>>>>>
 COMPILE ~inlined/dlg-changes.d~
-
-ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
-// ----------------------------------------------------------------------------
-//Albert Giving No Reward For Rufie Fix 
-<<<<<<<< inlined/albert.d
-REPLACE_ACTION_TEXT ~albert~ ~AddexperienceParty(1000)~
-                             ~AddexperienceParty(1000)
-                              GiveItemCreate("MISC35",LastTalkedToBy(),0,0,0)~
->>>>>>>>
- COMPILE ~inlined/albert.d~
-// ----------------------------------------------------------------------------
-//ToTSC only - dialog corrections
-// ----------------------------------------------------------------------------
-<<<<<<<< inlined/dlg-changes.d
-REPLACE_ACTION_TEXT shoal ~CreateCreature("DROTH",\[2500.500\])~ ~CreateCreature("DROTH",[2500.500],0)~ //6, 7 error on no-TotSC
-REPLACE_TRIGGER_TEXT kaish ~Dead(Karoug)~ ~Dead("karoug")~ //T only
-REPLACE_ACTION_TEXT kielpc ~(Door09)~ ~("Door09")~ //T only
-REPLACE_ACTION_TEXT kielpc ~(2357.930])~ ~([2357.930])~ //T only
-REPLACE_ACTION_TEXT kielpc ~ChangeAIScript(?????,Override)~ ~ChangeAIScript("",Override)~ //T only
-REPLACE_TRIGGER_TEXT kieres ~Exists("detran")~ ~Exists("detranion")~
-REPLACE_TRIGGER_TEXT kieres ~True~ ~True()~ //T only
-REPLACE_ACTION_TEXT kieres ~,8)~ ~,8))~
-REPLACE_ACTION_TEXT kieres ~,8))Enemy()~ ~,8))~
-REPLACE_ACTION_TEXT ulf ~,8)~ ~,8))~
-//changes to make NI happy -- I think these work okay in game anyway
-REPLACE_ACTION_TEXT galken ~GiveItemCreate("Misc2N",LastTalkedToBy)~ ~GiveItemCreate("Misc2N",LastTalkedToBy(),0,0,0)~
-REPLACE_ACTION_TEXT ulcast ~GiveItemCreate("SW1H19",LastTalkedToBy)~ ~GiveItemCreate("SW1H19",LastTalkedToBy(),0,0,0)~
-REPLACE_ACTION_TEXT albert ~CreateCreature("RUFIE",\[3803.695\])~ ~CreateCreature("RUFIE",[3803.695],0)~
-REPLACE_ACTION_TEXT alora ~CreateCreature("FLAM",\[802.905\])~ ~CreateCreature("FLAM",[802.905],0)~
-REPLACE_ACTION_TEXT alora ~CreateCreature("FLAM",\[850.886\])~ ~CreateCreature("FLAM",[850.886],0)~
-REPLACE_ACTION_TEXT arghai ~CreateCreature("OGREHA",\[1351.1078\])~ ~CreateCreature("OGREHA",[1351.1078],0)~
-REPLACE_ACTION_TEXT baruk ~CreateCreature("KOBCOMM",\[766.988\])~ ~CreateCreature("KOBCOMM",[766.988],0)~
-REPLACE_ACTION_TEXT baruk ~CreateCreature("KOBCOMM",\[776.998\])~ ~CreateCreature("KOBCOMM",[776.998],0)~
-REPLACE_ACTION_TEXT baruk ~CreateCreature("KOBCOMM",\[756.978\])~ ~CreateCreature("KOBCOMM",[756.978],0)~
-REPLACE_ACTION_TEXT baruk ~CreateCreature("KOBCOMM",\[746.988\])~ ~CreateCreature("KOBCOMM",[746.988],0)~
-REPLACE_ACTION_TEXT baruk ~CreateCreature("KOBCOMM",\[736.988\])~ ~CreateCreature("KOBCOMM",[736.988],0)~
-REPLACE_ACTION_TEXT beldin ~CreateCreature("KOBOLDAB",\[2227.2390\])~ ~CreateCreature("KOBOLDAB",[2227.2390],0)~
-REPLACE_ACTION_TEXT benjy ~CreateCreature("FLAMANG",\[1227.821\])~ ~CreateCreature("FLAMANG",[1227.821],0)~
-REPLACE_ACTION_TEXT benjy ~CreateCreature("FLAMANG",\[1180.883\])~ ~CreateCreature("FLAMANG",[1180.883],0)~
-REPLACE_ACTION_TEXT benjy ~CreateCreature("FLAMANG",\[1094.901\])~ ~CreateCreature("FLAMANG",[1094.901],0)~
-REPLACE_ACTION_TEXT benjy ~CreateCreature("FLAMANG",\[1371.943\])~ ~CreateCreature("FLAMANG",[1371.943],0)~
-REPLACE_ACTION_TEXT benjy ~CreateCreature("FLAMANG",\[1277.991\])~ ~CreateCreature("FLAMANG",[1277.991],0)~
-REPLACE_ACTION_TEXT brathl ~CreateCreature("FLAM6",\[171.1167\])~ ~CreateCreature("FLAM6",[171.1167],0)~
-REPLACE_ACTION_TEXT brathl ~CreateCreature("FLAM6",\[225.1169\])~ ~CreateCreature("FLAM6",[225.1169],0)~
-REPLACE_ACTION_TEXT brathl ~CreateCreature("FLAM6",\[405.1330\])~ ~CreateCreature("FLAM6",[405.1330],0)~
-REPLACE_ACTION_TEXT brevli ~CreateCreature("GUARD",\[0.0\])~ ~CreateCreature("GUARD",[0.0],0)~
-REPLACE_ACTION_TEXT brilla ~CreateCreature("GUARD",\[1482.933\])~ ~CreateCreature("GUARD",[1482.933],0)~
-
-REPLACE_ACTION_TEXT cult3 ~Cult Wizard~ ~Cult_Wizard~
-REPLACE_ACTION_TEXT cult3 ~Cult Archer~ ~Cult_Archer~
->>>>>>>>
-COMPILE ~inlined/dlg-changes.d~
-END

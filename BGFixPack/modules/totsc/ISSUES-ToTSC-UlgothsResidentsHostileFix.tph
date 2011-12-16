@@ -1,0 +1,12 @@
+//ISSUES-ToTSC-UlgothsResidentsHostileFix.tph
+PRINT ~Processing ISSUES-ToTSC-UlgothsResidentsHostileFix.tph~
+// ----------------------------------------------------------------------------
+//Ulgoth's Beard Residents Hostile When Cult Attacks Fix
+ COPY_EXISTING ~cult3.cre~ ~override~
+  WRITE_ASCIIT 0x250 ~cultsht~
+ BUT_ONLY_IF_IT_CHANGES
+<<<<<<<< cult3.d
+REPLACE_ACTION_TEXT ~cult3~ ~ActionOverride("Cult Wizard",MoveToPoint(\[2900.904\]))~ ~ActionOverride("Cult Wizard 1",MoveToPoint([2900.904]))~
+REPLACE_ACTION_TEXT ~cult3~ ~ActionOverride("Cult Archer",MoveToPoint(\[2716.877\]))~ ~ActionOverride("cult fodder",MoveToPoint([2716.877]))~
+>>>>>>>>
+ COMPILE ~cult3.d~

@@ -1,0 +1,55 @@
+//ISSUES-BoyBodyAndJalanthaMistmyr.tph
+PRINT ~Processing ISSUES-BoyBodyAndJalanthaMistmyr.tph~
+// ----------------------------------------------------------------------------
+//Jalantha Mistmyr Pickpocket Exploit Fix
+<<<<<<<< jalant/stuffcheck.baf
+IF
+!Global("BOYBODY","GLOBAL",1)
+Dead("Jalantha")
+PartyHasItem("misc54")
+THEN
+RESPONSE #100
+SetGlobal("BOYBODY","GLOBAL",1)
+END
+>>>>>>>>
+//add it to the area script or create an area script if it's not there
+COPY_EXISTING ~ar0609.are~ ~override~
+ READ_ASCII 0x94 ~area_script~
+ INNER_ACTION BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~%area_script%.bcs~) THEN BEGIN
+   EXTEND_BOTTOM ~%area_script%.bcs~ ~jalant/stuffcheck.baf~
+  END ELSE BEGIN
+   OUTER_SET assignit = 1
+   EXTEND_BOTTOM ~ar0609.bcs~ ~jalant/stuffcheck.baf~
+  END
+ END
+ PATCH_IF (%assignit%=1) BEGIN
+  WRITE_ASCII_TERMINATE 0x94 ~ar0609~
+ END
+BUT_ONLY_IF_IT_CHANGES
+// flag the item as unstealable in the cre file so that it can't be taken
+COPY_EXISTING ~jalant.cre~ ~override~
+ READ_LONG 700 ~itm_loc~
+ READ_LONG 704 ~itm_num~
+ FOR (y = 0; y < %itm_num%; y = y + 1) BEGIN
+  READ_ASCII %itm_loc% ~itm_name~
+  PATCH_IF (~MISC54~ STRING_EQUAL_CASE ~%itm_name%~) BEGIN
+   READ_LONG (%itm_loc% + 16) ~flag~
+   PATCH_IF !(%flag% = 2) BEGIN
+    WRITE_LONG (%itm_loc% + 16) 2
+   END
+  END
+  SET itm_loc = (%itm_loc% + 20)
+ END
+BUT_ONLY_IF_IT_CHANGES
+//block dialog states depending on status of body
+<<<<<<<< tenya2.d
+ADD_STATE_TRIGGER tenya2 0 ~GlobalLT("BOYBODY","GLOBAL",1)~
+ADD_STATE_TRIGGER tenya2 6 ~GlobalLT("BOYBODY","GLOBAL",1)~
+REPLACE_STATE_TRIGGER tenya2 11 ~Global("BOYBODY","GLOBAL",1)~
+ADD_TRANS_ACTION tenya2 BEGIN 11 END BEGIN END ~RandomWalk()~
+>>>>>>>>
+COMPILE ~tenya2.d~
+COPY_EXISTING ~tenya2.cre~ ~override~
+ WRITE_ASCII_TERMINATE 0x248 ~shout~ //override
+BUT_ONLY_IF_IT_CHANGES

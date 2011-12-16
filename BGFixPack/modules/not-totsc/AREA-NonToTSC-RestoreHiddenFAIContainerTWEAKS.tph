@@ -1,0 +1,56 @@
+//AREA-NonToTSC-RestoreHiddenFAIContainerTWEAKS.tph
+PRINT ~Processing AREA-NonToTSC-RestoreHiddenFAIContainerTWEAKS.tph~
+//-------------------------------------------------------------------------------
+// Friendly Arm Inn Hidden Container Restoration
+//-------------------------------------------------------------------------------
+//BEGIN @10 // ~Friendly Arm Inn Hidden Container Restoration~
+//REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
+//REQUIRE_PREDICATE !(GAME_IS ~totsc~) ~SKIPPING Only for non-TOTSC games~
+//INCLUDE ~bgfixpack\tph\wapt.tph~
+COPY_EXISTING ~AR2300.ARE~ ~override/AR2300.ARE~
+ LAUNCH_PATCH_MACRO ~wapt_Q_ARE_InitVars~        //launch variable initiation macro
+//make sure container does not already exist
+ SET container_exists = 0
+ FOR (i = 0; i < "%Q_Num_Conta%"; i += 1) BEGIN
+  READ_ASCII ("%Q_Off_Conta%" + "%i%" * 0xc0) container_name (12)
+  PATCH_IF (("%container_name%" STRING_CONTAINS_REGEXP "Container 1[^0-9]") = 0) BEGIN
+   SET container_exists = 1
+  END
+ END
+ PATCH_IF ("%container_exists%" != 1) BEGIN
+  LAUNCH_PATCH_MACRO ~wapt_Q_AREAdd_InitVars~     //launch variable initiation macro for adding new sections
+  SET "Q_New_Conta" = 1
+  SET "Q_New_Items" = 1
+  SET "Q_New_Vertx" = 5                      //set number of new vertex/coordinate pairs to add
+  LAUNCH_PATCH_MACRO ~wapt_Q_AREAdd_Process~      //launch macro that adds new space for above listed entries
+//container writes
+//%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0)
+  WRITE_ASCII (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0)) ~Container 1~ //Name
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x20) 2527 //locX
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x22) 3781 //locY
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x24) 1 //Type
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x26) 100 //Lock difficulty
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x2e) 100 //Trap removal difficulty
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x34) 2528 //Trap locX
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x36) 3775 //Trap locY
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x38) 2551 //Bound left
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x3a) 3757 //Bound top
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x3c) 2555 //Bound right
+  WRITE_SHORT (%Q_NewOffset_Conta% + (%Q_Siz_Conta% * 0) + 0x3e) 3762 //Bound bottom
+//vertex writes
+//%Q_NewOffset_Vertx%
+  WRITE_SHORT (%Q_NewOffset_Vertx%) 2552
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x2) 3757
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x4) 2555
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x6) 3757
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x8) 2555
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0xa) 3759
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0xc) 2553
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0xe) 3762
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x10) 2551
+  WRITE_SHORT (%Q_NewOffset_Vertx% + 0x12) 3759
+//item writes
+//%Q_NewOffset_Items% + (%Q_Siz_Items% * 0)
+  WRITE_ASCII (%Q_NewOffset_Items% + (%Q_Siz_Items% * 0)) ~RING08~
+ END
+BUT_ONLY_IF_IT_CHANGES

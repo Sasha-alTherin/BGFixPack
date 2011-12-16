@@ -1,0 +1,26 @@
+//ISSUES-ToTSC-CountingHouseConflicts.tph
+PRINT ~Processing ISSUES-ToTSC-CountingHouseConflicts.tph~
+// ----------------------------------------------------------------------------
+//Dudley patch -- Counting House, AR0307 and AR0308 -
+// ----------------------------------------------------------------------------
+//both area scripts conflict with the dialogue of Ulf and Kieres respectively such that if you end up in a fight with Ulf,
+//he triggers an action that tries to turn the guards hostile (who are upstairs from him) and if you fight with Kieres,
+//he turns the crewmates hostile (who are downstairs from him).
+//It would seem most likely that the guards should guard the lower floor and the crewmates are with their captain.
+//If there is any doubt the captain calls to his "mates" for help.
+ACTION_FOR_EACH file IN ~crew1~ ~crew2~ ~crew3~ ~crew4~ ~crew5~ ~crew6~ ~crew7~ BEGIN
+ COPY_EXISTING ~%file%.cre~ ~override~
+  WRITE_ASCII 0x280 ~~ (32) //removed old
+  WRITE_ASCIIE 0x280 ~%SOURCE_RES%~ (5)  //assign new
+ BUT_ONLY_IF_IT_CHANGES
+END
+COPY_EXISTING ar0308.bcs override
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY EXACT_MATCH ~LEAGGU~ ~CREW~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+COPY_EXISTING ar0307.bcs override
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY EXACT_MATCH ~CREW~ ~LEAGGU~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES

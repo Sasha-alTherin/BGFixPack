@@ -1,0 +1,6 @@
+//load up macros/functions
+INCLUDE ~bgfixpack/tph/wipt.tph~
+INCLUDE ~bgfixpack/tph/wapt.tph~
+INCLUDE ~bgfixpack\tph\ab_Cont_Vertex_Edit.tph~
+INCLUDE ~BGFixPack\tph\ab_Item_Header_Edit.tph~
+INCLUDE ~BGFixPack\tph\ab_2da_Edit.tph~

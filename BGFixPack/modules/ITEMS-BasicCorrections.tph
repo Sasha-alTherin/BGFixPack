@@ -1,0 +1,240 @@
+//ITEMS-BasicCorrections.tph
+PRINT ~Processing ITEMS-BasicCorrections.tph~
+// ----------------------------------------------------------------------------
+// Weight and Name Changes non GTU dependent
+// BAM references are corrected
+// Some books need price and weight
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH ab_file IN ~book27.itm~ ~book39.itm~ BEGIN
+ COPY_EXISTING ~%ab_file%~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 2 wipt_w_pr = 2 END
+ BUT_ONLY
+END
+COPY_EXISTING ~ax1h04.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 5 END
+BUT_ONLY
+COPY_EXISTING ~sw2h03.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 15 END
+BUT_ONLY
+COPY_EXISTING ~scrl05.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_un = 18094 END
+BUT_ONLY
+COPY_EXISTING ~boot06.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 4 STR_VAR wipt_w_ii = ~iboot06~ wipt_w_di = ~cboot06~ END
+BUT_ONLY
+COPY_EXISTING ~clck08.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ STR_VAR wipt_w_di = ~cclck08~ END
+BUT_ONLY
+ACTION_FOR_EACH ab_file IN ~book68~ ~helm06~ BEGIN
+ COPY_EXISTING ~%ab_file%.itm~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ STR_VAR wipt_w_ii = EVALUATE_BUFFER ~i%ab_file%~ END
+ BUT_ONLY
+END
+// ----------------------------------------------------------------------------
+//~Fix incorrect item type~
+// ----------------------------------------------------------------------------
+COPY_EXISTING ~arow13.itm~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 0x70) BEGIN                    //avoid bad files
+  WRITE_SHORT 0x1c 5  // sets to arrow rather than misc/book
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//~Fix Raise Dead Scroll targeting~
+// ----------------------------------------------------------------------------
+// Needs fixed for UB mod.
+COPY_EXISTING ~scrl63.itm~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 0x70) BEGIN                    //avoid bad files
+  READ_LONG 0x64 ~abil_loc~                               //reads ability location
+  WRITE_BYTE ("%abil_loc%" + 0xc) 3
+ END
+BUT_ONLY_IF_IT_CHANGES
+//ITEMS-GauntletsOfOgrePower.tph
+// ----------------------------------------------------------------------------
+//Gauntlets Of Ogre Power Fix
+COPY_EXISTING ~brac06.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ WRITE_BYTE %wipt_Off_u1% (%wipt_r_u1% BAND 0b10111111)
+BUT_ONLY
+//ITEMS-ArrowOfBiting.tph
+// ----------------------------------------------------------------------------
+//Arrow Of Biting Fix
+ACTION_FOR_EACH ab_file IN ~arow05.itm~ ~arow12.itm~ ~arow14.itm~ BEGIN
+ COPY_EXISTING_REGEXP ~%ab_file%~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  PATCH_IF (%wipt_r_it% = 5) BEGIN
+   FOR (index=0;index<%wipt_abil_num%;index+=1) BEGIN
+    PATCH_IF ( $wipt_r_attack("%index%") = 2) AND ( $wipt_r_flagb1("%index%") > 0) BEGIN
+     WRITE_SHORT $wipt_Off_flagb1("%index%") 0
+    END
+   END
+  END
+ BUT_ONLY_IF_IT_CHANGES
+END
+//ITEMS-AddMissingEffects.tph
+// ----------------------------------------------------------------------------
+//~Add 'Display Special Effects Icon #142' to equipping effects for ring23~
+// ----------------------------------------------------------------------------
+COPY_EXISTING ~ring23.itm~ ~override~
+ LAUNCH_PATCH_FUNCTION ~wipt_new_eqfx~ INT_VAR wipt_n_opco = 142 wipt_n_targ = 1 wipt_n_tmod = 2 wipt_n_par2 = 35 wipt_n_pro1 = 100 END
+BUT_ONLY
+// ----------------------------------------------------------------------------
+//~Add 'Remove Special Effects Icon #169' to equipping effects of sw2h06~
+// ----------------------------------------------------------------------------
+//add graphic: removal of slow icon
+COPY_EXISTING ~sw2h06.itm~ ~override~
+ LAUNCH_PATCH_FUNCTION ~wipt_new_eqfx~ INT_VAR wipt_n_opco = 169 wipt_n_targ = 1 wipt_n_tmod = 2 wipt_n_par2 = 41 wipt_n_pro1 = 100 END
+BUT_ONLY
+//add graphic: removal of stun icon
+COPY_EXISTING ~sw2h06.itm~ ~override~
+ LAUNCH_PATCH_FUNCTION ~wipt_new_eqfx~ INT_VAR wipt_n_opco = 169 wipt_n_targ = 1 wipt_n_tmod = 2 wipt_n_par2 = 55 wipt_n_pro1 = 100 END
+BUT_ONLY
+// ----------------------------------------------------------------------------
+// Add electricity resistance to a cloak/robe
+// ----------------------------------------------------------------------------
+COPY_EXISTING ~clck11.itm~ ~override~
+ LAUNCH_PATCH_FUNCTION ~wipt_new_eqfx~ INT_VAR wipt_n_opco = 29 wipt_n_targ = 1 wipt_n_tmod = 2 wipt_n_par1 = 20 wipt_n_pro1 = 100 END
+BUT_ONLY
+//ITEMS-AdjustAttackAnimation.tph
+// ----------------------------------------------------------------------------
+//~Adjust range and attack style for a few spears~
+// ----------------------------------------------------------------------------
+COPY_EXISTING ~sper02.itm~ ~override~
+              ~sper03.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ FOR(x=0;x<%wipt_abil_num%;x+=1)BEGIN
+  PATCH_IF ($wipt_r_attack("%x%") = 1) BEGIN
+   WRITE_SHORT $wipt_Off_range("%x%") 2    //range
+   WRITE_SHORT $wipt_Off_ohand("%x%") 0    //overhand
+   WRITE_SHORT $wipt_Off_bhand("%x%") 0    //backhand
+   WRITE_SHORT $wipt_Off_thrust("%x%") 100  //thrust
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+//ITEMS-AssignCorrectUseLocationForAbilities.tph
+// ----------------------------------------------------------------------------
+/* fix magic items in wrong ability use location  --  */
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH file IN ~magiweb.itm~ ~scrl3g.itm~ ~scrlzy.itm~ ~scrlzz.itm~ BEGIN
+COPY_EXISTING ~%file%~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 0x70) BEGIN                           //avoid bad files
+  READ_LONG 0x6a ~fx_loc~                                        //reads location of effects
+  READ_SHORT 0x70 ~fx_num~                                       //reads # of equipping effects
+  READ_LONG 0x64 ~abil_loc~                                      //reads ability location
+  READ_SHORT 0x68 ~abil_num~                                     //reads # of abilities
+  FOR(x = 0; x < %abil_num%; x = x + 1) BEGIN                    //loops through abilities
+   READ_BYTE  ("%abil_loc%" + 0x00 + (0x38 * "%x%")) "type"      //reads attack type
+   READ_BYTE  ("%abil_loc%" + 0x02 + (0x38 * "%x%")) "slot"      //reads Use location
+   READ_ASCII ("%abil_loc%" + 0x04 + (0x38 * "%x%")) "icon"      //reads icon file name
+   READ_SHORT ("%abil_loc%" + 0x1e + (0x38 * "%x%")) ~wpfx_num~  //reads # of weapon effects
+   READ_SHORT ("%abil_loc%" + 0x20 + (0x38 * "%x%")) ~wpfx_loc~  //index of weapon effects in effects block
+   PATCH_IF (~%type%~ = 3) && (~%slot%~ != 3) BEGIN
+    WRITE_BYTE ("%abil_loc%" + 0x02 + (0x38 * "%x%")) 3          //sets Use location to #3 equipment
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END
+//ITEMS-CorrectInternalMisspelledRESREFS.tph
+// ----------------------------------------------------------------------------
+// fix ability header use icon -- correct spelling
+// ----------------------------------------------------------------------------
+COPY_EXISTING ~arow1a.itm~ ~override~ // <-- Not Used by Easy TuTu without TOTSC -- junk/Totsc file ?
+ PATCH_IF (%SOURCE_SIZE% > 0x70) BEGIN                           //avoid bad files
+  READ_LONG 0x6a ~fx_loc~                                        //reads location of effects
+  READ_SHORT 0x70 ~fx_num~                                       //reads # of equipping effects
+  READ_LONG 0x64 ~abil_loc~                                      //reads ability location
+  READ_SHORT 0x68 ~abil_num~                                     //reads # of abilities
+  FOR(x = 0; x < %abil_num%; x = x + 1) BEGIN                    //loops through abilities
+   WRITE_ASCII  ("%abil_loc%" + 0x04 + (0x38 * "%x%")) ~IAROW01~
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+//ITEMS-MakePotionEqualSpell.tph
+// ----------------------------------------------------------------------------
+// Adjust potion to act like spell due to description
+//coded by Ascension64 for Unfinished Business
+//Change "Immunity to Charm creature" effect to "Immunity to Hold creature type" like Free Action spell
+COPY_EXISTING ~POTN45.ITM~ ~override~
+  READ_LONG 0x64 abil_off
+  READ_SHORT 0x68 abil_num
+  READ_LONG 0x6a fx_off
+  FOR (i = 0; i < "%abil_num%"; i += 1) BEGIN
+    READ_SHORT (%abil_off% + %i% * 0x38 + 0x1E) fx_abil_num
+    READ_SHORT (%abil_off% + %i% * 0x38 + 0x20) fx_abil_idx
+    FOR (j = %fx_abil_idx%; j < %fx_abil_idx% + %fx_abil_num%; j +=1) BEGIN
+      READ_SHORT (%fx_off% + %j% * 0x30) fx_type
+      READ_LONG (%fx_off% + %j% * 0x30 + 0x8) fx_param2
+      PATCH_IF (%fx_type% = 101) AND (%fx_param2% = 5) BEGIN //Immunity to effect [101]: Charm creature [5]
+        WRITE_LONG (%fx_off% + %j% * 0x30 + 0x8) 175 //Hold creature type
+      END
+      READ_LONG (%fx_off% + %j% * 0x30 + 0x0e) fx_duration
+      PATCH_IF (%fx_type% = 142) AND (%fx_duration% = 120) BEGIN
+        WRITE_LONG (%fx_off% + %j% * 0x30 + 0x0e) 600   // duration of spell
+      END
+    END
+  END
+BUT_ONLY_IF_IT_CHANGES
+//ITEMS-MatchDescription.tph
+// ----------------------------------------------------------------------------
+//~Adjust Timing to equal description for potn36~
+// ----------------------------------------------------------------------------
+COPY_EXISTING ~potn36.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ FOR(x=0;x<%wipt_abil_num%;x+=1)BEGIN
+  FOR(y=0;y<($wipt_abilfx_num("%x%"));y+=1)BEGIN
+   PATCH_IF ($wipt_r_dura("%y%") = 1260) BEGIN
+    WRITE_LONG $wipt_Off_dura("%y%") 900 //sets timing to three game hours as description states.
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// remove THAC0 and damage bonuses as they are not mentioned in the description
+COPY_EXISTING ~Arow08.itm~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+  READ_LONG   0x64 "abil_off"
+  READ_SHORT  0x68 "abil_num"
+  FOR (index = 0; index < abil_num; index = index + 1) BEGIN
+   WRITE_SHORT (%abil_off% + (%index% * 0x38) + 0x14) 0 //THAC0 Bonus
+   WRITE_SHORT (%abil_off% + (%index% * 0x38) + 0x1a) 0 //Damage Bonus
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+//ITEMS-NoDispelColors.tph
+// ----------------------------------------------------------------------------
+//correct dispellability and timing of color setting on global/equipped effects
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH ab_file IN ~ax1h04~ ~ax1h05~ ~ax1h06~ ~blun01~ ~blun04~ ~blun06~ ~bow02~ ~bow05~ ~bow06~ ~bow08~ ~bow09~ ~bow99~ ~bownon~ ~cattac1~
+~dagg04~ ~dagg05~ ~daggshit~ ~halb01~ ~halbrd01~ ~hamm01~ ~helm03~ ~helm04~ ~helm07~ ~iax1h01~ ~iblun04~ ~ibow03~ ~ihamm01~ ~mage02~ ~slimed2~
+~sw1h08~ ~sw1h14~ ~sw1h99~ ~sw2h01~ ~sw2h01b~ ~sw2h02~ ~sw2h05~ ~xbow01~ ~xbow03~ BEGIN
+ COPY_EXISTING ~%ab_file%.itm~ ~override~
+  LAUNCH_PATCH_MACRO ~wipt_item_reader~
+  FOR (idx=0;idx<%wipt_eqfx_num%;idx+=1) BEGIN
+   PATCH_IF ($wipt_r_opco("%idx%") = 7) BEGIN
+    LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_tmod = 2 wipt_w_resi = 0 END
+   END
+  END
+ BUT_ONLY
+END
+//ITEMS-NoThiefSkillsOnPlateArmor.tph
+// ----------------------------------------------------------------------------
+// Change plate armor to not have thief abilities
+// ----------------------------------------------------------------------------
+// ~Disable Thief skills/stealth buttons for plat05~
+COPY_EXISTING ~plat05.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ SET dbfx = 0
+ FOR (x=0;x<%wipt_eqfx_num%;x+=1) BEGIN            //loops to read equipping effects
+  PATCH_IF ($wipt_r_opco("%x%") = 144) AND ($wipt_r_par2("%x%") != 1) BEGIN
+   WRITE_BYTE $wipt_Off_par2("%x%") 1                           //Make thief skills button disabled
+   SET x = %wipt_eqfx_num%
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES

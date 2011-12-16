@@ -1,0 +1,32 @@
+//UNLOCKED-MinorExistingContent.tph
+PRINT ~Processing UNLOCKED-MinorExistingContent.tph~
+// ----------------------------------------------------------------------------
+// Fuller will tell where Hull's sword is located -- This is a restoration
+// dudley - similar restoration
+<<<<<<<< .../d-inlined/dlg-changes.d
+REPLACE_TRIGGER_TEXT ~fuller~ ~PartyHasItem("")~ ~!PartyHasItem("SW1H12")
+Global("HelpHull","GLOBAL",1)~
+
+REPLACE_ACTION_TEXT ~hull~ ~SetGlobal("HelpHull","GLOBAL",1)~ ~SetGlobal("HelpHull","GLOBAL",2)~
+ADD_TRANS_ACTION ~hull~ BEGIN 0 END BEGIN END ~SetGlobal("HelpHull","GLOBAL",1)~
+SET_WEIGHT ~hull~ 2 #3
+REPLACE_STATE_TRIGGER ~hull~ 2 ~Global("HelpHull","GLOBAL",1)~
+>>>>>>>>
+COMPILE ~.../d-inlined/dlg-changes.d~
+//UNLOCKED-NoblesBanterCandlekeepInn.tph
+// ----------------------------------------------------------------------------
+// The Nobleman and Noblewoman in the backroom main floor of Winthrop's Inn will now banter with the player -- restoration
+// dudley - similar restoration BUT this uses existing text
+<<<<<<<< .../d-inlined/dlg-changes.d
+ADD_STATE_TRIGGER ~nobw4~ 5 ~!StateCheck(Myself,STATE_CHARMED)~
+ADD_STATE_TRIGGER ~nobl4~ 8 ~NumTimesTalkedToGT(0)
+ReactionLT(LastTalkedToBy(),FRIENDLY_LOWER)~
+REPLACE_STATE_TRIGGER ~nobl4~ 9 ~NumTimesTalkedToGT(0)
+ReactionGT(LastTalkedToBy(),NEUTRAL_UPPER)~
+ADD_TRANS_ACTION ~nobl4~ BEGIN 7 END BEGIN END ~GiveGoldForce(20)~
+SET_WEIGHT ~nobl4~ 7 #0
+SET_WEIGHT ~nobl4~ 8 #1
+SET_WEIGHT ~nobl4~ 9 #2
+SET_WEIGHT ~nobl4~ 0 #3
+>>>>>>>>
+COMPILE ~.../d-inlined/dlg-changes.d~

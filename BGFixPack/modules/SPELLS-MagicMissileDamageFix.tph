@@ -1,3 +1,5 @@
+//SPELLS-MagicMissileDamageFix.tph
+PRINT ~Processing SPELLS-MagicMissileDamageFix.tph~
 // ----------------------------------------------------------------------------
 //Magic Missile Damage Fix
 COPY_EXISTING ~spwi003.spl~ ~override~

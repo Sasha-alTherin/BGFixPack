@@ -1,0 +1,16 @@
+//ISSUES-YeslickKickoutLoopFix.tph
+PRINT ~Processing ISSUES-YeslickKickoutLoopFix.tph~
+// ----------------------------------------------------------------------------
+// Prevent the Yeslick kickout loop
+//~Fix Yeslick kickout looping issue~
+COPY_EXISTING ~yeslick.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+   REPLACE_TEXTUALLY EXACT_MATCH ~GlobalTimerExpired("Yeslick","GLOBAL")~ ~GlobalTimerExpired("Yeslick","GLOBAL") !Global("MineFlood","GLOBAL",2)~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+<<<<<<<< .../d-inlined/dlg-changes.d
+REPLACE_TRIGGER_TEXT ~yeslij~ ~False()~ ~GlobalTimerExpired("Yeslick","GLOBAL")
+Global("MineFlood","GLOBAL",1)~
+ADD_TRANS_ACTION ~yeslij~ BEGIN 3 END BEGIN END ~SetGlobal("MineFlood","GLOBAL",2)~
+>>>>>>>>
+COMPILE ~.../d-inlined/dlg-changes.d~

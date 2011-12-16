@@ -1,14 +1,7 @@
-//scriptfixes.tph -- patches which solely affect scripts
+//SCRIPTS-ScriptingNameMatching.tph
+PRINT ~Processing SCRIPTS-ScriptingNameMatching.tph~
 // ----------------------------------------------------------------------------
-// Voices during cutscene were too close -- a slight pause was given
-// non-dudley & non-baldurdash
-COPY_EXISTING ~ch1cut03.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
-  REPLACE_TEXTUALLY EXACT_MATCH ~MoveToPoint([3280.1330])~ ~MoveToPoint([3280.1330])
-Wait(2)~
- COMPILE_BAF_TO_BCS
-BUT_ONLY_IF_IT_CHANGES
-// ----------------------------------------------------------------------------
+// scripting name changes in scripts to match existing scripting name on character
 COPY_EXISTING AR0612.BCS OVERRIDE
   DECOMPILE_BCS_TO_BAF
   REPLACE_TEXTUALLY ~Exists(\"TRALIT\")~ ~Exists("TRALITHAN")~
@@ -41,14 +34,3 @@ COPY_EXISTING AR1300.BCS OVERRIDE
   REPLACE_TEXTUALLY ~Exists(\"ALANBL\")~ ~Exists("ALAN")~
   COMPILE_BAF_TO_BCS
 BUT_ONLY_IF_IT_CHANGES
-
-ACTION_IF (GAME_IS ~totsc~) BEGIN
-// ----------------------------------------------------------------------------
-//Bone Wardstone Doesn't Disable Rune Traps Fix
- COPY_EXISTING ~trapdis.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
-   REPLACE_TEXTUALLY ~Range(LastTrigger,5)~ ~Range(LastTrigger,9)~
-  COMPILE_BAF_TO_BCS
- BUT_ONLY_IF_IT_CHANGES
-
- END

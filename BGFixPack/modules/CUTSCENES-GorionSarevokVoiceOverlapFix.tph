@@ -1,0 +1,11 @@
+//CUTSCENES-GorionSarevokVoiceOverlapFix.tph
+PRINT ~Processing CUTSCENES-GorionSarevokVoiceOverlapFix.tph~
+// ----------------------------------------------------------------------------
+// Voices during cutscene were too close -- a slight pause was given
+// non-dudley & non-baldurdash
+COPY_EXISTING ~ch1cut03.bcs~ ~override~
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~StartDialog("cutsar",Player1)~ ~Wait(2)
+StartDialog("cutsar",Player1)~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES

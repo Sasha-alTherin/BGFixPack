@@ -1,0 +1,58 @@
+//AREA-RealignContainerHighlights.tph
+PRINT ~Processing AREA-RealignContainerHighlights.tph~
+// ----------------------------------------------------------------------------
+// Container highlights not correctly highlighting container
+// ----------------------------------------------------------------------------
+//Dudley info:
+//AR0105.ARE -- 1. Blade and Stars, 1st level - has a barrel and sack with mismatched highlights.
+//AR0004.ARE -- 1. Cabinet highlight is not accurately drawn around the container.
+//AR0018.ARE -- 1. Two cabinets and wardrobe highlights are not accurately drawn around the containers.
+//AR0101.ARE -- 1. Chest highlight in lounge is not accurately drawn around the container.
+//AR0709.ARE -- 1. Barrel highlight is not accurately drawn around the container.
+//AR0715.ARE -- 1. Barrel highlight is not accurately drawn around the container.
+//AR0159.ARE -- 1. Barrel highlight is not accurately drawn around the container.
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Edit~
+INT_VAR
+ab_bbox_Xlo = 125 //bounding box low x value
+ab_bbox_Ylo = 238 //bounding box low y value
+ab_bbox_Xhi = 144 //bounding box high x value
+ab_bbox_Yhi = 266 //bounding box high y value
+ab_cont_idx = 0   //index number of container to edit -- 0 for first; 1 for second; 2 for third; etc...
+ab_Vx_X_0 = 144     //x value for point 0
+ab_Vx_Y_0 = 260     //y value for point 0
+ab_Vx_X_1 = 140     //x value for point 1
+ab_Vx_Y_1 = 266     //y value for point 1
+ab_Vx_X_2 = 130     //x value for point 2
+ab_Vx_Y_2 = 266     //y value for point 2
+ab_Vx_X_3 = 125     //x value for point 3
+ab_Vx_Y_3 = 260     //y value for point 3
+ab_Vx_X_4 = 125     //x value for point 4
+ab_Vx_Y_4 = 243     //y value for point 4
+ab_Vx_X_5 = 128     //x value for point 5
+ab_Vx_Y_5 = 239     //y value for point 5
+ab_Vx_X_6 = 133     //x value for point 6
+ab_Vx_Y_6 = 238     //y value for point 6
+ab_Vx_X_7 = 140     //x value for point 7
+ab_Vx_Y_7 = 239     //y value for point 7
+ab_Vx_X_8 = 144     //x value for point 8
+ab_Vx_Y_8 = 244     //y value for point 8
+STR_VAR
+ab_file = ~ar0159.are~  //file to edit
+END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Edit~ INT_VAR ab_bbox_Xlo = 1168 ab_cont_idx = 3 ab_Vx_X_0 = 1168 ab_Vx_X_1 = 1168 ab_Vx_X_2 = 1168
+STR_VAR ab_file = ~ar0101.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~
+INT_VAR
+ab_cont_idx = 0   //index number of container to edit -- 0 for first; 1 for second; 2 for third; etc...
+ab_shift_Y = 6    //shift ALL y coordinates by value
+ab_add_y = 1      //1=add;0=subtract
+STR_VAR
+ab_file = ~ar0105.are~  //file to edit
+END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 1 ab_shift_Y = 6 ab_add_y = 0 STR_VAR ab_file = ~ar0105.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 2 ab_shift_Y = 6 ab_add_y = 1 STR_VAR ab_file = ~ar0004.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 12 ab_add_y = 1 ab_shift_X = 6 ab_add_x = 0 STR_VAR ab_file = ~ar0018.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 1 ab_shift_Y = 12 ab_add_y = 1 ab_shift_X = 6 ab_add_x = 0 STR_VAR ab_file = ~ar0018.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 2 ab_shift_Y = 12 ab_add_y = 1 ab_shift_X = 6 ab_add_x = 0 STR_VAR ab_file = ~ar0018.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 4 ab_add_y = 0 ab_shift_X = 1 ab_add_x = 0 STR_VAR ab_file = ~ar0709.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 4 ab_add_y = 0 ab_shift_X = 1 ab_add_x = 0 STR_VAR ab_file = ~ar0715.are~ END

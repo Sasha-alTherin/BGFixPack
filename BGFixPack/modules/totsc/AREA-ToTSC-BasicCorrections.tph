@@ -1,0 +1,58 @@
+//AREA-ToTSC-BasicCorrections.tph
+PRINT ~Processing AREA-ToTSC-BasicCorrections.tph~
+// ----------------------------------------------------------------------------
+// AR0300 (renamed AR7400): Door 1 to the Counting House set as locked as described by Jacil
+// door labeled Door0307 is locked in vanilla and not locked in totsc -- lock it to be consistent?
+COPY_EXISTING ~ar0300.are~ ~override~
+ READ_LONG 0x00a4 ~doornum~
+ READ_LONG 0x00a8 ~dooroff~
+ FOR(x=0;x<%doornum%;x+=1)BEGIN
+  READ_ASCII (%dooroff% + (200*%x%)) ~doorname~
+//  PATCH_PRINT ~Door#: %doornum%  -- has name: %doorname%~
+  PATCH_IF (~Door0307~ STRING_EQUAL_CASE ~%doorname%~) BEGIN
+   READ_LONG (%dooroff% + (200*%x%)+0x0028) ~flags~
+   WRITE_LONG (%dooroff% + (200*%x%)+0x0028) (%flags% BOR 0b0000000000010)
+   SET x=%doornum%
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+//AR0511 (renamed ARD011): Trap 4 added flag ‘Detectable trap’; Trap 15 corrected to Proximity trigger, was Info trigger;
+//Corrected undroppable Lard Shield (SHLD18) to a droppable one (SHLD15)
+//dudley -- Change Item 3 in Container 8 from HELM13.ITM to HELM10.ITM.
+COPY_EXISTING ~ar0511.are~ ~override~
+ READ_SHORT 0x005a ~regionnum~
+ READ_LONG 0x005c ~regionoff~
+ FOR(x1=0;x1<%regionnum%;x1+=1)BEGIN
+  READ_ASCII (%regionoff% + (0xc4*%x1%)) ~regionname~ (5)
+  PATCH_IF (~Trap4~ STRING_EQUAL_CASE ~%regionname%~) BEGIN
+   READ_LONG (%regionoff% + (0xc4*%x1%)+0x0060) ~flags~
+   WRITE_LONG (%regionoff% + (0xc4*%x1%)+0x0060) (%flags% BOR 0b1000)
+   SET x1=%regionnum%
+  END
+ END
+ FOR(x2=0;x2<%regionnum%;x2+=1)BEGIN
+  READ_ASCII (%regionoff% + (0xc4*%x2%)) ~regionname~ (7)
+  PATCH_IF (~Trap 15~ STRING_EQUAL_CASE ~%regionname%~) BEGIN
+   WRITE_SHORT (%regionoff% + (0xc4*%x2%)+0x0020) 0
+   SET x2=%regionnum%
+  END
+ END
+ READ_SHORT 0x0076 ~itemnum~
+ READ_LONG 0x0078 ~itemoff~
+ FOR(x3=0;x3<%itemnum%;x3+=1)BEGIN
+  READ_ASCII (%itemoff% + (%x3%*0x14)) ~itemname~
+  PATCH_IF (~shld18~ STRING_EQUAL_CASE ~%itemname%~) BEGIN
+   WRITE_ASCII (%itemoff% + (%x3%*0x14)) ~shld15~ (8)
+   SET x3=%itemnum%
+  END
+ END
+ FOR(x4=0;x4<%itemnum%;x4+=1)BEGIN
+  READ_ASCII (%itemoff% + (%x4%*0x14)) ~itemname~
+  PATCH_IF (~helm13~ STRING_EQUAL_CASE ~%itemname%~) BEGIN
+   WRITE_ASCII (%itemoff% + (%x4%*0x14)) ~helm10~ (8)
+   SET x4=%itemnum%
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+

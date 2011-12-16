@@ -1,0 +1,48 @@
+//ITEMS-ToTSC-BasicCorrections.tph
+PRINT ~Processing ITEMS-ToTSC-BasicCorrections.tph~
+// ----------------------------------------------------------------------------
+//Thief Scimitar Use Fix 
+ ACTION_FOR_EACH ab_file IN ~sw1h20.itm~ ~sw1h22.itm~ ~sw1h23.itm~ BEGIN
+  COPY_EXISTING ~%ab_file%~ ~override~
+   LAUNCH_PATCH_MACRO ~wipt_item_reader~
+   WRITE_BYTE %wipt_Off_u3% (%wipt_r_u3% BAND 0b10110111)
+  BUT_ONLY
+ END
+// ----------------------------------------------------------------------------
+// Weight and Name Changes non GTU dependent
+// BAM references are corrected
+// Some books need price and weight
+// ----------------------------------------------------------------------------
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~brac11.itm~ ab_ii = ~ibrac11~ ab_di = ~cbrac11~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc65.itm~ ab_ii = ~imisc65~ ab_gi = ~gmisc65~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc67.itm~ ab_ii = ~imisc66~ ab_gi = ~gmisc66~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc68.itm~ ab_ii = ~imisc68~ ab_di = ~cmisc79~ ab_gi = ~gmisc68~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc1h.itm~ ab_gi = ~gblun06~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc1b.itm~ ab_di = ~cmisc1b~ ab_gi = ~gdagg01~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc70.itm~ ab_ii = ~imisc70~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc71.itm~ ab_ii = ~imisc71~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc75.itm~ ab_ii = ~imisc75~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc77.itm~ ab_ii = ~imisc77~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc1a.itm~ ab_ii = ~imisc1a~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc62.itm~ ab_gi = ~gmisc62~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc13.itm~ ab_gi = ~gmisc13~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc92.itm~ ab_gi = ~gmisc92~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc94.itm~ ab_gi = ~gmisc94~ END
+ LAUNCH_ACTION_FUNCTION ~ab_Item_Header_Edit~ STR_VAR ab_file = ~misc95.itm~ ab_gi = ~gmisc95~ END
+
+// ----------------------------------------------------------------------------
+// Speed adjustment to Bala's Axe
+// change speed to 7
+//also in UB's "Item Corrections and Restorations" component
+//UB modifies the description of this item.  Needs to be checked to determine if GTU should be adjusted.
+// Removes the following sentence from the description of Bala's Axe: "The axe gives the owner the ability to dispel magic once a day."
+ COPY_EXISTING ~ax1h07.itm~ ~override~ //dudley/totsc item
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+   READ_LONG   0x64 "abil_off"
+   READ_SHORT  0x68 "abil_num"
+   FOR (index = 0; index < abil_num; index = index + 1) BEGIN
+    WRITE_SHORT (%abil_off% + (%index% * 0x38) + 0x12) 7 //Speed
+   END
+  END
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------

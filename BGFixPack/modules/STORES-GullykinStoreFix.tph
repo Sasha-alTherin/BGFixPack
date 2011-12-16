@@ -1,0 +1,16 @@
+//STORES-GullykinStoreFix.tph
+PRINT ~Processing STORES-GullykinStoreFix.tph~
+// ----------------------------------------------------------------------------
+// Gullykin temple no longer shares stock with Nashkell temple
+// ----------------------------------------------------------------------------
+ACTION_IF !(FILE_EXISTS_IN_GAME ~TEM4003.sto~) THEN BEGIN // if Gullykin does not have a store already
+ COPY_EXISTING ~TEM4802.sto~ ~override/TEM4003.sto~ // clones and renames Temple of Helm
+  WRITE_LONG 0x0C 20713 //assign the text string directly rather than the words.
+ BUT_ONLY_IF_IT_CHANGES
+END
+<<<<<<<< alvan.d
+REPLACE_ACTION_TEXT alvahe
+  ~StartStore("Tem4802",LastTalkedToBy())~
+  ~StartStore("TEM4003",LastTalkedToBy())~
+>>>>>>>>
+COMPILE ~alvan.d~

@@ -1,0 +1,37 @@
+//AREA-MissingAmbients.tph
+PRINT ~Processing AREA-MissingAmbients.tph~
+// ----------------------------------------------------------------------------
+//~Replace missing ambient sounds with existing sounds~
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH file IN ~ar0100.are~ ~ar0200.are~ ~ar0300.are~ ~ar0400.are~ ~ar0600.are~ ~ar0621.are~
+~ar0800.are~ ~ar1100.are~ ~ar1200.are~ ~ar1400.are~ ~ar1900.are~ ~ar3300.are~ ~ar4200.are~ ~ar4300.are~
+~ar4700.are~ ~ar5400.are~ ~ar5500.are~ BEGIN
+COPY_EXISTING ~%file%~ ~override~
+ PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN // avoid invalid file
+  READ_SHORT 0x82 "amb_num"
+  READ_LONG  0x84 "amb_off"
+  FOR (index = 0 ; index < amb_num ; index = index + 1) BEGIN
+   FOR (index2 = 0 ; index2 < 10 ; index2 = index2 + 1) BEGIN
+    READ_ASCII ("%amb_off%" + 0x30 + ("%index2%" * 0x08) + (0xd4 * "%index%")) "resref"
+    PATCH_IF (("%resref%" STRING_COMPARE_CASE "") AND ("%resref%" STRING_COMPARE_CASE "none")) BEGIN
+     SET "exists" = 0
+     INNER_PATCH_FILE ~%resref%.wav~ BEGIN
+      SET "exists" = 1
+     END
+     PATCH_IF ("%exists%" = 0) BEGIN
+      PATCH_IF (~%resref%~ STRING_COMPARE_REGEXP ~AMB_M46A~ =0) BEGIN
+       WRITE_ASCII ("%amb_off%" + 0x30 + ("%index2%" * 0x08) + (0xd4 * "%index%")) "AMB_E46A"
+      END
+      PATCH_IF (~%resref%~ STRING_COMPARE_REGEXP ~AMB_M46B~ =0) BEGIN
+       WRITE_ASCII ("%amb_off%" + 0x30 + ("%index2%" * 0x08) + (0xd4 * "%index%")) "AMB_E46B"
+      END
+      PATCH_IF (~%resref%~ STRING_COMPARE_REGEXP ~AMB_E05C~ =0) BEGIN
+       WRITE_ASCII ("%amb_off%" + 0x30 + ("%index2%" * 0x08) + (0xd4 * "%index%")) "AMB_E05D"
+      END
+     END
+    END
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END //end action for each

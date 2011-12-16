@@ -1,0 +1,9 @@
+//SCRIPTS-ToTSC-BasicCorrections.tph
+PRINT ~Processing SCRIPTS-ToTSC-BasicCorrections.tph~
+// ----------------------------------------------------------------------------
+//Bone Wardstone Doesn't Disable Rune Traps Fix
+ COPY_EXISTING ~trapdis.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+   REPLACE_TEXTUALLY ~Range(LastTrigger,5)~ ~Range(LastTrigger,9)~
+  COMPILE_BAF_TO_BCS
+ BUT_ONLY_IF_IT_CHANGES

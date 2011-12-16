@@ -1,0 +1,65 @@
+//ISSUES-LothanderAndMarekOtherSolutions.tph
+PRINT ~Processing ISSUES-LothanderAndMarekOtherSolutions.tph~
+// ----------------------------------------------------------------------------
+// Lothander doesn't loop & speaks up - Marek can be charmed or pickpocketed to solve quest
+// ----------------------------------------------------------------------------
+//~Fixes Lothander loop at Blade and Stars~
+<<<<<<<< .../d-inlined/dlg-changes.d
+REPLACE_TRIGGER_TEXT lothan ~SetGlobal(~ ~Global(~ //0,10
+>>>>>>>>
+COMPILE ~.../d-inlined/dlg-changes.d~
+ACTION_IF !(GAME_IS ~totsc~) THEN BEGIN
+<<<<<<<< .../d-inlined/dlg-changes.d
+REPLACE_TRANS_ACTION lothan BEGIN 14 END BEGIN 0 END ~Global("LothanderMove","GLOBAL",5)~ ~SetGlobal("LothanderMove","GLOBAL",5)~
+>>>>>>>>
+COMPILE ~.../d-inlined/dlg-changes.d~
+END
+//~Allow Lothander to initiate dialog after seeing diviner~
+//allows Lothander to initate dialog when PC leaves the diviners tent
+//many people forget to talk to him here
+<<<<<<<< inlined/abgfinit.baf
+IF
+  See([PC])
+THEN
+  RESPONSE #100
+    Dialogue([PC])
+END
+>>>>>>>>
+COMPILE ~inlined/abgfinit.baf~
+//this area extension changes Lothanders class script to the one above
+<<<<<<<< inlined/ab_ar0700.baf
+IF
+  Global("LothanderMove","GLOBAL",4)
+THEN
+  RESPONSE #100
+    ActionOverride("Lothander",ChangeAiScript("abgfinit",CLASS))
+END
+>>>>>>>>
+EXTEND_BOTTOM ~ar0700.bcs~ ~inlined/ab_ar0700.baf~
+//~Marek does what he says when charmed: gives antidote~
+//adjusted things to be identical with UB's  Changes are the same code is a little different.
+<<<<<<<< .../d-inlined/dlg-changes.d
+REPLACE_ACTION_TEXT marek ~DisplayString("Marek",20675)~ ~DisplayString(Player1,20675)~
+ADD_STATE_TRIGGER ~marek~ 5 ~Global("PartyCured","GLOBAL",0)~
+ADD_TRANS_ACTION ~marek~ BEGIN 5 END BEGIN END ~GiveItem("POTN47",LastTalkedToBy())
+SetGlobal("PartyCured","GLOBAL",1)
+DisplayString(Player1,20675)
+AddExperienceParty(10000)~
+>>>>>>>>
+COMPILE ~.../d-inlined/dlg-changes.d~
+//~Solve party poison quest if antidote was pickpocketed from Marek~
+//this area extension solves party poisoned quest IF the antidote was pickpocketed from Marek
+<<<<<<<< inlined/ab_ar0115.baf
+IF
+  Global("PartyCured","GLOBAL",0)
+  Exists("Marek")  // ~Marek~
+  !Dead("Marek")  // ~Marek~
+  PartyHasItem("POTN47")
+THEN
+  RESPONSE #100
+    SetGlobal("PartyCured","GLOBAL",1)
+    DisplayString("Marek",20675)
+    AddExperienceParty(10000)
+END
+>>>>>>>>
+EXTEND_BOTTOM ~ar0115.bcs~ ~inlined/ab_ar0115.baf~

@@ -1,0 +1,60 @@
+//AREA-FixDetectedAndTraplessTraps.tph
+PRINT ~Processing AREA-FixDetectedAndTraplessTraps.tph~
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH file IN ~AR0153.ARE~ ~AR1116.ARE~ ~AR1211.ARE~ ~AR2619.ARE~ ~AR3341.ARE~ ~AR3336.ARE~ ~AR0512.ARE~ ~AR0514.ARE~ ~AR1001.ARE~ BEGIN
+ACTION_IF (FILE_EXISTS_IN_GAME ~%file%~) THEN BEGIN  //one line allows for use with totsc and vanilla files rather than duplicate blocks for each game
+COPY_EXISTING_REGEXP ~%file%~ ~override~
+//remove trapped status from containers that don't have a trap script
+  READ_LONG  0x70 "cont_off"
+  READ_SHORT 0x74 "cont_num"
+  FOR(y=0;y<%cont_num%;y+=1)BEGIN
+   READ_SHORT (%cont_off% + 0x30 + (%y% * 0xc0)) trapped
+   READ_SHORT (%cont_off% + 0x32 + (%y% * 0xc0)) detected
+   READ_ASCII (%cont_off% + 0x48 + (%y% * 0xc0)) resref
+   SET "exists" = 0
+   INNER_PATCH_FILE ~%resref%.bcs~ BEGIN
+    SET "exists" = 1
+   END
+   PATCH_IF (%trapped% = 1) AND (%exists% =0) BEGIN
+    WRITE_SHORT (%cont_off% + 0x30 + (%y% * 0xc0)) 0
+   END
+  END
+//remove trapped status from doors that don't have a trap script
+  READ_LONG  0xa4 "door_num"
+  READ_LONG  0xa8 "door_off"
+  FOR(y=0;y<%door_num%;y+=1)BEGIN
+   READ_SHORT (%door_off% + 0x70 + (%y% * 0xc8)) trapped
+   READ_SHORT (%door_off% + 0x72 + (%y% * 0xc8)) detected
+   READ_ASCII (%door_off% + 0x80 + (%y% * 0xc8)) resref
+   SET "exists" = 0
+   INNER_PATCH_FILE ~%resref%.bcs~ BEGIN
+    SET "exists" = 1
+   END
+   PATCH_IF (%trapped% = 1) AND (%exists% =0) BEGIN
+    WRITE_SHORT (%door_off% + 0x70 + (%y% * 0xc8)) 0
+   END
+  END
+BUT_ONLY
+END
+END
+// ----------------------------------------------------------------------------
+//~Make detected trapped containers undetected~
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH file IN ~ar0500~ ~ar0511~ ~ar0512~ ~ar0513~ ~ar0514~ ~ar1501~ ~ar1502~ ~ar1503~ ~ar1504~ ~ar3336~ BEGIN
+ACTION_IF (FILE_EXISTS_IN_GAME ~%file%.are~) THEN BEGIN  //one line allows for use with totsc and vanilla files rather than duplicate blocks for each game
+COPY_EXISTING_REGEXP ~%file%.are~ ~override~
+ PATCH_IF (%SOURCE_SIZE% > 0xd4) BEGIN
+  READ_LONG  0x70 "cont_off"
+  READ_SHORT 0x74 "cont_num"
+  FOR (index = 0; index < cont_num; index += 1) BEGIN
+   READ_SHORT ("%cont_off%" + 0x30 + ("%index%" * 0xc0)) "trapped"
+   READ_SHORT ("%cont_off%" + 0x32 + ("%index%" * 0xc0)) "detected"
+/* fix detected container trap --  */
+   PATCH_IF (("%trapped%" = 1) AND ("%detected%" = 1)) BEGIN
+    WRITE_SHORT ("%cont_off%" + 0x32 + ("%index%" * 0xc0)) 0
+   END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END
+END

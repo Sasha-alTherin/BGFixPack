@@ -1,13 +1,12 @@
 // Macintosh ToTSC Fixes -- Missing 5512 patch changes -- by DevSin
 // ----------------------------------------------------------------------------
-PRINT ~Processing mac-fixes-by-devsin.tph~
 // Mac TotSC missing resource changes from PC patch 5512
 ACTION_IF (("%WEIDU_OS%" STRING_COMPARE_CASE "osx" = 0) && (GAME_IS ~totsc~)) THEN BEGIN
  PRINT ~Installing missing Mac 5512 patch files -- by DevSin~
 // ----------------------------------------------------------------------------
 // Correct scroll icons (iscrl5a-q); Karoug script (initinv2)
 //install missing Mac version files
- COPY ~bgfixpack/files/mac~ ~override~
+ COPY ~bgfixpack\initialization\mac_files~ ~override~
 // ----------------------------------------------------------------------------
 // Replaces entry for Wraithform
  COPY_EXISTING ~rndscrol.2da~ ~override~
@@ -219,7 +218,4 @@ ADD_STATE_TRIGGER silke 1 ~!Dead("Garrick")~
    END
   END
  BUT_ONLY_IF_IT_CHANGES
-END
-ELSE BEGIN
- PRINT ~No need to process mac-fixes-by-devsin.tph as your machine is not a mac~
 END
