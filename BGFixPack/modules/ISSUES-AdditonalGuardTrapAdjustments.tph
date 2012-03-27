@@ -1,0 +1,96 @@
+PRINT ~Processing ISSUES-AdditonalGuardTrapAdjustments.tph~
+SILENT
+
+//Sleeping creature specifics for trap scripting
+ACTION_FOR_EACH tcre IN ~sleepdw~ ~sleepel~ ~sleepfat~ ~sleepfh~ ~sleephal~ ~sleepmh~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      WRITE_BYTE 0x270 127 //Specific (sleeping) -- changing to EA instead of specific
+    BUT_ONLY
+  END
+END
+
+//Add humanoid and non-sleeping checks to guard summoning scripts
+//add a short range check so that it helps to reduce the chances of being caught anytime after the container has been 'closed' (requires player to move out of range :P )
+//add a short timer to help prevent multiple guard spawns in cases where the container cannot 'see' the spawn point.
+ACTION_FOR_EACH tbcs IN ~act01~ ~act02~ ~act03~ ~act04~ ~act05~ ~act06~ ~act07~ ~act08~ ~act09~ ~act10~ ~act11~ ~act12~ ~act13~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tbcs%.bcs~ BEGIN
+    COPY_EXISTING ~%tbcs%.bcs~ ~override~
+      DECOMPILE_AND_PATCH BEGIN
+        COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~Range(~ tsp1
+        PATCH_IF (tsp1 < 1) BEGIN
+          REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~See([NOTGOOD])~ ~Range ([PC],2) See([NEUTRAL]) General(LastSeenBy(),HUMANOID) !StateCheck(LastSeenBy(),CD_STATE_NOTVALID) !See("WatcherEnforcer") !See("FlamingEnforcer") !See("AmnishEnforcer") !See("Guard") !See("HouseEnforcer") !GlobalTimerNotExpired("abCalledGuards","GLOBAL")~
+        END
+      END
+    BUT_ONLY
+    COPY_EXISTING ~%tbcs%.bcs~ ~override~
+      DECOMPILE_AND_PATCH BEGIN
+        COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~SetGlobalTimer(~ tsp1
+        PATCH_IF (tsp1 < 1) BEGIN
+          REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~DisplayString(~ ~SetGlobalTimer("abCalledGuards","GLOBAL",12) DisplayString(~
+        END
+      END
+    BUT_ONLY
+  END
+END
+
+//Nashkel Barracks -- getting the guards to perform properly
+//Amnish captain tells his lieutenants to leave when he does
+//amnise2.cre turns hostile but doesn't attack - script leveling issue after other corrections raise the attacking script up to a higher level
+ACTION_IF FILE_EXISTS_IN_GAME ~amnise2.cre~ BEGIN
+ COPY_EXISTING ~amnise2.cre~ ~override~
+  WRITE_BYTE 0x273 155 //class -- innocent -- changed from fighter
+  READ_ASCII 0x258 rscript
+  READ_ASCII 0x268 dscript
+  PATCH_IF !(FILE_EXISTS_IN_GAME ~%rscript%.bcs~) BEGIN
+   WRITE_EVALUATED_ASCII 0x258 ~%dscript%~
+   WRITE_EVALUATED_ASCII 0x268 ~%rscript%~
+  END
+ BUT_ONLY
+END
+<<<<<<<< t-amnise.d
+REPLACE_ACTION_TEXT amnise ~TakePartyGold(200)~  ~TakePartyGold(200) Shout(2)~
+>>>>>>>>
+COMPILE ~t-amnise.d~
+//Amnish lieutenants leave if captain leaves
+COPY_EXISTING ~amnise2.bcs~ ~override~
+  PATCH_IF (INDEX_BUFFER (~^108OB~) != `0) BEGIN
+    tsp = 1
+  END
+BUT_ONLY
+
+ACTION_IF (tsp1 < 1) BEGIN
+  <<<<<<<< t-amnis2.baf
+IF
+  Heard("AmnishEnforcer",2)
+THEN
+  RESPONSE #100
+    EscapeArea()
+END
+>>>>>>>>
+  EXTEND_BOTTOM ~amnise2.bcs~ ~t-amnis2.baf~
+END
+//make sure they turn hostile when the leader does -- they had existing script which was listening for a shout of 1 to turn them hostile... using that
+//this is backup to using normal shout script...
+<<<<<<<< amnise.baf
+IF
+	Allegiance(Myself,ENEMY)
+THEN
+	RESPONSE #100
+		Shout(1)
+END
+>>>>>>>>
+EXTEND_BOTTOM ~amnise.bcs~ ~amnise.baf~
+//make sure on duty guards go hostile too since modified shout script doesn't work for some reason
+//assign to highest level empty script slot
+COPY_EXISTING ~amnis.cre~ ~override~
+ FOR (s = 0x248; s < 0x270; s += 8) BEGIN //cycle thru script slots
+  READ_ASCII %s% script //override script
+  PATCH_IF !(FILE_EXISTS_IN_GAME ~%script%.bcs~) BEGIN
+   WRITE_ASCII_TERMINATE 0x248 ~shout~
+   SET s = 0x270 //get out when written
+  END
+ END
+BUT_ONLY
+
+

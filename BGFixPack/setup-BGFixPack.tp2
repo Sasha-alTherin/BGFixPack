@@ -7,11 +7,13 @@
 BACKUP ~BGFixPack/backup~
 AUTHOR ~~
 
+//MODDER
+
 ALLOW_MISSING
 ~bgfixpack/tph/patch2dafixes.tph~
 
 ASK_EVERY_COMPONENT
-VERSION ~0.0014~
+VERSION ~1 Beta -- Internal Release 0.0015~
 
 LANGUAGE ~English~ ~English~ ~BGFixPack/languages/English/setup.tra~
 
@@ -35,9 +37,9 @@ INCLUDE ~bgfixpack/ModuleController.tpa~
 BEGIN @2 //~Game Text Update AND File Adjustments to Match~
 REQUIRE_COMPONENT ~Setup-BGFixPack.tp2~ ~0~ @3 //~SKIPPING Required Component not installed~
 REQUIRE_PREDICATE (~%LANGUAGE%~ STRING_COMPARE_CASE ~English~ =0) @4 //~English language version required to install GTU~
-ACTION_IF (GAME_IS ~bg1~) THEN BEGIN
- INCLUDE ~bgfixpack/tph/gtu_vanilla.tph~
-END
+//all BG versions get this one
+INCLUDE ~bgfixpack/tph/gtu_vanilla.tph~
+//only totsc gets this file
 ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
  INCLUDE ~bgfixpack/tph/gtu_totsc.tph~
 END
@@ -53,18 +55,26 @@ COPY_EXISTING ~misc55.itm~ ~override~
  LAUNCH_PATCH_MACRO ~wipt_item_reader~
  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 175 END
 BUT_ONLY
+COPY_EXISTING ~misc65.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 185 wipt_w_un = 15843 END
+BUT_ONLY
+COPY_EXISTING ~misc67.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_un = 16324 END
+BUT_ONLY
+COPY_EXISTING ~misc68.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_in = 16624 wipt_w_id = 16625 END
+BUT_ONLY
+COPY_EXISTING ~misc77.itm~ ~override~
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_in = 17302 wipt_w_id = 17302 wipt_w_un = 17302 wipt_w_ud = 17302 END
+BUT_ONLY
 
-ACTION_IF (GAME_IS ~totsc~) THEN BEGIN
- COPY_EXISTING ~misc65.itm~ ~override~
-  LAUNCH_PATCH_MACRO ~wipt_item_reader~
-  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_we = 185 wipt_w_un = 15843 END
- BUT_ONLY
- COPY_EXISTING ~misc67.itm~ ~override~
-  LAUNCH_PATCH_MACRO ~wipt_item_reader~
-  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_un = 16324 END
- BUT_ONLY
- COPY_EXISTING ~misc68.itm~ ~override~
-  LAUNCH_PATCH_MACRO ~wipt_item_reader~
-  LAUNCH_PATCH_FUNCTION ~wipt_item_writer~ INT_VAR wipt_w_in = 16624 wipt_w_id = 16625 END
- BUT_ONLY
-END
+// ----------------------------------------------------------------------------
+//BEGIN ~Skip Candlekeep~
+//INCLUDE ~bgfixpack\candleskip\candleskip.tph~
+
+//BEGIN ~Testing Patch~
+//INCLUDE ~bgfixpack/tph/testpatch.tph~

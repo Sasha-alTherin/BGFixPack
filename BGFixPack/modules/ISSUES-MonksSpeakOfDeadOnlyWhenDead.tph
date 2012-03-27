@@ -1,5 +1,6 @@
 //ISSUES-MonksSpeakOfDeadOnlyWhenDead.tph
 PRINT ~Processing ISSUES-MonksSpeakOfDeadOnlyWhenDead.tph~
+SILENT
 // ----------------------------------------------------------------------------
 // Monks will appear and speak if you leave the building without killing them -- now they won't
 // dudley - DV assignment only

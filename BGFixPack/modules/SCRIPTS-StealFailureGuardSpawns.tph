@@ -1,0 +1,57 @@
+// SCRIPTS-StealFailureGuardSpawns.tph
+PRINT ~Processing SCRIPTS-StealFailureGuardSpawns.tph~
+SILENT
+
+// guard spawn locations for steal failure scripts
+// move the guards to the entrance if the spawn location is off.
+ACTION_FOR_EACH tbcs IN ~innkeep~ ~merch2~ ~merch5~ ~merch6~ ~shop03~ ~shop04~ ~shop05~ ~shop06~ ~shopkn~ BEGIN
+ ACTION_IF FILE_EXISTS_IN_GAME ~%tbcs%.bcs~ BEGIN
+  COPY_EXISTING ~%tbcs%.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+    COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("WATCHN",[554.516],0)+CreateCreature("WATCHN2",[554.516],0)~ tsp1
+    PATCH_IF (tsp1 < 1) BEGIN
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("WATCHN",[535.425],0)~ ~CreateCreature("WATCHN",[554.516],0)~ // Moved to the entrance.
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("WATCHN2",[535.425],0)~ ~CreateCreature("WATCHN2",[554.516],0)~
+    END
+    COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("AMNISE",[262.326],0)+CreateCreature("AMNISE2",[262.326],0)~ tsp2
+    PATCH_IF (tsp2 < 1) BEGIN
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("AMNISE",[390.329],0)~ ~CreateCreature("AMNISE",[262.326],0)~ // Moved to the entrance.
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("AMNISE2",[390.329],0)~ ~CreateCreature("AMNISE2",[262.326],0)~
+    END
+    COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN",[678.391],0)+CreateCreature("FLAMEN2",[678.391],0)~ tsp3
+    PATCH_IF (tsp3 < 1) BEGIN
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN",[694.372],0)~ ~CreateCreature("FLAMEN",[678.391],0)~ // Moved to the entrance.
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN2",[694.372],0)~ ~CreateCreature("FLAMEN2",[678.391],0)~
+    END
+    COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN",[558.462],0)+CreateCreature("FLAMEN2",[558.462],0)~ tsp4
+    PATCH_IF (tsp4 < 1) BEGIN
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN",[597.442],0)~ ~CreateCreature("FLAMEN",[558.462],0)~ // Moved to the entrance.
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN2",[597.442],0)~ ~CreateCreature("FLAMEN2",[558.462],0)~
+    END
+    COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("AMNISE2",[223.407],0)+CreateCreature("AMNISE2",[223.407],0)~ tsp5
+    PATCH_IF (tsp5 < 1) BEGIN
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("AMNISE",[335.396],0)~ ~CreateCreature("AMNISE",[223.407],0)~ // Moved to the entrance.
+     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("AMNISE2",[335.396],0)~ ~CreateCreature("AMNISE2",[223.407],0)~
+    END
+   END
+  BUT_ONLY
+ END
+END
+COPY_EXISTING ~shop07.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+  COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN",[558.462],0)+CreateCreature("FLAMEN2",[558.462],0)~ tsp1
+  PATCH_IF (tsp1 < 1) BEGIN
+   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN",[694.372],0)~ ~CreateCreature("FLAMEN",[558.462],0)~ // Moved to the entrance.
+   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN2",[694.372],0)~ ~CreateCreature("FLAMEN2",[558.462],0)~
+  END
+ END
+BUT_ONLY
+COPY_EXISTING ~shop08.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+  COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN",[678.391],0)+CreateCreature("FLAMEN2",[678.391],0)~ tsp1
+  PATCH_IF (tsp1 < 1) BEGIN
+   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN",[597.442],0)~ ~CreateCreature("FLAMEN",[678.391],0)~ // Moved to the entrance.
+   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~CreateCreature("FLAMEN2",[597.442],0)~ ~CreateCreature("FLAMEN2",[678.391],0)~
+  END
+ END
+BUT_ONLY

@@ -1,5 +1,6 @@
 //CUTSCENES-GorionSarevokVoiceOverlapFix.tph
 PRINT ~Processing CUTSCENES-GorionSarevokVoiceOverlapFix.tph~
+SILENT
 // ----------------------------------------------------------------------------
 // Voices during cutscene were too close -- a slight pause was given
 // non-dudley & non-baldurdash

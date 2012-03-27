@@ -1,5 +1,6 @@
 //ISSUES-BetterRatQuestCount.tph
 PRINT ~Processing ISSUES-BetterRatQuestCount.tph~
+SILENT
 // ----------------------------------------------------------------------------
 // Some instances of the rats not getting counted -- change to a more reliable method
 // non-dudley & non-baldurdash

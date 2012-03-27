@@ -1,5 +1,6 @@
 //MUSIC-MusicFixesAllAndSagaOnly.tph
 PRINT ~Processing MUSIC-MusicFixesAllAndSagaOnly.tph~
+SILENT
 // ----------------------------------------------------------------------------
 // Music fix
 //note to self make sure files are included in the directory...
@@ -8,5 +9,6 @@ COPY ~bgfixpack/files/mus~ ~music~
 ACTION_IF ( (FILE_EXISTS ~bgmain2.exe~)
       AND  !(FILE_EXISTS ~bgmain.exe~) ) THEN BEGIN
  PRINT ~installing music fixes for Saga installations~
+ SILENT
  COPY ~bgfixpack/files/sagamus~ ~music~
 END

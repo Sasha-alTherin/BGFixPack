@@ -1,5 +1,6 @@
 //ISSUES-LothanderAndMarekOtherSolutions.tph
 PRINT ~Processing ISSUES-LothanderAndMarekOtherSolutions.tph~
+SILENT
 // ----------------------------------------------------------------------------
 // Lothander doesn't loop & speaks up - Marek can be charmed or pickpocketed to solve quest
 // ----------------------------------------------------------------------------

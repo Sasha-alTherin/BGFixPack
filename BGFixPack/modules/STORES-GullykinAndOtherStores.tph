@@ -1,0 +1,269 @@
+//STORES-GullykinAndOtherStores.tph
+PRINT ~Processing STORES-GullykinAndOtherStores.tph~
+SILENT
+// ----------------------------------------------------------------------------
+// Gullykin temple no longer shares stock with Nashkell temple
+// ----------------------------------------------------------------------------
+ACTION_IF !(FILE_EXISTS_IN_GAME ~TEM4003.sto~) THEN BEGIN // if Gullykin does not have a store already
+ COPY_EXISTING ~TEM4802.sto~ ~override/TEM4003.sto~ // clones and renames Temple of Helm
+  WRITE_LONG 0x0C 20713 //assign the text string directly rather than the words.
+ BUT_ONLY_IF_IT_CHANGES
+END
+<<<<<<<< alvan.d
+REPLACE_ACTION_TEXT alvahe
+  ~StartStore("Tem4802",LastTalkedToBy())~
+  ~StartStore("TEM4003",LastTalkedToBy())~
+>>>>>>>>
+COMPILE ~alvan.d~
+
+//! Shop fixes //////////////////////////////////////////////////////////////
+ACTION_IF !(FILE_EXISTS_IN_GAME ~ubba0133.dlg~) THEN BEGIN// ~Another mod has already installed these fixes.~
+
+//Correct typos
+ACTION_IF (~%LANGUAGE%~ STRING_COMPARE_CASE ~English~ =0) THEN BEGIN
+ STRING_SET 11674 @11674 //~Elfsong Tavern~
+            20713 @20713 //~Alvanhendar's Healing and Sundries~
+  USING ~bgfixpack/languages/%LANGUAGE%/GTU_Vanilla.tra~           
+END
+
+//Reassign duplicate dialogues
+COPY_EXISTING ~bart15.dlg~ ~override/ubba0133.dlg~
+COPY_EXISTING ~merch4.dlg~ ~override/ubme0706.dlg~
+
+//Reassign launched shops to prevent duplicates
+<<<<<<<< t-shops.d
+REPLACE_ACTION_TEXT alyth
+  ~StartStore("tav0721",LastTalkedToBy())~
+  ~StartStore("tav0705",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT maltz
+  ~StartStore("sto1112",LastTalkedToBy())~
+  ~StartStore("tav0810",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT shop01
+  ~StartStore("sto1112",LastTalkedToBy())~
+  ~StartStore("tav0809",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT shop05
+  ~StartStore("sto1115",LastTalkedToBy())~
+  ~StartStore("sto1116",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT shop06
+  ~StartStore("sto1115",LastTalkedToBy())~
+  ~StartStore("sto1320",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT shop07
+  ~StartStore("sto1115",LastTalkedToBy())~
+  ~StartStore("sto1117",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT shop08
+  ~StartStore("sto1115",LastTalkedToBy())~
+  ~StartStore("sto1302",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT ubba0133
+  ~StartStore("tav0154",LastTalkedToBy())~
+  ~StartStore("tav0133",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT ubme0706
+  ~StartStore("sto4906",LastTalkedToBy())~
+  ~StartStore("ubst0706",LastTalkedToBy())~
+>>>>>>>>
+COMPILE ~t-shops.d~
+
+COPY_EXISTING ~ar0116.are~ ~override~ //Correct Helm and Cloak bartender
+  PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN
+    READ_LONG 0x54 actOff
+    FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 0x1) BEGIN
+      READ_ASCII actOff + 0x80 actor
+      PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~BART12~ = 1) BEGIN
+        WRITE_ASCII actOff + 0x80 ~BART9~ #8
+      END
+      actOff += 0x110
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ar1306.are~ ~override~ //Change bartender so that tav1215 can be renamed
+  PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN
+    READ_LONG 0x54 actOff
+    FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 0x1) BEGIN
+      READ_ASCII actOff + 0x80 actor
+      PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~BART16~ = 1) BEGIN
+        WRITE_ASCII actOff + 0x80 ~BART12~ #8
+      END
+      actOff += 0x110
+    END
+  END
+BUT_ONLY
+
+/////////////////////////////////////////////////////////////////////////////
+//Low Lantern
+COPY_EXISTING ~bart15.cre~ ~override/ubba0133.cre~
+  WRITE_ASCII 0x2cc ~ubba0133~ //Dialog
+
+COPY_EXISTING ~ar0133.are~ ~override~ //Correct Low Lantern bartender
+  PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN
+    READ_LONG 0x54 actOff
+    FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 0x1) BEGIN
+      READ_ASCII actOff + 0x80 actor
+      PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~BART15~ = 1) BEGIN
+        WRITE_ASCII actOff + 0x80 ~UBBA0133~ #8
+      END
+      actOff += 0x110
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tav0133.sto~ ~override~ //Low Lantern
+  SAY NAME2 #14976
+BUT_ONLY
+
+/////////////////////////////////////////////////////////////////////////////
+//Keexie Tavern
+COPY_EXISTING ~ar0154.are~ ~override~ //Correct bartender, Keexie Tavern downstairs
+  PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN
+    READ_LONG 0x54 actOff
+    FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 0x1) BEGIN
+      READ_ASCII actOff + 0x80 actor
+      PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~BART13~ = 1) BEGIN
+        WRITE_ASCII actOff + 0x80 ~BART15~ #8
+      END
+      actOff += 0x110
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~ar0171.are~ ~override~ //Correct bartender, Keexie Tavern upstairs
+  PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN
+    READ_LONG 0x54 actOff
+    FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 0x1) BEGIN
+      READ_ASCII actOff + 0x80 actor
+      PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~BART11~ = 1) BEGIN
+        WRITE_ASCII actOff + 0x80 ~BART15~ #8
+      END
+      actOff += 0x110
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~tav0154.sto~ ~override~ //Keexie Tavern
+  SAY NAME2 #20638
+BUT_ONLY
+
+/////////////////////////////////////////////////////////////////////////////
+//Elfsong Tavern
+COPY_EXISTING ~ar0705.are~ ~override~ //Correct Elfsong bartender
+  PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN
+    READ_LONG 0x54 actOff
+    FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 0x1) BEGIN
+      READ_ASCII actOff + 0x80 actor
+      PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~BART11~ = 1) BEGIN
+        WRITE_ASCII actOff + 0x80 ~BART8~ #8
+      END
+      actOff += 0x110
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~merch4.cre~ ~override/ubme0706.cre~ //Copy merchant used in Nashkel Carnival
+  WRITE_ASCII 0x2cc ~ubme0706~ #8 //Dialog
+
+COPY_EXISTING ~ar0706.are~ ~override~ //Correct Elfsong merchant
+  PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN
+    READ_LONG 0x54 actOff
+    FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 0x1) BEGIN
+      READ_ASCII actOff + 0x80 actor
+      PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~MERCH4~ = 1) BEGIN
+        WRITE_ASCII actOff + 0x80 ~UBME0706~ #8
+      END
+      actOff += 0x110
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~sto4906.sto~ ~override/ubst0706.sto~ //Merchant
+  SAY NAME2 #9432
+BUT_ONLY
+
+COPY_EXISTING ~tav0705.sto~ ~override~ //Elfsong Tavern
+  SAY NAME2 #11674
+BUT_ONLY
+
+/////////////////////////////////////////////////////////////////////////////
+//Sundry name assignments and patches
+COPY_EXISTING ~sto4906.sto~ ~override~ //Carnival Shop
+  SAY NAME2 #11688
+BUT_ONLY
+
+COPY_EXISTING ~stoblack.sto~ ~override~ //Black Lily
+  SAY NAME2 #12706
+BUT_ONLY
+
+COPY_EXISTING ~stocheap.sto~ ~override~ //Lucky Aello's Discount Store
+  SAY NAME2 #11818
+BUT_ONLY
+
+COPY_EXISTING ~stosilen.sto~ ~override~ //Shop of Silence
+  SAY NAME2 #20639
+BUT_ONLY
+
+COPY_EXISTING ~tav0721.sto~ ~override~ //Tavern
+  SAY NAME2 ~Tavern~
+BUT_ONLY
+
+COPY_EXISTING ~tav0809.sto~ ~override~ //Store
+  SAY NAME2 #13700
+BUT_ONLY
+
+COPY_EXISTING ~tav0810.sto~ ~override~ //Maltz' Weapon Shop
+  SAY NAME2 #11782
+BUT_ONLY
+
+COPY_EXISTING ~tav1215.sto~ ~override~ //Jopalin's Tavern
+  SAY NAME2 #20640
+BUT_ONLY
+
+COPY_EXISTING ~tav4809.sto~ ~override~ //The Belching Dragon
+  SAY NAME2 #11764
+BUT_ONLY
+
+COPY_EXISTING ~tem0002.sto~ ~override~ //Temple of Helm
+  SAY NAME2 #11703
+BUT_ONLY
+
+COPY_EXISTING ~tem2601.sto~ ~override~ //Temple of Oghma
+  SAY NAME2 #14157
+BUT_ONLY
+
+ACTION_IF FILE_EXISTS_IN_GAME ~ulgoth.sto~ BEGIN
+  COPY_EXISTING ~ulgoth.sto~ ~override~ //Ulgoth's Beard Store and Inn
+    PATCH_IF (%SOURCE_SIZE% > 0x78) BEGIN
+      READ_LONG 0x34 saleOff
+      FOR (READ_LONG 0x38 numSale; numSale; numSale -= 0x1) BEGIN
+        READ_BYTE saleOff + 0x10 flag
+        WRITE_BYTE saleOff + 0x10 flag | 1 //Mark items identified
+        READ_LONG saleOff + 0x14 stock  //Amount available
+        READ_LONG saleOff + 0x18 supply //(Un)limited supply
+        PATCH_IF ((stock > 0x1) && supply) BEGIN
+          WRITE_LONG saleOff + 0x18 0 //Removes infinite flag for items with in-stock numbers > 1
+        END
+      saleOff += 0x1c
+      END
+    END
+  BUT_ONLY
+END
+
+END
+
+ COPY_EXISTING ~ar1116.are~ ~override~ //Fix duplicate weapon store
+  PATCH_IF SOURCE_SIZE > 0x11c BEGIN
+    READ_LONG 0x54 actOff
+    FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 1) BEGIN
+          READ_ASCII actOff + 0x80 actor
+          PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~SHOP03~ = 1) BEGIN
+            WRITE_ASCII actOff + 0x80 ~SHOP05~ #8
+          END
+          actOff += 0x110
+    END
+  END
+BUT_ONLY

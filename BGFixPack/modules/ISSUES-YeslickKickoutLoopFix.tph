@@ -1,5 +1,6 @@
 //ISSUES-YeslickKickoutLoopFix.tph
 PRINT ~Processing ISSUES-YeslickKickoutLoopFix.tph~
+SILENT
 // ----------------------------------------------------------------------------
 // Prevent the Yeslick kickout loop
 //~Fix Yeslick kickout looping issue~

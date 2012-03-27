@@ -1,0 +1,61 @@
+//ISSUES-ShoutScriptAssignedAndFixed.tph
+PRINT ~Processing ISSUES-ShoutScriptAssignedAndFixed.tph~
+SILENT
+
+//Ensure attacked innocents shout when they can/should
+ACTION_FOR_EACH tcre IN ~andars~ ~bentha~ ~brevli~ ~brielb~ ~cantic~ ~casson~ ~chante~ ~chante2~ ~delain~ ~dunkin~ ~durlyl~ ~emerso~ ~entill~ ~farmbr~ ~fcook2~ ~firebe~ ~ftowwi~ ~ftowwi_a~ ~ftowwi_b~ ~ftowwi_c~ ~ftowwi_d~ ~ftowwi_e~ ~gerde~ ~gorpel~ ~harbor~ ~hull3~ ~ithtyl~ ~jared~ ~kaella~ ~karan~ ~karan1~ ~laurel~ ~lena~ ~lussel~ ~madarc~ ~messed~ ~minec2~ ~minec3~ ~minec4~ ~minec5~ ~minerc~ ~mirian~ ~monktu1~ ~monktu10~ ~monktu11~ ~monktu12~ ~monktu13~ ~monktu14~ ~monktu2~ ~monktu3~ ~monktu4~ ~monktu5~ ~monktu7~ ~monktu8~ ~monktu9~ ~mtowwi~ ~mtowwi_a~ ~mtowwi_b~ ~mtowwi_c~ ~mtowwi_d~ ~mtowwi_e~ ~mysmer~ ~nadine~ ~nantri~ ~nila~ ~nobl2~ ~norale~ ~orduli~ ~petrin~ ~phaers~ ~phlydi~ ~priilmu~ ~rinnie~ ~rodnim~ ~sewerc~ ~shista~ ~slave~ ~slave4~ ~slave5~ ~slave6~ ~slavfree~ ~slavlead~ ~slavtell~ ~solia1~ ~tailas~ ~tethto~ ~tethto2~ ~therel~ ~tremai~ ~varci~ ~voieas~ ~voinor~ ~voisou~ ~voiwes~ ~zeke~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        READ_ASCII 0x248 s1 //Override script
+        PATCH_IF ((~%s1%~ STRING_EQUAL_CASE ~none~ = 1) OR (~%s1%~ STRING_EQUAL ~~ = 1) OR (~%s1%~ STRING_EQUAL_CASE ~wdrunbe~ = 1)) BEGIN
+          WRITE_ASCII 0x248 ~shout~ #8
+        END ELSE BEGIN
+          READ_ASCII 0x250 s2 //Class script
+          PATCH_IF ((~%s2%~ STRING_EQUAL_CASE ~none~ = 1) OR (~%s2%~ STRING_EQUAL ~~ = 1)) BEGIN
+            WRITE_ASCII 0x250 ~shout~ #8
+          END ELSE BEGIN
+            READ_ASCII 0x258 s3 //Race script
+            PATCH_IF ((~%s3%~ STRING_EQUAL_CASE ~none~ = 1) OR (~%s3%~ STRING_EQUAL ~~ = 1)) BEGIN
+              WRITE_ASCII 0x258 ~shout~ #8
+            END ELSE BEGIN
+              READ_ASCII 0x260 s4 //General script
+              PATCH_IF ((~%s4%~ STRING_EQUAL_CASE ~none~ = 1) OR (~%s4%~ STRING_EQUAL ~~ = 1)) BEGIN
+                WRITE_ASCII 0x260 ~shout~ #8
+              END ELSE BEGIN
+                READ_ASCII 0x268 s5 //Default script
+                PATCH_IF ((~%s5%~ STRING_EQUAL_CASE ~none~ = 1) OR (~%s5%~ STRING_EQUAL ~~ = 1)) BEGIN
+                  WRITE_ASCII 0x268 ~shout~ #8
+                END
+              END
+            END
+          END
+        END
+      END
+    BUT_ONLY
+  END
+END
+
+//Make sure innocents only go hostile when hearing other innocents shout
+COPY_EXISTING ~shout.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~Heard([0.~ tsp1
+    PATCH_IF (tsp1 < 1) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE ~Heard(\[ANYONE\],99)[%WNL%%MNL%%LNL%%TAB% ]+Allegiance(Myself,NEUTRAL)[%WNL%%MNL%%LNL%%TAB% ]+THEN~ ~Heard([0.0.0.INNOCENT],99) Allegiance(Myself,NEUTRAL) Class(Myself,INNOCENT) THEN~
+      REPLACE_TEXTUALLY CASE_INSENSITIVE ~Heard(\[0\],99)[%WNL%%MNL%%LNL%%TAB% ]+Allegiance(Myself,NEUTRAL)[%WNL%%MNL%%LNL%%TAB% ]+THEN~ ~Heard([0.0.0.INNOCENT],99) Allegiance(Myself,NEUTRAL) Class(Myself,INNOCENT) THEN~
+    END
+  END
+BUT_ONLY
+
+//add a new block so innocents respond to flaming fist
+<<<<<<<< newshoutblock.baf
+IF
+	Heard([0.0.0.FLAMING_FIST],99)
+	Allegiance(Myself,NEUTRAL)
+	Class(Myself,INNOCENT)
+THEN
+	RESPONSE #100
+		Enemy()
+END
+>>>>>>>>
+EXTEND_BOTTOM shout.bcs newshoutblock.baf

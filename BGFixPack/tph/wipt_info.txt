@@ -131,5 +131,10 @@ wipt_w_var_index = values to be written to the ability or effect entries
 
 When using the patch function ~wipt_new_eqfx~ you assign your new values in the following manner:
 wipt_n_var = new values to be written to the new equipping effect entry
+
+When using the patch function ~wipt_new_abilfx~ you assign your new values in the following manner:
+wipt_n_var = new values to be written to the new ability effect entry
+wipt_abil_idx = the ability you want to add a new effect to index count starts at 0 meaning first ability is #0
+if wipt_abil_idx is not set, nothing happens
 */
 ////////////////////////////////////////////////////////

@@ -1,0 +1,59 @@
+//IDS-IDSAdditionsByMiloch.tph
+PRINT ~Processing IDS-IDSAdditionsByMiloch.tph~
+SILENT
+//IDS additions
+APPEND ~animate.ids~ ~0x1000 WYVERN_BIG~ UNLESS ~^0x1000~
+APPEND ~animate.ids~ ~0x1100 TANARRI~ UNLESS ~^0x1100~
+APPEND ~animate.ids~ ~0x2300 DEATH_KNIGHT~ UNLESS ~^0x2300~
+APPEND ~animate.ids~ ~0x6405 DOOM_GUARD~ UNLESS ~^0x6405~
+APPEND ~animate.ids~ ~0x7904 GRAY_OOZE~ UNLESS ~^0x7904~
+APPEND ~animate.ids~ ~0x7D00 ZOMBIE~ UNLESS ~^0x7[Dd]00~
+APPEND ~animate.ids~ ~0x7E00 WEREWOLF~ UNLESS ~^0x7[Ee]00~
+APPEND ~animate.ids~ ~0x7E01 WEREWOLF_GREATER~ UNLESS ~^0x7[Ee]01~
+APPEND ~animate.ids~ ~0xD400 BIRD_INSIDE~ UNLESS ~^0x[Dd]400~
+
+APPEND ~class.ids~ ~171 SPECTRE~ UNLESS ~^171~
+APPEND ~class.ids~ ~174 MIST~ UNLESS ~^174~
+APPEND ~class.ids~ ~175 CAT~ UNLESS ~^175~
+APPEND ~class.ids~ ~182 GOLEM_IRON~ UNLESS ~^182~
+APPEND ~class.ids~ ~183 GOLEM_FLESH~ UNLESS ~^183~
+APPEND ~class.ids~ ~184 GOLEM_STONE~ UNLESS ~^184~
+APPEND ~class.ids~ ~185 GOLEM_CLAY~ UNLESS ~^185~
+APPEND ~class.ids~ ~189 SPIDER_CENTEOL~ UNLESS ~^189~
+APPEND ~class.ids~ ~198 ZOMBIE_NORMAL~ UNLESS ~^198~
+APPEND ~class.ids~ ~199 FOOD_CREATURE~ UNLESS ~^199~
+
+APPEND ~race.ids~ ~114 FAIRY~ UNLESS ~^114~
+APPEND ~race.ids~ ~133 SPECTRE~ UNLESS ~^133~
+APPEND ~race.ids~ ~136 MIST~ UNLESS ~^136~
+APPEND ~race.ids~ ~137 CAT~ UNLESS ~^137~
+APPEND ~race.ids~ ~144 GOLEM~ UNLESS ~^144~
+APPEND ~race.ids~ ~148 ZOMBIE~ UNLESS ~^148~
+APPEND ~race.ids~ ~149 STATUE~ UNLESS ~^149~
+APPEND ~race.ids~ ~151 RABBIT~ UNLESS ~^151~
+
+APPEND ~specific.ids~ ~11 BANDIT_WITH_SCALP~ UNLESS ~^11~
+
+APPEND ~state.ids~ ~0x80101FEF CD_STATE_NOTVALID~ UNLESS ~CD_STATE_NOTVALID~
+
+APPEND ~ea.ids~ ~127 NEUTRAL_BUT_INACTIVE~ UNLESS ~^127[ %TAB%]~  //testing ea instead of specifics
+
+//Add existing shouts to shoutids.ids
+ACTION_IF NOT FILE_EXISTS_IN_GAME ~shoutids.ids~ BEGIN
+  <<<<<<<< t-shout.ids
+1 ATTACK1
+2 LEAVE2
+3 HELP3
+5 HELP5
+50 GOAWAY
+99 HELPME
+>>>>>>>>
+  COPY ~t-shout.ids~ ~override/shoutids.ids~
+END ELSE BEGIN
+  APPEND ~shoutids.ids~ ~1 ATTACK1~ UNLESS ~^1[%TAB% ]~
+  APPEND ~shoutids.ids~ ~2 LEAVE2~ UNLESS ~^2[%TAB% ]~
+  APPEND ~shoutids.ids~ ~3 HELP3~ UNLESS ~^3[%TAB% ]~
+  APPEND ~shoutids.ids~ ~5 HELP5~ UNLESS ~^5[%TAB% ]~
+  APPEND ~shoutids.ids~ ~50 GOAWAY~ UNLESS ~^50~
+  APPEND ~shoutids.ids~ ~99 HELPME~ UNLESS ~^99~
+END

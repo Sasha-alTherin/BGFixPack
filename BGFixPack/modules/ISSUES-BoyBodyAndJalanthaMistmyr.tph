@@ -1,5 +1,6 @@
 //ISSUES-BoyBodyAndJalanthaMistmyr.tph
 PRINT ~Processing ISSUES-BoyBodyAndJalanthaMistmyr.tph~
+SILENT
 // ----------------------------------------------------------------------------
 //Jalantha Mistmyr Pickpocket Exploit Fix
 <<<<<<<< jalant/stuffcheck.baf

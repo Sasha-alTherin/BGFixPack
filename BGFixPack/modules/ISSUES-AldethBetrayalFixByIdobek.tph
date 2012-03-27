@@ -1,5 +1,6 @@
 //ISSUES-AldethBetrayalFixByIdobek.tph
 PRINT ~Processing ISSUES-AldethBetrayalFixByIdobek.tph~
+SILENT
 // ----------------------------------------------------------------------------
 //Aldeth Sashenstar Betrayal Fix
 // i've shamelessly taken Idobek's version and used it instead

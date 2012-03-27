@@ -1,5 +1,6 @@
 //AREA-MissingAmbients.tph
 PRINT ~Processing AREA-MissingAmbients.tph~
+SILENT
 // ----------------------------------------------------------------------------
 //~Replace missing ambient sounds with existing sounds~
 // ----------------------------------------------------------------------------

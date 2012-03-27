@@ -1,5 +1,6 @@
 //AREA-RealignContainerHighlights.tph
 PRINT ~Processing AREA-RealignContainerHighlights.tph~
+SILENT
 // ----------------------------------------------------------------------------
 // Container highlights not correctly highlighting container
 // ----------------------------------------------------------------------------
@@ -56,3 +57,7 @@ LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 1 ab_shift_Y
 LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 2 ab_shift_Y = 12 ab_add_y = 1 ab_shift_X = 6 ab_add_x = 0 STR_VAR ab_file = ~ar0018.are~ END
 LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 4 ab_add_y = 0 ab_shift_X = 1 ab_add_x = 0 STR_VAR ab_file = ~ar0709.are~ END
 LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 4 ab_add_y = 0 ab_shift_X = 1 ab_add_x = 0 STR_VAR ab_file = ~ar0715.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 3 ab_add_y = 0 STR_VAR ab_file = ~ar3331.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 3 ab_add_y = 0 STR_VAR ab_file = ~ar3349.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 0 ab_shift_Y = 3 ab_add_y = 0 STR_VAR ab_file = ~ar3345.are~ END
+LAUNCH_ACTION_FUNCTION ~ab_Cont_Vertex_Shift~ INT_VAR ab_cont_idx = 1 ab_shift_Y = 2 ab_add_y = 0 ab_shift_X = 2 ab_add_x = 0 STR_VAR ab_file = ~ar3345.are~ END

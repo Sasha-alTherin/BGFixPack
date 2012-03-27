@@ -1,5 +1,7 @@
 //ISSUES-ToTSC-CountingHouseConflicts.tph
+ACTION_IF (GAME_IS ~totsc~) BEGIN
 PRINT ~Processing ISSUES-ToTSC-CountingHouseConflicts.tph~
+SILENT
 // ----------------------------------------------------------------------------
 //Dudley patch -- Counting House, AR0307 and AR0308 -
 // ----------------------------------------------------------------------------
@@ -24,3 +26,5 @@ COPY_EXISTING ar0307.bcs override
   REPLACE_TEXTUALLY EXACT_MATCH ~CREW~ ~LEAGGU~
  COMPILE_BAF_TO_BCS
 BUT_ONLY_IF_IT_CHANGES
+
+END

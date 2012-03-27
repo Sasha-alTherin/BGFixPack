@@ -1,9 +1,0 @@
-IF
-Global("abgf_LeftEyeBounty","GLOBAL",1)
-Global("abgf_RightEyeBounty","GLOBAL",1)
-Global("OublekBounty2","GLOBAL",0)
-THEN
-RESPONSE #100
-  SetGlobal("OublekBounty2","GLOBAL",1)
-  AddJournalEntry(~Prism's story was a sad tale indeed.  A shame it could not have had a better ending.  Ah well, I profit in the end.  300 gold bounty for the emeralds he stole.~)
-END

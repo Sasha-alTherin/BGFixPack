@@ -1,0 +1,9 @@
+COPY_EXISTING ~watch3.cre~ ~override/dw#skcan.cre~
+	WRITE_ASCII 0x250 ~dw#skcan~
+	WRITE_ASCII 0x2cc ~dw#skcan~
+
+COMPILE ~bgfixpack/candleskip/dw#skcan.baf~
+COMPILE EVALUATE_BUFFER ~bgfixpack/candleskip/dw#skcan.d~
+
+EXTEND_BOTTOM ~ar2600.bcs~ ~bgfixpack/candleskip/addtoarea.baf~
+EXTEND_TOP ~gorion.bcs~ ~bgfixpack/candleskip/addtogorion.baf~

@@ -1,0 +1,44 @@
+//ISSUES-ScarNoGoBye.tph
+PRINT ~Processing ISSUES-ScarNoGoBye.tph~
+SILENT
+/* scar.bcs this is what makes scar disappear if the duke was spoken to
+IF
+Global("SHITNUTS","GLOBAL",1)
+THEN
+RESPONSE #100
+  SetGlobal("ScarMission","GLOBAL",20)
+  DestroySelf()
+END */
+//we need to change this to keep him around
+/*
+value 5 is when player quits or finishes scars quests
+value 6 is when player has been asked to see the duke but refused
+value 8 is when player has refused scars quests outright from the beginning
+these are valid points in which to have Scar disappear should the player go ahead and talk to the Duke
+else Scar stays so that the player can finish or quit Scars quests
+*/
+<<<<<<<< scarextension.baf
+IF
+   Global("SHITNUTS","GLOBAL",1)
+   Global("ScarMission","GLOBAL",6)
+THEN
+   RESPONSE #100
+         SetGlobal("ScarMission","GLOBAL",20)
+         DestroySelf()
+END
+IF
+   Global("SHITNUTS","GLOBAL",1)
+   Global("ScarMission","GLOBAL",8)
+THEN
+   RESPONSE #100
+         SetGlobal("ScarMission","GLOBAL",20)
+         DestroySelf()
+END
+>>>>>>>>
+COPY_EXISTING scar.bcs override
+ DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY ~Global("SHITNUTS","GLOBAL",1)~ ~Global("SHITNUTS","GLOBAL",1) Global("ScarMission","GLOBAL",5) ~
+  PATCH_LOG ~%SOURCE_FILE% - Added ScarMission var check to existing block & added two additional blocks~
+ COMPILE_BAF_TO_BCS
+BUT_ONLY
+EXTEND_BOTTOM scar.bcs scarextension.baf

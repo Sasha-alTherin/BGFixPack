@@ -1,0 +1,145 @@
+//ISSUES-VariousScriptWorkByMiloch.tph
+PRINT ~Processing ISSUES-VariousScriptWorkByMiloch.tph~
+SILENT
+//Fix steal failure scripts to actually call the guards
+ACTION_FOR_EACH tbcs IN ~innkeep~ ~merch2~ ~merch5~ ~merch6~ ~shop03~ ~shop04~ ~shop05~ ~shop06~ ~shop07~ ~shop08~ ~shopkn~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tbcs%.bcs~ BEGIN
+    COPY_EXISTING ~%tbcs%.bcs~ ~override~
+      DECOMPILE_AND_PATCH BEGIN
+        COUNT_REGEXP_INSTANCES CASE_INSENSITIVE ~],0)[%WNL%%MNL%%LNL%%TAB% ]+Enemy()[%WNL%%MNL%%LNL%%TAB% ]+END~ tsp1
+        PATCH_IF (tsp1 < 1) BEGIN
+          REPLACE_TEXTUALLY CASE_INSENSITIVE ~Enemy()[%WNL%%MNL%%LNL%%TAB% ]+Wait~ ~Wait~
+          REPLACE_TEXTUALLY CASE_INSENSITIVE ~],0)[%WNL%%MNL%%LNL%%TAB% ]+END~ ~],0) Enemy() END~
+          PATCH_LOG ~%SOURCE_FILE% - reveresed order of Wait & Enemy actions~
+        END
+      END
+    BUT_ONLY
+  END
+END
+
+
+//slight change in script
+COPY_EXISTING wtrunsgt.bcs override
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~See(NearestEnemyOf(Myself))~ ~See([GOODCUTOFF]) Allegiance(Myself,ENEMY)~
+    REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~See(NearestEnemyOf())~ ~See([GOODCUTOFF]) Allegiance(Myself,ENEMY)~
+    REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~RunAwayFrom(NearestEnemyOf(~ ~RunAwayFrom(LastSeenBy(~
+    PATCH_LOG ~%SOURCE_FILE% - changed nearestenemyof into GOODCUTOFF & added allegiance checks. runawayfrom is also last seen rather than enemy of.~
+  END
+BUT_ONLY
+
+//Ensure attacked/hostile non-combatants run away if they can/should
+ACTION_FOR_EACH tcre IN ~ardrou~ ~begbax_a~ ~begbax_b~ ~begbax_c~ ~begbax_d~ ~beggbax~ ~boybax~ ~boybax_a~ ~boybax_b~ ~boybax_c~ ~chilna~ ~chilna_a~ ~chilna_b~ ~chilna_c~ ~chilna_d~ ~cow~ ~cowh~ ~drienn~ ~emitar3~ ~euric~ ~fatman~ ~fatwom~ ~fenrus~ ~ftowbax~ ~ftowbex~ ~ftowubx~ ~ftwbax~ ~ftwbax_a~ ~ftwbax_b~ ~ftwbax_c~ ~ftwbax_d~ ~ftwbax_e~ ~girbax_a~ ~girbax_b~ ~girbax_c~ ~girbax_d~ ~girbax_e~ ~girlbax~ ~horse~ ~lucky~ ~monktu1~ ~monktu10~ ~monktu11~ ~monktu12~ ~monktu13~ ~monktu14~ ~monktu15~ ~monktu16~ ~monktu17~ ~monktu18~ ~monktu19~ ~monktu2~ ~monktu20~ ~monktu3~ ~monktu4~ ~monktu5~ ~monktu6~ ~monktu7~ ~monktu8~ ~monktu9~ ~mtowbax~ ~mtowbex~ ~mtowubx~ ~mtwbax_a~ ~mtwbax_b~ ~mtwbax_c~ ~mtwbax_d~ ~mtwbax_e~ ~nobbax_a~ ~nobbax_b~ ~nobbax_c~ ~nobbax_d~ ~nobbax_e~ ~noblbaz~ ~nowbax_a~ ~nowbax_b~ ~nowbax_c~ ~nowbax_d~ ~nowbax_e~ ~petrin~ ~prosbax~ ~prsbax_a~ ~prsbax_b~ ~prsbax_c~ ~shop01~ ~shop02~ ~shop03~ ~shop04~ ~shop05~ ~shop06~ ~shop07~ ~shop08~ ~therel~ ~triado~ ~wirthi~ BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_ASCII 0x268 ~wtrunsgt~ #8 //Default script
+        PATCH_LOG ~%SOURCE_FILE% - assigned wtrunsgt to the default script slot~
+      END
+    BUT_ONLY
+  END
+END
+
+//Halfling enforcers go hostile where relevant
+<<<<<<<< t-halfen.d
+ADD_TRANS_ACTION halfen BEGIN 0 END BEGIN 2 END ~Shout(99) Enemy()~
+ADD_TRANS_ACTION halfen BEGIN 1 END BEGIN 0 END ~Shout(99) Enemy()~
+>>>>>>>>
+COMPILE ~t-halfen.d~
+
+//Make sure guards only initiate dialogue if character is visible
+COPY_EXISTING ~amnise.bcs~  ~override~ //Amnish Soldier
+  DECOMPILE_AND_PATCH BEGIN
+    COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~STATE_IMPROVEDINVISIBILITY~ tsp1
+    PATCH_IF (tsp1 < 1) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~NumTimesTalkedTo(0)~ ~NumTimesTalkedTo(0) !StateCheck(LastSeenBy(),STATE_INVISIBLE) !StateCheck(LastSeenBy(),STATE_IMPROVEDINVISIBILITY)~
+      PATCH_LOG ~%SOURCE_FILE% - added additional checks to not talk to invisible~
+    END
+  END
+BUT_ONLY
+
+COPY_EXISTING ~monken.bcs~ ~override~ //Candlekeep Watcher
+  DECOMPILE_AND_PATCH BEGIN
+    COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~STATE_IMPROVEDINVISIBILITY~ tsp1
+    PATCH_IF (tsp1 < 1) BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~NumTimesTalkedTo(0)~ ~NumTimesTalkedTo(0) See([PC]) !StateCheck(LastSeenBy(),STATE_INVISIBLE) !StateCheck(LastSeenBy(),STATE_IMPROVEDINVISIBILITY)~
+      PATCH_LOG ~%SOURCE_FILE% - added additional checks to not talk to invisible~
+    END
+  END
+BUT_ONLY
+
+//Guard enforcers take money if offered
+<<<<<<<< t-housen.d
+ADD_TRANS_ACTION housen BEGIN 0 END BEGIN 0 END ~SetGlobal("t-housen","LOCALS",1)~
+ADD_TRANS_ACTION housen BEGIN 0 END BEGIN 1 END ~SetGlobal("t-housen","LOCALS",2)~
+ADD_TRANS_TRIGGER housen 1 ~Global("t-housen","LOCALS",1)~
+ADD_TRANS_ACTION housen BEGIN 1 END BEGIN 0 END ~TakePartyGold(100) Shout(2) EscapeArea()~
+EXTEND_BOTTOM housen 1
+  IF ~Global("t-housen","LOCALS",2)~ DO ~TakePartyGold(200) Shout(2) EscapeArea()~ EXIT
+END
+>>>>>>>>
+COMPILE ~t-housen.d~
+
+//Guard enforcer lieutenants leave if captain leaves
+COPY_EXISTING ~housen2.bcs~ ~override~
+  PATCH_IF (INDEX_BUFFER (~^108OB~) != `0) BEGIN
+    tsp = 1
+  END
+BUT_ONLY
+
+ACTION_IF (tsp1 < 1) BEGIN
+  <<<<<<<< t-housen2.baf
+IF
+  Heard("HouseEnforcer",2)
+THEN
+  RESPONSE #100
+    EscapeArea()
+END
+>>>>>>>>
+  EXTEND_BOTTOM ~housen2.bcs~ ~t-housen2.baf~
+END
+
+COPY_EXISTING ~halfen.cre~ ~override~ //Halfling Enforcer
+              ~housen.cre~ ~override~ //Guard Enforcer
+  WRITE_ASCII 0x258 ~amnise~ #8 //Race script
+BUT_ONLY
+
+//Cloakwood Mines Guard infinite summoning fix
+<<<<<<<< t-iron10.d
+ADD_TRANS_ACTION iron10 BEGIN 0 END BEGIN 2 END ~Enemy()~
+ADD_TRANS_ACTION iron10 BEGIN 1 END BEGIN 0 END ~Enemy()~
+REPLACE_ACTION_TEXT iron10
+  ~CreateCreature("IRONGU",\[140.1555\])~
+  ~CreateCreature("IRONGU",[140.1555]) Enemy()~
+>>>>>>>>
+COMPILE ~t-iron10.d~
+
+//Assign steal failure scripts where missing
+<<<<<<<< t-maltz.baf
+IF
+  StealFailed([0])
+THEN
+  RESPONSE #100
+    Wait(3)
+    CreateCreature("FLAMEN",[425.362],0)
+    CreateCreature("FLAMEN2",[400.370],0)
+    CreateCreature("FLAMEN2",[435.340],0)
+    Enemy()
+END
+>>>>>>>>
+COMPILE ~t-maltz.baf~  //Steal failure script
+
+COPY_EXISTING ~maltz.cre~ ~override~ //Maltz (AR0803)
+  WRITE_ASCII 0x260 ~t-maltz~ #8 //General script
+BUT_ONLY
+
+COPY_EXISTING ~lucky.cre~  ~override~ //Lucky Aello (AR0810)
+              ~shop01.cre~ ~override~ //Storekeep (AR0304)
+  WRITE_ASCII 0x260 ~shop03~ #8 //General script
+BUT_ONLY
+
+COPY_EXISTING ~innke2.cre~  ~override~ //Winthrop (AR2616)
+              ~winthr2.cre~ ~override~ //Winthrop (AR2629)
+  WRITE_ASCII 0x260 ~innkeep~ #8 //General script
+BUT_ONLY
+

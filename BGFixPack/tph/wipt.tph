@@ -364,3 +364,87 @@ DEFINE_PATCH_FUNCTION ~wipt_new_eqfx~ BEGIN
   END
  END
 END //end function define
+
+//add new ability effects
+DEFINE_PATCH_FUNCTION ~wipt_new_abilfx~ BEGIN
+ LAUNCH_PATCH_MACRO ~wipt_item_reader~
+ PATCH_IF (VARIABLE_IS_SET %wipt_abil_idx%) BEGIN
+  FOR(al1=0;al1<%wipt_abil_num%;al1+=1)BEGIN
+   PATCH_IF (%wipt_abil_idx% = %al1%) BEGIN
+//begin ability to read and edit ability effects
+    DEFINE_ARRAY a_entry BEGIN abilfx_num abilfx_idx END
+    DEFINE_ARRAY a_offst BEGIN 0x1e       0x20       END
+    DEFINE_ARRAY a_SoWrt BEGIN 2          2          END
+    DEFINE_ARRAY a_AsciL BEGIN 0          0          END
+    DEFINE_ARRAY a_Bit   BEGIN 0          0          END
+    FOR(ami=0;ami<2;ami+=1)BEGIN
+     SET $wipt_Off($a_entry("%ami%")"%al1%") = %wipt_abil_location% + $a_offst("%ami%") //set offset for entry
+     PATCH_IF (%ami% = 0) BEGIN
+      READ_SHORT %wipt_abil_location% + $a_offst("%ami%") $wipt_abilfx_num("%al1%")
+      WRITE_SHORT %wipt_abil_location% + $a_offst("%ami%") ($wipt_abilfx_num("%al1%") + 1) //update current working ability's # of effects
+     END
+     PATCH_IF (%ami% = 1) BEGIN
+      READ_SHORT %wipt_abil_location% + $a_offst("%ami%") $wipt_abilfx_idx("%al1%")
+      SET wipt_updatebeyondthis = $wipt_abilfx_idx("%al1%")
+     END
+    END
+    SET wipt_total_fx+=$wipt_abilfx_num("%al1%")
+    FOR(el2=$wipt_abilfx_idx("%al1%");el2<($wipt_abilfx_idx("%al1%")+$wipt_abilfx_num("%al1%"));el2+=1)BEGIN
+     SET wipt_abilfx_location=(%wipt_fx_off% + (%el2%*%wipt_fx_size%))
+     SET wipt_insert_loc = (%wipt_abilfx_location% + ($wipt_abilfx_num("%al1%") * %wipt_fx_size%))
+     INSERT_BYTES %wipt_insert_loc% %wipt_fx_size%
+     SET wipt_fx_location=%wipt_insert_loc%
+     DEFINE_ARRAY e_entry BEGIN opco targ powr par1 par2 tmod resi dura pro1 pro2 reso diet dies savt savb END
+     DEFINE_ARRAY e_offst BEGIN 0x0  0x2  0x3  0x4  0x8  0xc  0xd  0xe  0x12 0x13 0x14 0x1c 0x20 0x24 0x28 END
+     DEFINE_ARRAY e_SoWrt BEGIN 2    1    1    4    4    1    1    4    1    1    8    4    4    4    4    END
+     DEFINE_ARRAY e_AsciL BEGIN 0    0    0    0    0    0    0    0    0    0    8    0    0    0    0    END
+     DEFINE_ARRAY e_Bit   BEGIN 0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    END
+     FOR(ei=0;ei<15;ei+=1)BEGIN
+      SET $wipt_Off($e_entry("%ei%")) = %wipt_fx_location% + $e_offst("%ei%") //set offset for entry
+      SET $wipt_SoW($e_entry("%ei%")) = $e_SoWrt("%ei%") //set size of write for entry
+      SET $wipt_AcL($e_entry("%ei%")) = $e_AsciL("%ei%") //set ascii length 0 = non-ascii; 8 = file name ascii; 32 = name & variable ascii
+      SET $wipt_Bit($e_entry("%ei%")) = $e_Bit("%ei%")   //set whether entry should be written in bit format
+      PATCH_IF (VARIABLE_IS_SET $wipt_n($e_entry("%ei%")) ) BEGIN
+       PATCH_IF ($e_SoWrt("%ei%") = 1) BEGIN
+        WRITE_BYTE $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%"))
+       END
+       PATCH_IF ($e_SoWrt("%ei%") = 2) BEGIN
+        WRITE_SHORT $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%"))
+       END
+       PATCH_IF ($e_SoWrt("%ei%") = 4) BEGIN
+        WRITE_LONG $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%"))
+       END
+       PATCH_IF ($e_SoWrt("%ei%") = 8) AND ($e_AsciL("%ei%") = 8) BEGIN
+        WRITE_ASCIIE $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%")) (8)
+       END
+       PATCH_IF ($e_SoWrt("%ei%") = 8) AND ($e_AsciL("%ei%") = 32) BEGIN
+        WRITE_ASCIIE $wipt_Off($e_entry("%ei%")) $wipt_n($e_entry("%ei%")) (32)
+       END
+      END //end variable is set
+     END //end array loop
+    END
+   END ELSE BEGIN
+    FOR(al2=0;al2<%wipt_abil_num%;al2+=1)BEGIN
+     DEFINE_ARRAY a_entry BEGIN abilfx_num abilfx_idx END
+     DEFINE_ARRAY a_offst BEGIN 0x1e       0x20       END
+     DEFINE_ARRAY a_SoWrt BEGIN 2          2          END
+     DEFINE_ARRAY a_AsciL BEGIN 0          0          END
+     DEFINE_ARRAY a_Bit   BEGIN 0          0          END
+     FOR(ami=0;ami<2;ami+=1)BEGIN
+      SET $wipt_Off($a_entry("%ami%")"%al2%") = %wipt_abil_location% + $a_offst("%ami%") //set offset for entry
+      PATCH_IF (%ami% = 0) BEGIN
+       READ_SHORT %wipt_abil_location% + $a_offst("%ami%") $wipt_abilfx_num("%al2%")
+      END
+      PATCH_IF (%ami% = 1) BEGIN
+       READ_SHORT %wipt_abil_location% + $a_offst("%ami%") $wipt_abilfx_idx("%al2%")
+       PATCH_IF ($wipt_abilfx_idx("%al2%") > %wipt_updatebeyondthis%) BEGIN
+        WRITE_SHORT (%wipt_abil_location% + $a_offst("%ami%")) ($wipt_abilfx_idx("%al2%") + 1 )
+       END
+      END
+     END
+    END
+    SET al1 = %wipt_abil_num%
+   END
+  END
+ END 
+END //end function define

@@ -1,5 +1,6 @@
 //AREA-ModifyFacingDirection.tph
 PRINT ~Processing AREA-ModifyFacingDirection.tph~
+SILENT
 // ----------------------------------------------------------------------------
 //adjust facing direction
 COPY_EXISTING_REGEXP ~.*\.are~ ~override~
@@ -21,11 +22,13 @@ COPY_EXISTING_REGEXP ~.*\.are~ ~override~
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR5403~ =0) AND   (%z% =1 )                )
         AND (%fd% !=2) BEGIN
            WRITE_SHORT (%x_ent_off% + 0x24) 2
+           PATCH_LOG ~%file%.are - changed facing direction for entrance #%z% from %fd% to 2~
    END
    PATCH_IF ( (~%wed%~ STRING_COMPARE_REGEXP ~AR1700~ =0) AND   (%z% =0 ) )
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0105~ =0) AND   (%z% = 2) )
         AND (%fd% !=4) BEGIN
            WRITE_SHORT (%x_ent_off% + 0x24) 4
+           PATCH_LOG ~%file%.are - changed facing direction for entrance #%z% from %fd% to 4~
    END
    PATCH_IF ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0101~ =0) AND ( (%z% = 1) OR (%z% = 3) OR (%z% = 4) ) )
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0109~ =0) AND ( (%z% = 2) OR (%z% = 3)              ) )
@@ -53,6 +56,7 @@ COPY_EXISTING_REGEXP ~.*\.are~ ~override~
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR4000~ =0) AND   (%z% =4 )                             )
         AND (%fd% !=6) BEGIN
            WRITE_SHORT (%x_ent_off% + 0x24) 6
+           PATCH_LOG ~%file%.are - changed facing direction for entrance #%z% from %fd% to 6~
    END
    PATCH_IF ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0111~ =0) AND (%z% = 0) )
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0150~ =0) AND (%z% = 0) )
@@ -67,6 +71,7 @@ COPY_EXISTING_REGEXP ~.*\.are~ ~override~
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR5101~ =0) AND (%z% =0 ) )
         AND (%fd% !=8) BEGIN
            WRITE_SHORT (%x_ent_off% + 0x24) 8
+           PATCH_LOG ~%file%.are - changed facing direction for entrance #%z% from %fd% to 8~
    END
    PATCH_IF ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0002~ =0) AND   (%z% = 0)                )
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0102~ =0) AND ( (%z% = 2) OR (%z% = 3) ) )
@@ -90,12 +95,14 @@ COPY_EXISTING_REGEXP ~.*\.are~ ~override~
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR5405~ =0) AND   (%z% =0 )                )
         AND (%fd% !=10) BEGIN
            WRITE_SHORT (%x_ent_off% + 0x24) 10
+           PATCH_LOG ~%file%.are - changed facing direction for entrance #%z% from %fd% to 10~
    END
    PATCH_IF ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0138~ =0) AND   (%z% = 0)                )
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0225~ =0) AND ( (%z% =1 ) OR (%z% =2 ) ) )
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0226~ =0) AND   (%z% =1 )                )
         AND (%fd% !=12) BEGIN
            WRITE_SHORT (%x_ent_off% + 0x24) 12
+           PATCH_LOG ~%file%.are - changed facing direction for entrance #%z% from %fd% to 12~
    END
    PATCH_IF ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0101~ =0) AND ( (%z% = 0) OR (%z% = 2) ) )
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR0109~ =0) AND   (%z% = 0)                )
@@ -115,6 +122,7 @@ COPY_EXISTING_REGEXP ~.*\.are~ ~override~
          OR ( (~%wed%~ STRING_COMPARE_REGEXP ~AR4006~ =0) AND   (%z% =0 )                )
         AND (%fd% !=14) BEGIN
            WRITE_SHORT (%x_ent_off% + 0x24) 14
+           PATCH_LOG ~%file%.are - changed facing direction for entrance #%z% from %fd% to 14~
    END
   END
  END //ends size check

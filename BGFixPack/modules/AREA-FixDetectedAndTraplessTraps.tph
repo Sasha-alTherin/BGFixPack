@@ -1,5 +1,6 @@
 //AREA-FixDetectedAndTraplessTraps.tph
 PRINT ~Processing AREA-FixDetectedAndTraplessTraps.tph~
+SILENT
 // ----------------------------------------------------------------------------
 ACTION_FOR_EACH file IN ~AR0153.ARE~ ~AR1116.ARE~ ~AR1211.ARE~ ~AR2619.ARE~ ~AR3341.ARE~ ~AR3336.ARE~ ~AR0512.ARE~ ~AR0514.ARE~ ~AR1001.ARE~ BEGIN
 ACTION_IF (FILE_EXISTS_IN_GAME ~%file%~) THEN BEGIN  //one line allows for use with totsc and vanilla files rather than duplicate blocks for each game
@@ -56,5 +57,26 @@ COPY_EXISTING_REGEXP ~%file%.are~ ~override~
   END
  END
 BUT_ONLY_IF_IT_CHANGES
+END
+END
+
+// ----------------------------------------------------------------------------
+//Make containers trapped but with no items trapless
+// ----------------------------------------------------------------------------
+ACTION_FOR_EACH file IN ~ar0130~ ~ar0161~ ~ar0162~ ~ar0166~ ~ar0305~ ~ar0306~ ~ar1105~ ~ar1310~ ~ar3316~ ~ar4810~ BEGIN
+ACTION_IF (FILE_EXISTS_IN_GAME ~%file%.are~) THEN BEGIN
+COPY_EXISTING_REGEXP ~%file%.are~ ~override~
+  READ_LONG  0x70 "cont_off"
+  READ_SHORT 0x74 "cont_num"
+  FOR(y=0;y<%cont_num%;y+=1)BEGIN
+   READ_SHORT (%cont_off% + 0x30 + (%y% * 0xc0)) trapped
+   READ_LONG  (%cont_off% + 0x44 + (%y% * 0xc0)) hasitem
+   READ_ASCII (%cont_off% + 0x48 + (%y% * 0xc0)) trapscript
+   PATCH_IF (%trapped% = 1) AND (%hasitem% = 0) AND (~%trapscript%~ STRING_CONTAINS_REGEXP ~^act[0-9]+~ = 0) BEGIN
+    PATCH_LOG ~%SOURCE_FILE% -- Container index #%y% -- has no items and was flagged as trapped and has guard calling script. flag removed.~
+    WRITE_SHORT (%cont_off% + 0x30 + (%y% * 0xc0)) 0
+   END
+  END
+BUT_ONLY
 END
 END

@@ -54,54 +54,54 @@ COPY_EXISTING ~%ab_file%~ ~override~
      PATCH_IF (VARIABLE_IS_SET ~ab_shift_X~) AND (%ab_add_x% = 1) BEGIN  //if shifting x values and adding
       READ_SHORT (%Q_Off_Vertx% + (%v% * 4)) x_vertex
       WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4)) (%x_vertex% + %ab_shift_X%)  //shift x vertex points
-      PATCH_IF (%bb_x% =0) BEGIN
+//      PATCH_IF (%bb_x% =0) BEGIN
        PATCH_IF (%x_vertex% = %x_lo%) BEGIN
         WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 0)) (%x_lo% + %ab_shift_X%) //x low
        END
        PATCH_IF (%x_vertex% = %x_hi%) BEGIN
         WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 4)) (%x_hi% + %ab_shift_X%) //x high
        END
-       SET bb_x=1                                                        //bounding box x values modified
-      END
+//       SET bb_x=1                                                        //bounding box x values modified
+//      END
      END
      PATCH_IF (VARIABLE_IS_SET ~ab_shift_Y~) AND (%ab_add_y% = 1) BEGIN  //if shifting y values and adding
       READ_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) y_vertex
       WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) (%y_vertex% + %ab_shift_Y%) //shift y vertex points
-      PATCH_IF (%bb_y% =0) BEGIN
+//      PATCH_IF (%bb_y% =0) BEGIN
        PATCH_IF (%y_vertex% = %y_lo%) BEGIN
         WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 2)) (%y_lo% + %ab_shift_Y%) //y low
        END
        PATCH_IF (%y_vertex% = %y_hi%) BEGIN
         WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 6)) (%y_hi% + %ab_shift_Y%) //y high
        END
-       SET bb_y=1                                                        //bounding box y values modified
-      END
+//       SET bb_y=1                                                        //bounding box y values modified
+//      END
      END
      PATCH_IF (VARIABLE_IS_SET ~ab_shift_X~) AND (%ab_add_x% = 0) BEGIN  //if shifting x values and subtracting
       READ_SHORT (%Q_Off_Vertx% + (%v% * 4)) x_vertex
       WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4)) (%x_vertex% - %ab_shift_X%)  //shift x vertex points
-      PATCH_IF (%bb_x% =0) BEGIN
+//      PATCH_IF (%bb_x% =0) BEGIN
        PATCH_IF (%x_vertex% = %x_lo%) BEGIN
         WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 0)) (%x_lo% - %ab_shift_X%) //x low
        END
        PATCH_IF (%x_vertex% = %x_hi%) BEGIN
         WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 4)) (%x_hi% - %ab_shift_X%) //x high
        END
-       SET bb_x=1                                                        //bounding box x values modified
-      END
+//       SET bb_x=1                                                        //bounding box x values modified
+//      END
      END
      PATCH_IF (VARIABLE_IS_SET ~ab_shift_Y~) AND (%ab_add_y% = 0) BEGIN  //if shifting y values and subtracting
       READ_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) y_vertex
       WRITE_SHORT (%Q_Off_Vertx% + (%v% * 4) + 2) (%y_vertex% - %ab_shift_Y%) //shift y vertex points
-      PATCH_IF (%bb_y% =0) BEGIN
+//      PATCH_IF (%bb_y% =0) BEGIN
        PATCH_IF (%y_vertex% = %y_lo%) BEGIN
         WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 2)) (%y_lo% - %ab_shift_Y%) //y low
        END
        PATCH_IF (%y_vertex% = %y_hi%) BEGIN
         WRITE_SHORT (%Q_Off_Conta% + (%x% * 192) + (0x38 + 6)) (%y_hi% - %ab_shift_Y%) //y high
        END
-       SET bb_y=1                                                        //bounding box y values modified
-      END
+//       SET bb_y=1                                                        //bounding box y values modified
+//      END
      END
     END
    END

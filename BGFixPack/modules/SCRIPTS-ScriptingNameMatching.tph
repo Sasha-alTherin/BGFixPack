@@ -1,5 +1,6 @@
 //SCRIPTS-ScriptingNameMatching.tph
 PRINT ~Processing SCRIPTS-ScriptingNameMatching.tph~
+SILENT
 // ----------------------------------------------------------------------------
 // scripting name changes in scripts to match existing scripting name on character
 COPY_EXISTING AR0612.BCS OVERRIDE

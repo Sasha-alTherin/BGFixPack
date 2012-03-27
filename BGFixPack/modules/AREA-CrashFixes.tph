@@ -1,5 +1,6 @@
 //AREA-CrashFixes.tph
 PRINT ~Processing AREA-CrashFixes.tph~
+SILENT
 // ----------------------------------------------------------------------------
 //AR3300, FW3300, AR6700 (BG1, BGTutu, BGT)
 //code from Ascension64

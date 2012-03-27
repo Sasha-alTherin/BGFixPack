@@ -1,31 +1,17 @@
 //ISSUES-GorpelAndGretekSolutions.tph
 PRINT ~Processing ISSUES-GorpelAndGretekSolutions.tph~
+SILENT
 // ----------------------------------------------------------------------------
 //Gorpel Hind Summons Many Maulers Fix
-<<<<<<<< inlined/gorpel.d
-REPLACE_TRIGGER_TEXT ~gorpel~ ~NumTimesTalkedTo()~ ~NumTimesTalkedTo(0)~
+//made this work with the new shout script adjustments.  old stuff no good
+//fix Gorpel & Gretek situation attempt
+<<<<<<<< inlined/dlg-changes.d
+REPLACE_TRIGGER_TEXT gorpel ~NumTimesTalkedTo()~ ~NumTimesTalkedTo(0)~
+ADD_TRANS_ACTION gretek BEGIN 2 END BEGIN 0 END ~Shout(99)~ UNLESS ~Shout(99)~
 REPLACE_ACTION_TEXT gretek ~ActionOverride("PARGUS",Enemy())~ ~~
 REPLACE_ACTION_TEXT gretek ~ActionOverride("WILF",Enemy())~ ~~
 REPLACE_ACTION_TEXT gretek ~ActionOverride("NADER",Enemy())~ ~~
 REPLACE_ACTION_TEXT gretek ~ActionOverride("ARLIN",Enemy())~ ~~
-REPLACE_ACTION_TEXT gretek ~ActionOverride("CATURAK",Enemy())~ ~SetGlobal("ab_bgf_gretekmad","GLOBAL",1)~
-REPLACE_ACTION_TEXT gretek ~Shout(99)~ ~~
+REPLACE_ACTION_TEXT gretek ~ActionOverride("CATURAK",Enemy())~ ~~
 >>>>>>>>
-COMPILE ~inlined/gorpel.d~
-<<<<<<<< make_enemy.baf
-IF
-Global("ab_bgf_gretekmad","GLOBAL",1)
-!Global("ab_bgf_i_am_mad","LOCALS",1)
-THEN
-RESPONSE #100
-SetGlobal("ab_bgf_i_am_mad","LOCALS",1)
-Enemy()
-END
->>>>>>>>
-EXTEND_BOTTOM ~abgfight.bcs~ ~make_enemy.baf~
-ACTION_FOR_EACH file0 IN ~gretek~ ~pargus~ ~wilf~ ~nader~ ~arlin~ ~catura~ BEGIN
- COPY_EXISTING ~%file0%.cre~ ~override~
-//get rid of offending shout script and add this one instead...
-  WRITE_ASCII_TERMINATE 0x248 ~abgfight~ //reassign override script to our value
- BUT_ONLY_IF_IT_CHANGES
-END
+COMPILE ~inlined/dlg-changes.d~

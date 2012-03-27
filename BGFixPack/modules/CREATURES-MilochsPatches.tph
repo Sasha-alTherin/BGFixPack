@@ -1,0 +1,512 @@
+//CREATURES-MilochsPatches.tph
+PRINT ~Processing CREATURES-MilochsPatches.tph~
+SILENT
+
+//Alignment fixes
+ACTION_FOR_EACH tcre IN ~halfen~ ~halfen2~ ~priilmu~ ~sleepdw~ ~sleephal~ BEGIN //Lawful Good (Dwarves, Halflings, Priest of Ilmater)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x27b 0x11 //Alignment
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~amnis3~ ~deltan2~ ~flam2~ ~galile~ ~karan~ ~karan1~ ~karan3~ ~knightsk~ ~monktu1~ ~monktu10~ ~monktu11~ ~monktu12~ ~monktu13~ ~monktu14~ ~monktu2~ ~monktu3~ ~monktu4~ ~monktu5~ ~monktu7~ ~monktu8~ ~monktu9~ ~pallon~ ~reevor~ ~reevor2~ ~ulraun~ BEGIN //Lawful Neutral (Monks, Reevor, Soldiers, Ulraunt)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x27b 0x12 //Alignment
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~baruk~ ~bhobgob~ ~droth~ ~geltik~ ~glart~ ~hakt~ ~hobelite~ ~hobgo5~ ~hobgoa_a~ ~hobgoa_b~ ~hobgoa_c~ ~hobgoa_d~ ~hobgoa_e~ ~hobgob~ ~hobgob_a~ ~hobgob_b~ ~hobgob_c~ ~hobgob_d~ ~hobgob_e~ ~hobgoba~ ~hobgobc~ ~hobgobsu~ ~hobgzhur~ ~hobjoia~ ~ihobgob~ ~malkax~ ~ogrmba~ ~tersus~ ~winski2~ ~zekar~ BEGIN //Lawful Evil (Hobgoblins, Ogre Magi)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x27b 0x13 //Alignment
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~halffg~ ~halfg3~ ~halfg4~ ~halfg5~ ~halfg6~ ~halfgu~ ~harbor~ BEGIN //Neutral Good (Halfling Thieves)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x27b 0x21 //Alignment
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~ashen~ ~attslim~ ~avarice~ ~avaricem~ ~barslim~ ~bat_in~ ~begbax_d~ ~beggbax~ ~bellam~ ~borin~ ~bouncer~ ~boyba1_a~ ~boybax_a~ ~boybax_b~ ~brevli~ ~cauter~ ~chase~ ~chherd~ ~chicke~ ~chicker~ ~childulg~ ~connol~ ~corpse1~ ~corpse2~ ~d2fue~ ~d2isl~ ~dialogmo~ ~digger~ ~dopdop~ ~dopdur~ ~dopdur1~ ~dopdur2~ ~dopdur3~ ~dopfue~ ~dopisl~ ~dopkie~ ~drunk~ ~dursword~ ~erik~ ~euric~ ~farm~ ~farm3~ ~farm4~ ~farmer~ ~fcook2~ ~fcook3~ ~fear~ ~fearm~ ~fecook~ ~feloni~ ~fenten~ ~fgolem~ ~foresh~ ~ftowba_c~ ~ftowbasc~ ~ftowbasn~ ~ftowbax~ ~ftowbesc~ ~ftowbex~ ~ftowfrsc~ ~ftowubx~ ~ftowwi_c~ ~ftwbax_a~ ~ftwbax_b~ ~ftwbax_c~ ~ftwbax_d~ ~ftwbax_e~ ~gerde~ ~ghorak~ ~girba3_a~ ~girbax_a~ ~girbax_b~ ~girbax_c~ ~girbax_d~ ~girbax_e~ ~golinv~ ~greywo~ ~gurke~ ~halfmiri~ ~halftr~ ~hecito~ ~hephis~ ~hersch~ ~housg6~ ~hulrik~ ~jondal~ ~jondal3~ ~jopi~ ~kerrac~ ~keshee~ ~kolvar~ ~kovera~ ~krumm~ ~lachlu~ ~lahl~ ~lothan~ ~love~ ~lovem~ ~lucky~ ~lussel~ ~mcook~ ~mcook2~ ~mcook3~ ~mcook4~ ~mcook5~ ~mtbe3~ ~mtbe9~ ~mtob7~ ~mtob9~ ~mtowba_a~ ~mtowba_b~ ~mtowba_c~ ~mtowba_d~ ~mtowba_e~ ~mtowbasc~ ~mtowbasn~ ~mtowbast~ ~mtowbax~ ~mtowbe~ ~mtowbe_a~ ~mtowbe_b~ ~mtowbe_c~ ~mtowbe_d~ ~mtowbe_e~ ~mtowbesn~ ~mtowbest~ ~mtowbex~ ~mtowfr~ ~mtowfr_a~ ~mtowfr_b~ ~mtowfr_c~ ~mtowfr_d~ ~mtowfr_e~ ~mtowfrsc~ ~mtowfrst~ ~mtown2~ ~mtown3~ ~mtown4~ ~mtown5~ ~mtowna~ ~mtowna_a~ ~mtowna_b~ ~mtowna_c~ ~mtowna_d~ ~mtownasc~ ~mtownast~ ~mtowub_a~ ~mtowub_b~ ~mtowub_c~ ~mtowub_d~ ~mtowub_e~ ~mtowubsc~ ~mtowubx~ ~mtowwi~ ~mtowwi_a~ ~mtowwi_b~ ~mtowwi_c~ ~mtowwi_d~ ~mtowwi_e~ ~mtwbax_a~ ~mtwbax_b~ ~mtwbax_c~ ~mtwbax_d~ ~mtwbax_e~ ~mtwslim~ ~mtwslim2~ ~mtwslim3~ ~nadine~ ~nikola~ ~nobbax_a~ ~nobbax_b~ ~nobbax_c~ ~nobbax_d~ ~nobbax_e~ ~noblba_a~ ~noblba_b~ ~noblba_c~ ~noblba_d~ ~noblba_e~ ~noblbaz~ ~noblpa~ ~noblpa1~ ~noblpa2~ ~noblpa3~ ~noblpa4~ ~noblpa5~ ~nosfer~ ~oberan~ ~ocelli~ ~oogiew~ ~perdue~ ~petrin~ ~phanda~ ~pheirk~ ~pnashk~ ~poghm10~ ~poghm9~ ~poghma4~ ~poghma5~ ~poghma7~ ~prat~ ~pride~ ~pridem~ ~proslay~ ~prsbax_a~ ~prsbax_b~ ~prsbax_c~ ~quinn~ ~reevor3~ ~regina~ ~rodnim~ ~sailnew~ ~samuel~ ~shep~ ~shop01~ ~shop03~ ~shop04~ ~shop06~ ~shop07~ ~shop08~ ~skelet03~ ~sleepfat~ ~sleepfh~ ~sleepmh~ ~smuggl~ ~spengil~ ~squirr~ ~surrey~ ~tartus~ ~teven~ ~tiber~ ~tick~ ~voleta~ ~whelp~ ~zhurlo~ BEGIN //Neutral (Commoners, Nobles etc.)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x27b 0x22 //Alignment
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~gantol1~ ~karlat~ BEGIN //Neutral Evil (Gantolandan, Karlat)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x27b 0x23 //Alignment
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~ender~ ~fahrin~ ~norale~ ~sleepel~ BEGIN //Chaotic Good (Elves)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x27b 0x31 //Alignment
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~bassil~ ~britik~ ~darryl~ ~destus~ ~garkla~ ~gnoll~ ~gnoll_a~ ~gnoll_b~ ~gnoll_c~ ~gnoll_d~ ~gnoll_e~ ~gnoll5~ ~gnoll5a~ ~gnolld~ ~gnollper~ ~gnollsu~ ~gorf~ ~hack~ ~ingot~ ~ixvart~ ~nexlit~ ~ogre~ ~ogre02~ ~ogreco~ ~ogred~ ~oopah~ ~oopah2~ ~plyogre~ ~pumber2~ ~pumberl~ ~xvart~ ~xvart_a~ ~xvart_b~ ~xvart_c~ ~xvart2~ ~xvarth~ ~xvartsu~ BEGIN //Chaotic Evil (Bassilus, Gnolls, Ogres, Priestess of Umberlee, Xvarts)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x27b 0x33 //Alignment
+      END
+    BUT_ONLY
+  END
+END
+
+//Race, class and gender fixes
+ACTION_IF FILE_EXISTS_IN_GAME ~tanar.cre~ BEGIN //Aec'Letec
+  COPY_EXISTING ~tanar.cre~ ~override~
+    PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+      WRITE_BYTE 0x272 121 //Race (demonic)
+    END
+  BUT_ONLY
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~ashiru.cre~ BEGIN //Ashirukuru
+  COPY_EXISTING ~ashiru.cre~ ~override~
+    PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+      WRITE_BYTE 0x237 2 //Sex (female)
+      WRITE_BYTE 0x272 133 //Race (spectre)
+      WRITE_BYTE 0x275 2 //Gender (female)
+    END
+  BUT_ONLY
+END
+
+ACTION_FOR_EACH tcre IN ~cat~ ~catdead~ ~catp~ BEGIN //Cats
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 137 //Race (cat)
+        WRITE_BYTE 0x273 155 //Class (cat)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~amaran~ ~druid3~ ~izefia~ ~takiyah~ BEGIN //Druids
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x273 11 //Class (druid)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~brevli~ ~quinn~ ~sailal~ ~sleepdw~ ~tarnor~ BEGIN //Dwarves
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 4 //Race (dwarf)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~borda~ ~cordyr~ ~mordai~ ~narcil~ ~sleepel~ ~tenya~ ~tenya2~ ~ulf~ BEGIN //Elves
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 2 //Race (elf)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~fear.cre~ BEGIN //Fear
+  COPY_EXISTING ~fear.cre~ ~override~
+    PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+      WRITE_BYTE 0x272 108 //Race (ghoul)
+      WRITE_BYTE 0x273 117 //Class (ghoul_revenant)
+    END
+  BUT_ONLY
+END
+
+ACTION_FOR_EACH tcre IN ~cow~ ~cowh~ ~crew2~ ~crew3~ ~crew6~ ~d2isl~ ~delain~ ~dopisl~ ~farthi~ ~ftowub~ ~ftowub_c~ ~ftowub_d~ ~ftowwi~ ~ftowwi_a~ ~ftowwi_b~ ~ftowwi_c~ ~ftowwi_d~ ~ftowwi_e~ ~isla~ ~kaish2~ ~kaisha~ ~kryla~ ~pallon~ ~shara~ ~sleepfh~ ~solia1~ ~solia2~ ~voleta~ BEGIN //Females
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x237 2 //Sex (female)
+        WRITE_BYTE 0x275 2 //Gender (female)
+      END
+    BUT_ONLY
+  END
+END
+
+COPY_EXISTING ~korax.cre~ ~override~ //Korax the Ghoul
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 108 //Race (ghoul)
+  END
+BUT_ONLY
+
+ACTION_FOR_EACH tcre IN ~gibber~ ~gibber2~ ~gibbersu~ ~igibber~ BEGIN //Gibberlings
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+      WRITE_BYTE 0x272 109 //Race (gibberling)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~gnoll5~ ~gnoll5a~ BEGIN //Gnolls
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 110 //Race (gnoll)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~mutami~ ~tellan~ BEGIN //Gnomes
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 6 //Race (gnome)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~bishop~ ~king~ ~knight~ ~pawn~ ~rook~ BEGIN //Golems - Clay (Chess Pieces)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 144 //Race (golem)
+        WRITE_BYTE 0x273 185 //Class (golem_clay)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~queen.cre~ BEGIN //Golem - Clay (Queen)
+  COPY_EXISTING ~queen.cre~ ~override~
+    PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+      WRITE_BYTE 0x237 2 //Sex (female)
+      WRITE_BYTE 0x272 144 //Race (golem)
+      WRITE_BYTE 0x273 185 //Class (golem_clay)
+      WRITE_BYTE 0x275 2 //Gender (female)
+    END
+  BUT_ONLY
+END
+
+ACTION_FOR_EACH tcre IN ~duplica1~ ~fgolem~ ~golemf~ ~golemf2~ BEGIN //Golems - Flesh
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 144 //Race (golem)
+        WRITE_BYTE 0x273 183 //Class (golem_flesh)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~avarice~ ~avaricem~ ~battho~ ~doomdur~ ~doomgu~ ~doomsa~ ~dumfue~ ~dumkie~ ~helmho~ ~pride~ ~pridem~ BEGIN //Golems - Iron (Helmed Horrors)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x237 1 //Sex (male)
+        WRITE_BYTE 0x272 144 //Race (golem)
+        WRITE_BYTE 0x273 182 //Class (golem_iron)
+        WRITE_BYTE 0x275 4 //Gender (neither)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~dumisl~ ~love~ ~lovem~ BEGIN //Golems - Iron (Helmed Horrors, Female)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x237 2 //Sex (female)
+        WRITE_BYTE 0x272 144 //Race (golem)
+        WRITE_BYTE 0x273 182 //Class (golem_iron)
+        WRITE_BYTE 0x275 2 //Gender (female)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~stonec~ ~stoned~ ~stonedl~ ~stonedw~ ~stoneg~ BEGIN //Golems - Stone
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 144 //Race (golem)
+        WRITE_BYTE 0x273 184 //Class (golem_stone)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~arlin~ ~attslim~ ~bayard~ ~cuchol~ ~cythan~ ~digger~ ~drelik~ ~farluc~ ~shaldr~ ~shank~ ~thieff~ ~wiven~ BEGIN //Half-Elves
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 3 //Race (half-elf)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~alvanh~ ~nader~ ~nelik~ ~sailfin~ ~sleephal~ BEGIN //Halflings
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 5 //Race (halfling)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~baruk~ ~bhobgob~ ~bullrush~ ~geltik~ ~glart~ ~hakt~ ~hobelite~ ~hobgo5~ ~hobgoa_a~ ~hobgoa_b~ ~hobgoa_c~ ~hobgoa_d~ ~hobgoa_e~ ~hobgob~ ~hobgob_a~ ~hobgob_b~ ~hobgob_c~ ~hobgob_d~ ~hobgob_e~ ~hobgoba~ ~hobgobc~ ~hobgobsu~ ~hobgzhur~ ~hobjoia~ ~ihobgob~ ~malkax~ ~tersus~ ~zargal~ ~zekar~ BEGIN //Hobgoblins
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 111 //Race (hobgoblin)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~fenrus~ ~davaeo~ BEGIN //Humans
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 1 //Race (human)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~blane~ ~bran~ ~dushai~ ~farthi~ ~joia~ ~jopi~ ~merch3~ ~merch4~ ~mtbe7~ ~mtob3~ ~nantri~ BEGIN //Innocents
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x273 155 //Class (innocent)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~kirinh.cre~ BEGIN //Kirinhale
+  COPY_EXISTING ~kirinh.cre~ ~override~
+    PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+      WRITE_BYTE 0x237 2 //Sex (female)
+      WRITE_BYTE 0x272 121 //Race (demonic)
+      WRITE_BYTE 0x275 2 //Gender (female)
+    END
+  BUT_ONLY
+END
+
+COPY_EXISTING ~droth.cre~ ~override~ //Droth (Ogre Mage)
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 113 //Race (ogre)
+  END
+BUT_ONLY
+
+ACTION_FOR_EACH tcre IN ~rat~ ~rat2~ ~squirr~ BEGIN //Rodents
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 151 //Race (rabbit)
+        WRITE_BYTE 0x273 199 //Class (food_creature)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~skelwa~ ~skelwa02~ ~skelwa03~ BEGIN //Skeleton Warriors
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 115 //Race (skeleton)
+      END
+    BUT_ONLY
+  END
+END
+
+COPY_EXISTING ~jellgr.cre~ ~override~ //Slime - Gray Ooze
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 119 //Race (slime)
+    WRITE_BYTE 0x273 153 //Class (grey_ooze)
+  END
+BUT_ONLY
+
+ACTION_FOR_EACH tcre IN ~jellmu~ ~jellmul~ ~jellspa~ ~jellymu~ BEGIN //Slimes - Mustard Jellies
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 119 //Race (slime)
+        WRITE_BYTE 0x273 151 //Class (mustard_jelly)
+      END
+    BUT_ONLY
+  END
+END
+
+COPY_EXISTING ~jelloc.cre~ ~override~ //Slime - Ochre Jelly
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 119 //Race (slime)
+  END
+BUT_ONLY
+
+ACTION_FOR_EACH tcre IN ~jellygr~ ~jellygr2~ BEGIN //Slimes - Green
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 119 //Race (slime)
+        WRITE_BYTE 0x273 154 //Class (green_slime)
+      END
+    BUT_ONLY
+  END
+END
+
+COPY_EXISTING ~schlum.cre~ ~override~ //Slime - Schlumpsha
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 119 //Race (slime)
+    WRITE_BYTE 0x273 150 //Class (olive_slime)
+  END
+BUT_ONLY
+
+ACTION_FOR_EACH tcre IN ~daitel~ ~knight1~ ~knight2~ ~knight3~ ~knight4~ ~knight5~ ~knight6~ BEGIN //Spectres
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 133 //Race (spectre)
+        WRITE_BYTE 0x273 171 //Class (spectre)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~durlagt~ ~isla~ BEGIN //Spectres (Innocent)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 133 //Race (spectre)
+      END
+    BUT_ONLY
+  END
+END
+
+COPY_EXISTING ~centeo.cre~ ~override~ //Centeol the Spider Queen
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 116 //Race (spider)
+    WRITE_BYTE 0x273 189 //Class (spider_centeol)
+  END
+BUT_ONLY
+
+COPY_EXISTING ~stalke.cre~ ~override~ //Stalker
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 136 //Race (mist)
+  END
+BUT_ONLY
+
+ACTION_FOR_EACH tcre IN ~achen~ ~cailan~ ~faizah~ ~rance~ ~vail~ BEGIN //Statues
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 149 //Race (statue)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_IF FILE_EXISTS_IN_GAME ~dursword.cre~ BEGIN //Durlag's Pride (Sword)
+  COPY_EXISTING ~dursword.cre~ ~override~
+    PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+      WRITE_BYTE 0x272 201 //Race (sword)
+      WRITE_BYTE 0x273 201 //Class (long_sword)
+    END
+  BUT_ONLY
+END
+
+COPY_EXISTING ~wolfva.cre~ ~override~ //Vampiric Wolf
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 117 //Race (wolf)
+    WRITE_BYTE 0x273 147 //Class (wolf_vampiric)
+  END
+BUT_ONLY
+
+ACTION_FOR_EACH tcre IN ~baresh~ ~baresh2~ ~barwlf~ BEGIN //Baresh (Werewolf)
+  ACTION_IF FILE_EXISTS_IN_GAME ~barwlf.cre~ BEGIN
+    COPY_EXISTING ~barwlf.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 122 //Race (lycanthrope)
+        WRITE_BYTE 0x273 157 //Class (werewolf)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~marale~ ~marale2~ BEGIN //Maralee (Werewolf)
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x237 2 //Sex (female)
+        WRITE_BYTE 0x272 122 //Race (lycanthrope)
+        WRITE_BYTE 0x273 155 //Class (innocent)
+        WRITE_BYTE 0x275 2 //Gender (female)
+      END
+    BUT_ONLY
+  END
+END
+
+ACTION_FOR_EACH tcre IN ~jondalw~ ~wolfwe~ BEGIN //Wolfweres
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 122 //Race (lycanthrope)
+        WRITE_BYTE 0x273 158 //Class (wolfwere)
+      END
+    BUT_ONLY
+  END
+END
+
+COPY_EXISTING ~destus.cre~ ~override~ //Destus Gurn (Xvart)
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    WRITE_BYTE 0x272 112 //Race (kobold)
+    WRITE_BYTE 0x273 124 //Class (kobold_xvart)
+  END
+BUT_ONLY
+
+ACTION_FOR_EACH tcre IN ~sewerf2~ ~zombie~ ~zombie_a~ ~zombie_b~ ~zombie_c~ ~zombie_d~ ~zombie_e~ ~zombieb~ ~zombiew~ BEGIN //Zombies
+  ACTION_IF FILE_EXISTS_IN_GAME ~%tcre%.cre~ BEGIN
+    COPY_EXISTING ~%tcre%.cre~ ~override~
+      PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+        WRITE_BYTE 0x272 148 //Race (zombie)
+        WRITE_BYTE 0x273 198 //Class (zombie_normal)
+      END
+    BUT_ONLY
+  END
+END

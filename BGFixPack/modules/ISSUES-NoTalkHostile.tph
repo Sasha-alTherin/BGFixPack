@@ -1,0 +1,43 @@
+//ISSUES-NoTalkHostile.tph
+PRINT ~Processing ISSUES-NoTalkHostile.tph~
+SILENT
+//those who initate only do so if not hostile
+ACTION_FOR_EACH file IN ~initdlg~ ~initdlg2~ ~initdlg3~ ~initneb~ ~initobe~ ~initrev~ BEGIN
+ACTION_IF (FILE_EXISTS_IN_GAME ~%file%.bcs~) THEN BEGIN
+COPY_EXISTING ~%file%.bcs~ override
+ DECOMPILE_AND_PATCH BEGIN
+  COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~!Allegiance(Myself,ENEMY)~ tsp1
+  PATCH_IF (tsp1 < 1) BEGIN
+   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~See([PC])~ ~See([PC]) !Allegiance(Myself,ENEMY)~
+  END
+ END
+BUT_ONLY
+END
+END
+COPY_EXISTING initmain.bcs override
+ DECOMPILE_AND_PATCH BEGIN
+  COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~!Allegiance(Myself,ENEMY)~ tsp1
+  PATCH_IF (tsp1 < 1) BEGIN
+   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~See(Player1)~ ~See(Player1) !Allegiance(Myself,ENEMY)~
+  END
+ END
+BUT_ONLY
+ACTION_IF (FILE_EXISTS_IN_GAME ~initinv2.bcs~) THEN BEGIN
+COPY_EXISTING initinv2.bcs override
+ DECOMPILE_AND_PATCH BEGIN
+  COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~!Allegiance(Myself,ENEMY)~ tsp1
+  PATCH_IF (tsp1 < 1) BEGIN
+   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~Detect([PC])~ ~Detect([PC]) !Allegiance(Myself,ENEMY)~
+  END
+ END
+BUT_ONLY
+END
+//adjust imoen to not talk when she is hostile
+COPY_EXISTING imoen.bcs override
+DECOMPILE_AND_PATCH BEGIN
+  COUNT_REGEXP_INSTANCES CASE_INSENSITIVE EXACT_MATCH ~!Allegiance(Myself,ENEMY)~ tsp1
+  PATCH_IF (tsp1 < 1) BEGIN
+   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~Global("TalkedToGorion","GLOBAL",0)~ ~Global("TalkedToGorion","GLOBAL",0) !Allegiance(Myself,ENEMY)~
+  END
+END
+BUT_ONLY

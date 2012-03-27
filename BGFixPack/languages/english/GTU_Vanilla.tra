@@ -1001,7 +1001,7 @@ It has neither mouth, nor teeth; yet, it eats its food steadily. It has neither 
 @1585 = ~[SAREVOK 12] Face me! Face the new LORD OF MURDER!~ [SAREV12]
 @1587 = ~Ya's know whats? I hates the Iron Throne. They's took my store, my money and my wife. They's took my whole life, they did. *burp* 'scuse me. Now all I've gots is this damn horse piss. To think I used to works for those manure piles.~
 @1588 = ~Wells, I wanted to talks about the Iron Thrones. Ask me anythings about *hic* those manure eaters and I'lls tell ya. I workeds for them, 'member?~
-@1589 = ~The leasders of the Iron Throne, ha! There's Rieltar Costashck, he's the big guy, sents by the evens bigger guys down in Sembia. This wholsh operashion is his baby. Hes has two other guys: Brunos and Thaldorn. Brunos is a big dumbsh drunk half-orc, damn half breeshd could never hold his liquor. Thaldorn'sh a pansy. Ohhhhh ya, I nearly forgotsh, there's also Sarevok. He's the son a Rieltar. He's a mean cuss.~
+@1589 = ~The leasders of the Iron Throne, ha! There's Rieltar Anschev, he's the big guy, sents by the evens bigger guys down in Sembia. This wholsh operashion is his baby. Hes has two other guys: Brunos and Thaldorn. Brunos is a big dumbsh drunk half-orc, damn half breeshd could never hold his liquor. Thaldorn'sh a pansy. Ohhhhh ya, I nearly forgotsh, there's also Sarevok. He's the son a Rieltar. He's a mean cuss.~
 @1590 = ~The Throne'sh plans? They's wants to make money, alwaysh more money. Buts I know thish: their leadersh, the big three uns, they're going to Candleskeeps, yes they are. *burp* Something big, something huuuuuge's going to happens there.~
 @1591 = ~A secrets route? Oh ya, I know ones, a really goods one. Ya know Krammoch Arhsstaff? Ah, it doeshn't matter. His *hic* home's located righst beside the Iron Throne citadel. He's in close with Rieltar, he he, know what I mean. Wells anyways, he's gots a passage from hish bashement to the Throne's bashement.~
 @1593 = ~I'm tired now, I needs to go home and sleep. If yas ever needs me, ya can find me at the Elfsong tavern. Good bye. *burp*~
@@ -3266,7 +3266,7 @@ This spell is similar to the invisibility spell, but the recipient is able to at
 @5103 = ~Well... right now, there's just one of you, so I think we'll take our chances.~
 @5104 = ~You're threatening us?! I think you've got things mixed up, you degenerate, foul smelling beast. Before we end your miserable life you should do some begging, and maybe throw in some information about these Chill.~
 @5106 = ~Wait! Hey, I'm sorry, just don't kill me... please. I'll tell you about the Chill.~
-@5109 = ~The Chill are a group of mercenaries, they're part of the group who's been raiding the merchant caravans. I just got lost in a raid a couple days back, some of the Flaming Fist had been doggin' my steps. There, I've told you want ya wanted to hear.~
+@5109 = ~The Chill are a group of mercenaries, they're part of the group who's been raiding the merchant caravans. I just got lost in a raid a couple days back, some of the Flaming Fist had been doggin' my steps. There, I've told you what ya wanted to hear.~
 @5110 = ~Stop! You have trespassed on our territory. You shall not be allowed to leave until you have paid tribute. We demand 50 gold in tribute!~
 @5111 = ~We have no money.~
 @5112 = ~All right then, here's your 50 gold. Goodbye now!~
@@ -4103,7 +4103,7 @@ This spell is similar to the invisibility spell, but the recipient is able to at
 @6130 = ~Please don't bother me, unless of course, you've changed your mind about my proposal and desire my companionship. We can discuss it over some Aluryath wine.~
 @6134 = ~You've... done real well. I wish ya the best luck on yer coming journeys.~
 @6135 = ~Being a good friend of yours and all, I can tell you this: there's a bunch a mean dog like creatures killin' me men in the mine. Ya gotta stop 'em!~
-@6136 = ~I am Entar Silvershield, one of the Grand Dukes of Baldur's Gate. I can tell you many things, friend. Perhaps you'd care to hear about the Iron Throne. They're a new mercantile organization that have set up in Baldur's Gate. Most of us are rather concerned over some of the Iron Thrones actions, but they have promised to supply us with iron, a resource that has been very rare as of late. We are suspicious of Amn, our neighbor to the south. We think that Amn has allied with the Zhentarim in an attempt to annex our glorious city. However, Scar feels that the evidence against Amn was too easy to come by, almost as if someone were trying to frame Amn to cause friction betwen our two nations. Since you are my best friend, I should also tell you that I have a very beautiful daughter: her name is Skie, and she is now of marriageable age.~
+@6136 = ~I am Entar Silvershield, one of the Grand Dukes of Baldur's Gate. I can tell you many things, friend. Perhaps you'd care to hear about the Iron Throne. They're a new mercantile organization that have set up in Baldur's Gate. Most of us are rather concerned over some of the Iron Thrones actions, but they have promised to supply us with iron, a resource that has been very rare as of late. We are suspicious of Amn, our neighbor to the south. We think that Amn has allied with the Zhentarim in an attempt to annex our glorious city. However, Scar feels that the evidence against Amn was too easy to come by, almost as if someone were trying to frame Amn to cause friction between our two nations. Since you are my best friend, I should also tell you that I have a very beautiful daughter: her name is Skie, and she is now of marriageable age.~
 @6137 = ~Hmm... A bold statement, were I an orc or a hobgoblin. I am, however, not someone it would be wise for you to attack. I should let this threat go no further, if I were you. Be a good little adventurer and leave me be.~
 @6138 = ~Have you changed your minds about combating the evil of the Iron Throne? Join me, and together we can end the defiling of the Cloakwood.~
 @6139 = ~I am Faldorn, a member of the Shadow Druids. The Shadow Druids are a sect of druids that believes in the destruction of civilization. I have come to this region of the world to sow disorder among those druid sects that are too weak to share our vision.~
@@ -4464,7 +4464,7 @@ Elient, 1370~
 @6564 = ~Brielbara's daughter was cursed by a man named Yago. He did this to punish her for adultery.~
 @6565 = ~We've accepted a quest from a woman named Brielbara. She wants us to find a man named Yago. Yago has cursed Briel's daughter to die, and we are to get the reverse of the spell from him. We can find him at the Low Lantern. We are to meet Brielbara at the Splurging Sturgeon when we are done.~
 @6566 = ~When we charmed Brielbara we learned that her daughter had been cursed to die. She had also heard many rumors about the Iron Throne, but nothing specific.~
-@6567 = ~When we charmed Bruno we learned a lot of information about the Iron Throne. They want to become the eminent trading cartel along the Sword Coast. To do this, they have been using a misinformation campaign to raise tensions between the nations of Baldur's Gate and Amn. They have disrupted the flow of iron into Baldur's Gate by sabotaging the Nashkel mines, and using the Chill and Black Talons to cut off all trade along the Sword Coast. The only iron source in the Sword Coast will be the Iron Throne base in Cloakwood. With Baldur's Gate anticipating a war with Amn, they will be forced to go to the Iron Throne for the most precious of wartime materials. When this occurs, the Iron Throne will be able to make any demands that they wish.~
+@6567 = ~When we charmed Brunos we learned a lot of information about the Iron Throne. They want to become the eminent trading cartel along the Sword Coast. To do this, they have been using a misinformation campaign to raise tensions between the nations of Baldur's Gate and Amn. They have disrupted the flow of iron into Baldur's Gate by sabotaging the Nashkel mines, and using the Chill and Black Talons to cut off all trade along the Sword Coast. The only iron source in the Sword Coast will be the Iron Throne base in Cloakwood. With Baldur's Gate anticipating a war with Amn, they will be forced to go to the Iron Throne for the most precious of wartime materials. When this occurs, the Iron Throne will be able to make any demands that they wish.~
 @6568 = ~When we charmed Rieltar we learned a lot of information about the Iron Throne. They want to become the eminent trading cartel along the Sword Coast. To do this, they have been using a misinformation campaign to raise tensions between the nations of Baldur's Gate and Amn. They have disrupted the flow of iron into Baldur's Gate by sabotaging the Nashkel mines, and using the Chill and Black Talons to cut off all trade along the Sword Coast. The only iron source in the Sword Coast will be the Iron Throne base in Cloakwood. With Baldur's Gate anticipating a war with Amn, they will be forced to go to the Iron Throne for the most precious of wartime materials. When this occurs, the Iron Throne will be able to make any demands that they wish.~
 @6569 = ~When we charmed Thaldorn we learned a lot of information about the Iron Throne. They want to become the eminent trading cartel along the Sword Coast. To do this, they have been using a misinformation campaign to raise tensions between the nations of Baldur's Gate and Amn. They have disrupted the flow of iron into Baldur's Gate by sabotaging the Nashkel mines, and using the Chill and Black Talons to cut off all trade along the Sword Coast. The only iron source in the Sword Coast will be the Iron Throne base in Cloakwood. With Baldur's Gate anticipating a war with Amn, they will be forced to go to the Iron Throne for the most precious of wartime materials. When this occurs, the Iron Throne will be able to make any demands that they wish.~
 @6571 = ~We have agreed to obtain a nymph currently in the possession of a mage named Ragefast. The mage Ramazith has hired us, and desires the Nymph for reasons unknown to us. We are to meet Ramazith at his home when we have the nymph. Ragefast's home is located just north east of the Hall of Wonders.~
@@ -4915,9 +4915,9 @@ STATISTICS:
 Damage: 1D6
 Damage Type: Missile
 Launcher: Bow
-Not Ysable by:
- Druid
+Not Usable by:
  Cleric
+ Druid
  Mage~
 @6761 = ~Arrow +1~
 @6763 = ~Acid Arrow~
@@ -7621,7 +7621,7 @@ I have noticed that your shipments of iron have slowed as of late. It is imperat
 Davaeorn~
 @8916 = ~[Note from Tuth to Rieltar]Rieltar,
 
-my superiors are intrigued by your proposal. I would like to discuss it further, but not through correspondence such as this. The Harpers and Zhents have been very active in this region as of late; it would be very unfortunate if they tried to disrupt an alliance between our two organizations. If you, Bruno, and Thaldorn were to meet with us in the safety of Candlekeep, my superiors would be much relieved. Please send a response ASAP.
+my superiors are intrigued by your proposal. I would like to discuss it further, but not through correspondence such as this. The Harpers and Zhents have been very active in this region as of late; it would be very unfortunate if they tried to disrupt an alliance between our two organizations. If you, Brunos, and Thaldorn were to meet with us in the safety of Candlekeep, my superiors would be much relieved. Please send a response ASAP.
 
 Tuth~
 @8917 = ~[Note from Sarevok to Rieltar]Father,
@@ -14208,7 +14208,7 @@ Special: Wearer attains the ability to Charm unless target saves vs. breath (-1 
 Charisma: +2
 Weight: 3~
 @17245 = ~A wizard who concentrates efforts in a single school of magic is called a specialist. The number of spells that can be cast by the wizard increases, but at the loss of the ability to cast spells of the school in opposition to their specialty. Consider the advantages and disadvantages carefully.~
-@17246 = ~The cursed Helm of Alignment Change is a truly fearsome item. As its name suggests, it has the power to alter the fundamental ethical framework, nay, the very identity of anyone unlucky enough to wear it. It can ruin homes, friendships, even entire cities or nations. Should the legions of evil ever force one onto the head of a benevolent Solar, the multiverse, as we know it, will surely meet an abrupt and painful end.
+@17246 = ~The cursed Helm of Opposite Alignment is a truly fearsome item. As its name suggests, it has the power to alter the fundamental ethical framework, nay, the very identity of anyone unlucky enough to wear it. It can ruin homes, friendships, even entire cities or nations. Should the legions of evil ever force one onto the head of a benevolent Solar, the multiverse, as we know it, will surely meet an abrupt and painful end.
 
 STATISTICS:
 
@@ -14522,7 +14522,7 @@ Weight: 1~
 @17475 = ~My motives are my own and no one else's.~
 @17476 = ~My motives are my own and no one else's.~
 @17477 = ~My motives are my own and no one else's.~
-@17478 = ~Okay~
+//@17478 = ~Okay~
 @17479 = ~'Twas neither the place nor the time for such things. As painful as the circumstances may have been, it was time for thee to forge thine own path. One of the most valuable lessons that life has taught me, is when NOT to go sticking my pipe in other people's affairs. Such is the case now, as well.~
 @17480 = ~But you could tell me so much, about Gorion and myself alike. Please, stay a while.~
 @17481 = ~Thank goodness. Does that mean I shall be spared any more of your chatter?~
@@ -15426,7 +15426,7 @@ We are expecting an incursion at our mine location in the Cloakwood.
 You are to accompany Davaeorn to the site and prevent entry or assault by anyone that is foolish enough to challenge you.
 Your standard fee shall be doubled in this instance. If all goes well you should look forward to more of the same.
 
-    Rieltar%~
+    Rieltar~
 @17932 = ~No time, no time! On the run with info! Off to Amn to report of things most dire indeed! Bandit raids increasing, iron ore depleting, and everyone is up in arms about their lack of arms. No wonder relations are strained to the brink. On my way I am to Amn!~
 @17933 = ~Speedy delivery, speedy delivery coming through. Must inform the Grand Dukes of the Nashkel mine liberation. They must be told iron supplies will return to normal once trade routes are reliable once again. Speedy delivery, coming through!~
 @17935 = ~The mine? Um... I... I think they were going to try and look like the saviors of the day, riding in with their stores of iron to equip the troops, or something like that. With the bandit raids and the rumors about Amn, the Iron Throne figured that the Dukes of Baldur's Gate would think they needed arms and ore quickly in case of Amnish attack. They... they figured they could get exorbitant prices, or better yet, sanctions against competitors and an easing of trade laws for themselves only. A quick way to install themselves as an underground power on the coast. That's all I know about it, I swear!~
@@ -15588,7 +15588,7 @@ Not Usable by:
  Druid
  Mage
  Thief~
-@18096 = ~HOW could you be so CALLOUS? I am so obviously in PAIN here! Have you no care for MY needs? No, of course not. No one does. Not mumsey, not daddums, not Jeeves; I bet they'd be glad I was gone. If fact, I'd probably be doing them a favor! That's it, I'll stay alive just to spite them! I'll be the most miserable, selfish, upstart of a child! Actually, this won't be much of a change, but now I'm justified! Life is good.~
+@18096 = ~HOW could you be so CALLOUS? I am so obviously in PAIN here! Have you no care for MY needs? No, of course not. No one does. Not mumsey, not daddums, not Jeeves; I bet they'd be glad I was gone. In fact, I'd probably be doing them a favor! That's it, I'll stay alive just to spite them! I'll be the most miserable, selfish, upstart of a child! Actually, this won't be much of a change, but now I'm justified! Life is good.~
 @18097 = ~Keep low and quiet! Can you smell it? Ogres on the breeze. Two, maybe more.~
 @18098 = ~A Protection from Poison scroll offers protection to the target from all forms of poison, be they of a natural or magical nature. The effect is not permanent, however, and will wear off after six hours.
 
@@ -16676,7 +16676,7 @@ Not Usable by:
 @19374 = ~Save your pleasantries and answer my questions. How did you know of my plans to come to Nashkel?~
 @19377 = ~The main character has been killed. You must restart the game.~
 @19382 = ~Save your pleasantries and answer my questions. How did you know of my plans to come to Nashkel?~
-@19384 = ~Unacceptable, and you well know it. Your companions need to verify what is happening here in Nashkel as much as I do. I need someone to descend into the mines southeast of the town, and find out what is causing our problems. Miners are going missing, and the ore we do retrieve is tainted and useless. You will be rewarded for your efforts. I think I you can see the benefits of helping me.~
+@19384 = ~Unacceptable, and you well know it. Your companions need to verify what is happening here in Nashkel as much as I do. I need someone to descend into the mines southeast of the town, and find out what is causing our problems. Miners are going missing, and the ore we do retrieve is tainted and useless. You will be rewarded for your efforts. I think you can see the benefits of helping me.~
 @19385 = ~I thought Jaheira would travel with a group that had better manners. I guess even the best of people must work with lowlifes occasionally, if only to get the job done. As for your question, I knew you were coming because I spoke with friends of Jaheira. Mutual acquaintances that I knew would respond to my plea.~
 @19387 = ~I thought Khalid would travel with a group that had better manners. I guess even the best of people must work with lowlifes occasionally, if only to get the job done. As for your question, I knew you were coming because I spoke with friends of Khalid. Mutual acquaintances that I knew would respond to my plea.~
 @19388 = ~The Jovial Juggler? Where is that?~
@@ -17261,7 +17261,7 @@ All player-generated characters have been exported (Char1, etc.)~
 @20709 = ~You try the doorknob and a muffled voice from inside the barracks says, "Go away, you chimp!"~
 @20710 = ~We delivered the body of Brun's son to him. He was quite distraught. Perhaps there is more we could do... but I'm not sure what.~
 @20712 = ~We have a few more things to do in the city. Once we're finished, we'll come back and finish things up with the Iron Throne.~
-@20713 = ~Alvanhendar's healing and sundries~
+@20713 = ~Alvanhendar's Healing and Sundries~
 @20715 = ~Please Insert Baldur's Gate CD~
 @20723 = ~When the berserk state ends, Minsc will take fifteen damage.~
 @20726 = ~Minsc's berserk state has ended. He loses his extra fifteen hit points. If he was below fifteen hit points, this will kill him.~
@@ -18092,3 +18092,10 @@ Area of Effect: Special
 Saving Throw: Special
 
 Upon casting this spell, the wizard is usually able to remove a curse on an object, on a person, or in the form of some undesired sending or evil presence. Note that the remove curse spell does not remove the curse from a cursed shield, weapon, or suit of armor, for example, although the spell typically enables the person afflicted with any such cursed item to get rid of it. Certain special curses may not be countered by this spell, or may be countered only by a caster of a certain level or more.~
+@1354 = ~They are led by Rieltar Anchev.~
+@20111 = ~What? Who are you? I speak of Sarevok, the new self-proclaimed "leader" of the Iron Throne. My father Brunos was barely a day dead when Sarevok made his claim, and now everything is crumbling. I am sure he orchestrated the whole thing so he could gain control, but if he wanted to run the organization, why does he act as though he does not care for it? I have no idea, but I will put a blade in his belly before the day is through, regardless. Who did you claim to be?~
+@20500 = ~Aye, Brunos and Rieltar... That's the trouble with this place: any rogue can come in 'ere, as long as 'e's got a pretty book to give. Keep your eye out for them. They looked like trouble.~
+@20505 = ~Iron Throne? Aye, Rieltar and Brunos are their names. They're in the Central Keep, meeting with Tuth and Kestor, Knights of the Shield.~
+@6811 = ~Helm of Charm Protection~
+@6803 = ~Helm of Opposite Alignment~
+@10217 = ~When asked about her past, VICONIA reveals (quite proudly) that she is a dark elf from the Underdark city of Menzoberranzan. She says very little about her reasons for leaving that sunless realm, though separations of such a nature are never gentle. She does claim to no longer worship the spider goddess Lolth; a change that even you know is often fatal. Her new faith is in the night goddess Shar, an appropriate choice for a drow, though this is not a firm indication that she has given up the brutal ways of her people. She finds the laws of the surface world quaint and more than a little strange, but this is simply because of her lack of experience. Likewise she seems a bit naive about how her race is viewed by surface dwellers. Many will not give her the chance she seems to expect, and even being seen with her may affect how people think of you. You know that as a drow, she has resistance to magic, both beneficial and harmful.~

@@ -1,5 +1,6 @@
 //CREATURES-BasicCorrections.tph
 PRINT ~Processing CREATURES-BasicCorrections.tph~
+SILENT
 // ----------------------------------------------------------------------------
 //death variables
 //shamelessly taken from UB
@@ -134,11 +135,7 @@ BUT_ONLY_IF_IT_CHANGES
 END
 END //end action for each
 
-//FARMBR, GERDE, JEBADO, SONNER, TELMEN: Removed SHOUT.BCS to prevent spawned BANDIT.CRE from turning Brun, Gerde, Jebadoh, Sonner, and Telmen, hostile
-COPY_EXISTING ~FARMBR.CRE~ ~override~
-       ~GERDE.CRE~  ~override~
-  WRITE_ASCII 0x248 "" #8 //override script
-BUT_ONLY_IF_IT_CHANGES
+//JEBADO, SONNER, TELMEN: Removed SHOUT.BCS to prevent spawned BANDIT.CRE from turning Brun, Gerde, Jebadoh, Sonner, and Telmen, hostile
 COPY_EXISTING ~JEBADO.CRE~ ~override~
        ~SONNER.CRE~ ~override~
        ~TELMEN.CRE~ ~override~
@@ -159,3 +156,59 @@ COPY_EXISTING ~ZOMBIE.CRE~ ~override~
   SAY 0xec #18085 //damage sound
   SAY 0xf0 #18086 //dying sound
 BUT_ONLY_IF_IT_CHANGES
+
+ACTION_IF (GAME_IS ~totsc~) BEGIN
+// ----------------------------------------------------------------------------
+//creatures need scripting variables
+COPY_EXISTING ~cultt1.cre~ ~override~
+ WRITE_ASCIIT 0x280 ~Cult_Wizard~ //assign new
+BUT_ONLY_IF_IT_CHANGES
+COPY_EXISTING ~cultt4.cre~ ~override~
+ WRITE_ASCIIT 0x280 ~Cult_Archer~ //assign new
+BUT_ONLY_IF_IT_CHANGES
+//shamelessly taken from UB
+ACTION_FOR_EACH file IN ~FEARM~ ~PRIDEM~ BEGIN
+ COPY_EXISTING ~%file%.cre~ ~override~
+  WRITE_ASCIIE 0x280 ~%SOURCE_RES%~ #18 //assign new
+ BUT_ONLY_IF_IT_CHANGES
+END //and action_for_each
+//LEAGGU4: Some Merchant League Guards no longer have an old woman’s greeting
+ COPY_EXISTING ~LEAGGU4.CRE~ ~override~
+  SAY 0xa4 #4964
+  SAY 0x10c #4964
+  SAY 0xec #12566
+  SAY 0x0f0 #12567
+ BUT_ONLY_IF_IT_CHANGES
+//ToTSC error that Farmers got mistakenly named Lahl
+ COPY_EXISTING ~FARM.CRE~ ~override~
+//       ~FARM2.CRE~ ~override~
+       ~FARM3.CRE~ ~override~
+       ~FARM4.CRE~ ~override~
+//       ~FARMBE.CRE~ ~override~
+       ~FARMER.CRE~ ~override~
+//       ~FARMWE.CRE~ ~override~
+  SAY 0x8 @6
+  SAY 0xc @6
+ BUT_ONLY_IF_IT_CHANGES
+// ----------------------------------------------------------------------------
+// Change item assignments so correct items are in slots
+// ----------------------------------------------------------------------------
+COPY_EXISTING ANDRIS.CRE OVERRIDE   // Andris: CLCK12 (Knave's Robe)
+              MARCEL.CRE OVERRIDE   // Marcellus: CLCK13 (Traveller's Robe)
+              SHANDAL2.CRE OVERRIDE // Shandalar: CLCK16 (Cloak of the Neutral Archmagi)
+ PATCH_IF (SOURCE_SIZE > 0x2d4) BEGIN
+  READ_LONG  0x2b8 "slot_off" ELSE 0
+  READ_LONG  0x2bc "itm_off" ELSE 0
+  READ_LONG  0x2c0 "itm_num" ELSE 0
+  FOR (index = 0 ; index < itm_num ; index = index + 1) BEGIN
+    READ_ASCII ("%itm_off%" + (0x14 * "%index%")) "item"
+    PATCH_IF ("%item%" STRING_COMPARE_CASE "clck12" = 0) OR
+             ("%item%" STRING_COMPARE_CASE "clck13" = 0) OR
+             ("%item%" STRING_COMPARE_CASE "clck16" = 0) BEGIN
+      WRITE_SHORT ("%slot_off%" + 0x02) "%index%" // puts in armor slot
+      WRITE_SHORT ("%slot_off%" + 0x22) 0xffff    // removes entry from cloak slot
+    END
+  END
+ END
+BUT_ONLY_IF_IT_CHANGES
+END

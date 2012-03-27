@@ -1,0 +1,14 @@
+IF 
+See(Player1) 
+NumTimesTalkedTo(0)
+THEN 
+RESPONSE #100
+Dialogue(Player1)
+END
+IF
+See(Player1)
+!GlobalTimerNotExpired("talktoPC","LOCALS")
+THEN
+RESPONSE #100
+Dialogue(Player1) 
+END
