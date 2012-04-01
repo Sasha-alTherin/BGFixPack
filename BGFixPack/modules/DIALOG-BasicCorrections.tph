@@ -70,15 +70,6 @@ CheckStatGT(Myself,19,45)~ //1
 >>>>>>>>
 COMPILE ~ithtyl.d~
 // ----------------------------------------------------------------------------
-// a guard doesn't go hostile as should
-<<<<<<<< t-iron10.d
-REPLACE_ACTION_TEXT iron10
-~CreateCreature("IRONGU",[140.1555])~
-~CreateCreature("IRONGU",[140.1555])
-Enemy()~
->>>>>>>>
-COMPILE ~t-iron10.d~
-// ----------------------------------------------------------------------------
 // Dialog Corrections
 // ----------------------------------------------------------------------------
 COPY_EXISTING cythan.dlg override
