@@ -56,7 +56,7 @@ COMPILE ~inlined/nobl9.d~
 // BGT makes this change which causes Tazok to change allegiance and attack the player's party
 COPY_EXISTING sarevo.dlg override
  DECOMPILE_DLG_TO_D
-  REPLACE_TEXTUALLY ~ ActionOverride("Galdor",Enemy())[%WNL%%LNL%%MNL%%TAB% ]+ActionOverride("Semaj",Enemy())~ ~ ActionOverride("Galdor",Enemy()) ActionOverride("Tazok",Enemy()) ActionOverride("Semaj",Enemy())~
+  REPLACE_TEXTUALLY ~ActionOverride("Galdor",Enemy())[%WNL%%LNL%%MNL%%TAB% ]+ActionOverride("Semaj",Enemy())~ ~ActionOverride("Galdor",Enemy()) ActionOverride("Tazok",Enemy()) ActionOverride("Semaj",Enemy())~
  COMPILE_D_TO_DLG
 BUT_ONLY
 
