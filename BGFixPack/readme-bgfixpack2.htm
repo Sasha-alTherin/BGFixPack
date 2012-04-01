@@ -34,7 +34,7 @@
 <div class="section">
   <p>This mod will only work with Baldur's Gate, with or without Tales of The Sword Coast.</p>
   <P>If you play without the official expansion Tales of the Sword Coast, and with unofficial expansions, you may have difficulties late in the game (enemies become unkillable, movies keep repeating, etc.). This is often because the game stores many variables, called GLOBALs, and the game without the Tales of the Sword Coast is very limited. The designers did not anticipate the many fan mods adding to the game. If necessary, use a saved-game utility such as Sword Coast Keeper or Near Infinity to remove some of the variables. Most SPRITE_IS_DEAD variables and those set early in the game are generally safe to remove, though if you do this have another saved game near the one you are modifying game-wise, since you may delete a variable you may still need.</p>
-  <p>The core component is built to be flexible. It is a design feature from development and testing. Every effort, however, has been made to ensure that you, the end user, need not modify any files. Should a situation arise and you’ve been asked to uninstall and modify your selection of core components, there are instructions on how to do so in the file modulecontroller.txt. It can be found in the main BG Fixpack directory.</p>
+  <p>The core component is built to be flexible. It is a design feature from development and testing. Every effort, however, has been made to ensure that you, the end user, need not modify any files. Should a situation arise and youï¿½ve been asked to uninstall and modify your selection of core components, there are instructions on how to do so in the file modulecontroller.txt. It can be found in the main BG Fixpack directory.</p>
  </div>
 <h2>II. Overview</h2>
 <div class="section">
@@ -43,7 +43,7 @@
  </div>
 <h2>III. Compatability</h2>
 <div class="section">
-  <p>This mod is designed to work with Baldur's Gate with or without the expansion Tales of the Sword Coast. It is intended to be installed first and foremost.  Every effort has been made to ensure that the mod Unfinished Business remains compatible.  The fix pack should also be compatible with most other modifications. However, Baldur’s Gate has been out for a long time and there are numerous older modifications out there which over write files rather than patching them.  These modifications need to be dealt with carefully. General rule of thumb is for non-patching modifications to be installed first, followed by the fix pack and other patching modifications.</p>
+  <p>This mod is designed to work with Baldur's Gate with or without the expansion Tales of the Sword Coast. It is intended to be installed first and foremost.  Every effort has been made to ensure that the mod Unfinished Business remains compatible.  The fix pack should also be compatible with most other modifications. However, Baldurï¿½s Gate has been out for a long time and there are numerous older modifications out there which over write files rather than patching them.  These modifications need to be dealt with carefully. General rule of thumb is for non-patching modifications to be installed first, followed by the fix pack and other patching modifications.</p>
   <p>Should any incompatibilities be discovered, they will be listed here.</p>
 </div>
 <h2>IV. Installation</h2>
@@ -72,2203 +72,1558 @@
   <li>Establish a common base across various game installations prior to installing the core component. Most notable are:
     <ul>
     <li>The Mac version of the 5512 patch was incomplete. Files will be brought up to patch level before continuing with the core component.</li>
-    <li>Rare cases of installations on Windows XP having override folder data merged rather than replaced after applying the expansion Tales of the Sword Coast and the official patches, the extra files are sought and if all of them are present they are moved out of the override and into the BG Fixpack’s backup folder.</li>
-    <li>There is a unused and corrupted file (ar0110.wed) which is only present in the Original Saga version of Baldur’s Gate. It has been known to cause issues with other modifications and various utilities. It is replaced by the repaired version used by Unfinished Business for the Ice Island restoration. Note: This does not mean that Ice Island is restored. The file still remains unused but now in a repaired state.</li>
+    <li>Rare cases of installations on Windows XP having override folder data merged rather than replaced after applying the expansion Tales of the Sword Coast and the official patches, the extra files are sought and if all of them are present they are moved out of the override and into the BG Fixpackï¿½s backup folder.</li>
+    <li>There is a unused and corrupted file (ar0110.wed) which is only present in the Original Saga version of Baldurï¿½s Gate. It has been known to cause issues with other modifications and various utilities. It is replaced by the repaired version used by Unfinished Business for the Ice Island restoration. Note: This does not mean that Ice Island is restored. The file still remains unused but now in a repaired state.</li>
     </ul>
   </li>
   </ul>
   <h3>Core Components</h3>
   <p>These are patches which fix broken elements of the game. This can be small subtle things such as an incorrect file reference as well as larger solutions to prevent exploiting game mechanics. </p>
   <p><strong><em>
-CUTSCENES-GorionSarevokVoiceOverlapFix.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-This patch gives a slight pause between two voice files that were overlapping.
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:  
-  <br />
-  <em>
-  <samp>
-ch1cut03.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
 
-  <p><strong><em>
-  MUSIC-MusicFixesAllAndSagaOnly.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-  This patch adds corrected music files.
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-  Files modified are:
-  <br />
-  <em>
-  <samp>
-  bd1.mus, bl1.mus
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-  Original Saga games only:
-  <br />
-  <em>
-  <samp>
-  bc2.mus, bd1.mus, bd2.mus, bf2.mus, bl1.mus, bl2.mus, bp2.mus, cday2.mus, chants.mus, chapter.mus, dream.mus, dung2.mus, dung3.mus, tav2.mus, tav4.mus, tday2.mus
-  </samp>
-  </em>
-  </p>
+<br />
 
-  <p><strong><em>
-SCRIPTS-ScriptingNameMatching.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-Corrects the scripting variable names used in scripts to match those found on the associated creature files
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
- AR0612.BCS, AR0613.BCS, AR0614.BCS, AR0616.BCS, AR0800.BCS, AR1300.BCS
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><strong>CUTSCENES-GorionSarevokVoiceOverlapFix.tph</strong></p>
 
-  <p><strong><em>
-2DA-Corrections.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-This patch modifies the 2da files to reflect the manual or 2e rules as necessary.
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-lorebon.2da, skillrng.2da, wspecial.2da, xplevel.2da, alignmnt.2da
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><span style="color:#0000ff"><span style="font-size: 12pt">Gorion And Serevok
+Voice Overlap</span></span></p>
 
-  <p><strong><em>
-IDS-IDSAdditionsByMiloch.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-Adds additional IDS references to make certain creature and script adjustments easier to read in code format.  Some entries are new other entries exist within the engine but not within the respective ids file.
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-animate.ids, class.ids, race.ids, specific.ids, state.ids, ea.ids, shoutids.ids
-  </samp>
-  </em>
-  <br />
-  </p>
+<p>Gives a slight pause between two voice files that were overlapping during
+the first encounter with Serevok after you first leave Candlekeep with
+Gorion.</p>
 
-  <p><strong><em>
-AREA-CrashFixes.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-These are patches that solve specific game crashes
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-AR3300.ARE, ar0717.are
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><em>Files altered:</em> ch1cut03.bcs<strong></strong></p>
 
-  <p><strong><em>
-AREA-MissingAmbients.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-This patch replaces missing ambient sounds with existing ambient sounds.
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0100.are, ar0200.are, ar0300.are, ar0400.are, ar0600.are, ar0621.are, ar0800.are, ar1100.are, ar1200.are, ar1400.are, ar1900.are, ar3300.are, ar4200.are, ar4300.are, ar4700.are, ar5400.are, ar5500.are
-  </samp>
-  </em>
-  <br />
-  </p>
+<br />
 
-  <p><strong><em>
-AREA-RealignContainerHighlights.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-Highlights of various containers are readjusted to match the container graphic.
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0159.are, ar0101.are, ar0105.are, ar0004.are, ar0018.are, ar0709.are, ar0715.are, ar3331.are, ar3349.are, ar3345.are
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><strong>MUSIC-MusicFixesAllAndSagaOnly.tph</strong></p>
 
-  <p><strong><em>
-AREA-ModifyFacingDirection.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-this patch scans every area file in game and modifies each entrance as necessary to an appropriate facing direction upon entering the area.
-  <br />
-  </p>
+<p><span style="color:#0000ff;font-size: 12pt"><span
+style="font-size: 11pt">Musiclist Filename Errors (Dudley)</span></span></p>
 
-  <p><strong><em>
-AREA-FixDetectedAndTraplessTraps.tph
-  </em></strong><br /><span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-removes the trapped status from containers & doors which do not have a script assigned to them.
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-AR0153.ARE, AR1116.ARE, AR1211.ARE, AR2619.ARE, AR3341.ARE, AR3336.ARE, AR0512.ARE, AR0514.ARE, AR1001.ARE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  2)
-  <span>&nbsp;&nbsp;</span></span>
-makes trapped containers which are pre-detected to become undetected
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0500.are, ar0511.are, ar0512.are, ar0513.are, ar0514.are, ar1501.are, ar1502.are, ar1503.are, ar1504.are, ar3336.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  3)
-  <span>&nbsp;&nbsp;</span></span>
-makes trapped containers with no items trapless
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0130.are, ar0161.are, ar0162.are, ar0166.are, ar0305.are, ar0306.are, ar1105.are, ar1310.are, ar3316.are, ar4810.are
-  </samp>
-  </em>
-  <br />
-  </p>
+<p>Contain some errors. Idobek explains: "If you load up BG:TotSC in DLTCEP you
+get (among other things) the following loading information: Generating music
+list... BD1 Missing music (BC1 B1) in musiclist. BL1 Missing music (BC1 B1) in
+musiclist. Upon investigating (i.e. goto 'Edit' 'Musiclist' and comparing these
+musiclists with others) it is easy to spot the problem: The last line of the
+'loop suffix' section in of all other musiclists reads %FILENAME% %PARTSUFFIX%
+(i.e. BP2.mus reads 'BP2 A2'). BD1 and BL1 have 'BC1 B1' in the 'loop suffix'
+section. I simply changed 'BC1 B1' to the 'BD1 B1' and 'BL1 B1'. Oh, BC1 reads
+'BC1 D1' so I have assumed the %PARTSUFFIX% part is correct.</p>
 
-  <p><strong><em>
-AREA-MinorCorrections.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-an actor tied to the cloakwood mines was present in the basement of a buildling in BG city. Changed to a prisoner instead.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0111.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  2)
-  <span>&nbsp;&nbsp;</span></span>
-remove item which can cause the game to crash
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar4807.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  3)
-  <span>&nbsp;&nbsp;</span></span>
-change container type from bag to pile
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar2012.are, ar0513.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  4)
-  <span>&nbsp;&nbsp;</span></span>
-adjusts actor positions to make access to containers easier
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0145.are, ar0117.are, ar3303.are, ar0100.are, ar4810.are, ar3320.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  5)
-  <span>&nbsp;&nbsp;</span></span>
-adjusts container access points where it was impossible to open the container
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar3357.are, ar1503.are, ar1117.are, ar0153.are, ar4013.are, ar4011.are, ar4009.are, ar4007.are, ar4001.are, ar3901.are, ar4401.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  6)
-  <span>&nbsp;&nbsp;</span></span>
-adjusts container trap points for those traps that spawn guards. They'll now appear at the outside door or top of the stairs. (an area modified more than once indicates multiple containers were adjusted)
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar3357.are, ar3309.are, ar4805.are, ar4905.are, ar0006.are, ar0007.are, ar0009.are, ar0010.are, ar0011.are, ar0012.are, ar0015.are, ar0016.are, ar0018.are, ar0018.are, ar0020.are, ar0021.are, ar0108.are, ar0116.are, ar0130.are, ar0143.are, ar0155.are, ar0155.are, ar0155.are, ar0156.are, ar0158.are, ar0160.are, ar0166.are, ar0166.are, ar0170.are, ar0303.are, ar0303.are, ar0606.are, ar0608.are, ar0611.are, ar0618.are, ar0707.are, ar0711.are, ar0717.are, ar0810.are, ar1103.are, ar1103.are, ar1103.are, ar1111.are, ar1205.are, ar1207.are, ar1304.are, ar1315.are, ar1006.are, ar1006.are, ar4905.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  7)
-  <span>&nbsp;&nbsp;</span></span>
-reduce lock difficulty from 100 to 90
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0018.are, ar0104.are, ar0108.are, ar0302.are, ar2643.are, ar4810.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  8)
-  <span>&nbsp;&nbsp;</span></span>
-turn traps on that were off
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0121.are, ar0153.are, ar0504.are, ar4905.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-9)
-  <span>&nbsp;&nbsp;</span></span>
-Locks a door for consistency with the non-ToTSC version
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0300.are
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-10)
-  <span>&nbsp;</span></span>
-Some adjustments to traps and container held items
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0511.are
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><em>Files altered:</em> bd1.mus, bl1.mus</p>
 
-  <p><strong><em>
-AREA-ContainerAccesPoints.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-Additional container access points to make access to the container easier (without stuttering) (an area modified more than once indicates multiple containers were adjusted)
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar2617.are, ar2630.are, ar2618.are, ar2643.are, ar2643.are, ar2643.are, ar2608.are, ar2609.are, ar2609.are, ar2609.are, ar2609.are, ar2611.are, ar2611.are, ar2612.are, ar2612.are, ar2612.are, ar2612.are, ar2614.are, ar2614.are, ar2302.are, ar2302.are, ar2302.are, ar2302.are, ar2302.are, ar2303.are, ar2303.are, ar2303.are, ar2303.are, ar2303.are, ar3201.are, ar3300.are, ar3300.are, ar3300.are, ar3300.are, ar3300.are, ar3300.are, ar3357.are, ar3303.are, ar3320.are, ar3321.are, ar3321.are, ar3332.are, ar3353.are, ar3353.are, ar3353.are, ar3353.are, ar3326.are, ar3314.are, ar3314.are, ar3314.are, ar4805.are, ar4002.are, ar4006.are, ar4008.are, ar4010.are, ar4012.are, ar4014.are, ar4101.are, ar1901.are, ar1802.are, ar1802.are, ar1802.are, ar1802.are, ar1802.are, ar0004.are, ar0004.are, ar0013.are, ar0013.are, ar0015.are, ar0015.are, ar0018.are, ar0018.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0102.are, ar0102.are, ar0102.are, ar0102.are, ar0104.are, ar0105.are, ar0105.are, ar0108.are, ar0109.are, ar0110.are, ar0110.are, ar0110.are, ar0110.are, ar0114.are, ar0114.are, ar0114.are, ar0118.are, ar0118.are, ar0121.are, ar0135.are, ar0138.are, ar0160.are, ar0160.are, ar0161.are, ar0162.are, ar0170.are, ar0170.are, ar0170.are, ar0200.are, ar0200.are, ar0200.are, ar0200.are, ar0200.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0303.are, ar0304.are, ar0304.are, ar0304.are, ar0304.are, ar0304.are, ar0307.are, ar0308.are, ar0308.are, ar0600.are, ar0603.are, ar0607.are, ar0611.are, ar0611.are, ar0611.are, ar0613.are, ar0614.are, ar0614.are, ar0614.are, ar0700.are, ar0705.are, ar0710.are, ar0710.are, ar0716.are, ar0716.are, ar0716.are, ar0719.are, ar0725.are, ar0800.are, ar0802.are, ar0802.are, ar0809.are, ar0809.are, ar0814.are, ar0814.are, ar1100.are, ar1101.are, ar1102.are, ar1102.are, ar1111.are, ar1112.are, ar1112.are, ar1117.are, ar1200.are, ar1200.are, ar1200.are, ar1200.are, ar1200.are, ar1201.are, ar1201.are, ar1204.are, ar1204.are, ar1207.are, ar1207.are, ar1207.are, ar1207.are, ar1208.are, ar1208.are, ar1208.are, ar1214.are, ar1214.are, ar1215.are, ar1300.are, ar1301.are, ar1301.are, ar1301.are, ar1301.are, ar1302.are, ar1302.are, ar1303.are, ar1303.are, ar1307.are, ar1307.are, ar1307.are, ar1307.are, ar1309.are, ar1309.are, ar1317.are, ar1317.are, ar1001.are, ar1003.are, ar1003.are, ar1003.are, ar1005.are, ar1005.are, ar1005.are, ar1006.are, ar1006.are, ar1006.are, ar1007.are, ar1007.are, ar1007.are, ar0512.are, ar0512.are, ar0512.are, ar0512.are, ar0512.are, ar0512.are, ar0512.are
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><span style="color:#0000ff;font-size: 12pt"><span
+style="font-size: 11pt">3CD Original Saga Duplicate MUS Files
+(Dudley</span>)</span></p>
 
-  <p><strong><em>
-DIALOG-BasicCorrections.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-basically corrects various incorrectly typed code within multiple dialog files. Only one case utilizes additional coding and that is on reven3.dlg. Some actors with charmed states are corrected. Albert in ToTSC now gives the reward that the vanilla BG game gives, for some reason this was broken in the ToTSC release.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-orduli.dlg, tremai.dlg, marl.dlg, nobw8.dlg, taerom.dlg, reven3.dlg, nobl9.dlg, SAREVO.dlg, ithtyl.dlg, iron10.dlg, cythan.dlg, fergus.dlg, flam7.dlg, abela.dlg, brevli.dlg, deltan.dlg, deltan2.dlg, narlen.dlg, quinn.dlg, tersus.dlg, alatos.dlg, beland.dlg, bjahei.dlg, garric.dlg, jaheij.dlg, melica.dlg, minsc.dlg, sharte.dlg, therel.dlg, viconi.dlg, volo.dlg, amnise.dlg, bandic.dlg, cattac.dlg, delorn.dlg, delthy.dlg, doomsay.dlg, drunk.dlg, dynahe.dlg, edwinj.dlg, eldotp.dlg, emerso.dlg, friend.dlg, iron12.dlg, jared.dlg, lahl.dlg, minern.dlg, MTOB6.dlg, nobl10.dlg, pheirk.dlg, pheirkas.dlg, raiken.dlg, read4.dlg, safana.dlg, shoal.dlg, sonner.dlg, tamoko.dlg, teven.dlg, test2.dlg, rashad.dlg, messed.dlg, nobl5.dlg, glanma.dlg, albert.dlg, kaish.dlg, kielpc.dlg, kieres.dlg, ulf.dlg, galken.dlg, ulcast.dlg, shoal.dlg, albert.dlg, alora.dlg, arghai.dlg, baruk.dlg, beldin.dlg, benjy.dlg, brathl.dlg, brevli.dlg, brilla.dlg
-  </samp>
-  </em>
-  <br />
-  </p>
+<p>A couple of respondents have noted that the 3CD Original Saga contains
+duplicate MUS files in certain instances. It is believed all MUS files should
+be unique.</p>
 
-  <p><strong><em>
-DIALOG-ScarCorrections.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-Corrects Scar's dialog file to give the appropriate amounts of gold and/or experience in the right situations
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-scar.dlg
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><em>Files altered:</em> bc2.mus, bd1.mus, bd2.mus, bf2.mus, bl1.mus,
+bl2.mus, bp2.mus, cday2.mus, chants.mus, chapter.mus, dream.mus, dung2.mus,
+dung3.mus, tav2.mus, tav4.mus, tday2.mus</p>
 
-  <p><strong><em>
-CREATURES-BasicCorrections.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-assigns death variables to creatures in need of one
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-sugar.cre, ivanne.cre, sorrel.cre, ADDY.cre, BRENNA.cre, CAEDMO.cre, ELMIN3.cre, JONAVI.cre, KAELLA.cre, KARAN1.cre, PARDA1.cre, SLAVFREE.cre, VOLO.cre, ZOMBIEB.cre, HAFFG2.cre, HALFG2.cre, MTOB4.cre, MTOB5.cre, skeletb.cre, nobw4.cre, travel.cre
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  2)
-  <span>&nbsp;&nbsp;</span></span>
-corrects mis-typed item names of items assigned to creatures
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-dead2.cre, deadfuck.cre, flamang.cre, flampun.cre, flampun2.cre, flamsco.cre, flamwiz.cre, jamie.cre, kent.cre, lothan.cre, aasim.cre, amaran.cre, sakul.cre, drelik.cre, SKELDED.CRE, CULTASS.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  3)
-  <span>&nbsp;&nbsp;</span></span>
-moves items that were placed into the incorrect equipping slot into the correct equipment slot
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-RINNIE.CRE, ZHURLO.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  4)
-  <span>&nbsp;&nbsp;</span></span>
-corrects incorrect script reference
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-BIRD_INE.CRE, BIRD_INN.CRE, BIRD_INS.CRE, BIRD_INW.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  5)
-  <span>&nbsp;&nbsp;</span></span>
-asigns correct genders (stolen from UB)
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:<br />
-<span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Male changes:
-  <br />
-  <em>
-  <samp>
-IKE.CRE, JONDAL.CRE, ANDRIS.CRE, BARESH2.CRE, BARWLF.CRE, BEARPO3.CRE, BEYN.CRE, CUCHOL.CRE, CULT2.CRE, DELSVIR.CRE, DOOMDUR.CRE, DRADEE.CRE, DRADEE2.CRE, GARAN.CRE, KING.CRE, LEAGGU1.CRE, LEAGGU4.CRE, LEAGGU5.CRE, LEAGGU6.CRE, LEAGGU7.CRE, MARCEL.CRE, MTOWUB_A.CRE, MTOWUB_B.CRE, MTOWUB_C.CRE, MTOWUB_D.CRE, MTOWUB_E.CRE, MTOWUBSC.CRE, MTOWUBSN.CRE, MTOWUBST.CRE, MTOWUBX.CRE, TARNOR.CRE, ULF.CRE
-  </samp>
-  </em>
-  <br />
-<span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Female changes:
-  <br />
-  <em>
-  <samp>
-JAHEIR4.CRE, JAHEIR6.CRE, arkush.cre, desret.cre, diana.cre, joia.cre, kirian.cre, knight2.cre, knight5.cre, sendai.cre, servwg.cre, serwen.cre, sleepfh.cre, tamah.cre, vayya.cre, voleta.cre, wiven.cre, wudei.cre, CLAIRD.CRE, CULTT3.CRE, CULTT4.CRE, DAESE.CRE, DELAIN2.CRE, FTOWUB_A.CRE, FTOWUB_B.CRE, FTOWUB_E.CRE, FTOWUBSC.CRE, FTOWUBSN.CRE, FTOWUBX.CRE, ISLSIR.CRE, JAHEIR4.CRE, JAHEIR6.CRE, LEAGGU2.CRE, LEAGGU3.CRE, LOVEM.CRE, MARALE2.CRE, PHEOARCH.CRE, TRACEA.CRE
-  </samp>
-  </em>
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Neither or neutral changes:
-  <br />
-  <em>
-  <samp>
-APPAR.CRE, CRYPTCRA.CRE, GHASTD.CRE, GRAEL.CRE, HACK.CRE, PLYOGRE.CRE, SKELET.CRE, SPIDPHAS.CRE, STALKE.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  6)
-  <span>&nbsp;&nbsp;</span></span>
-stops farmers from turning hostile if nearby bandits get too close
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-JEBADO.CRE, SONNER.CRE, TELMEN.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  7)
-  <span>&nbsp;&nbsp;</span></span>
-realigns the allegiance of the inforcer called by Alora correct penalties apply for killing
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-FLAM.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  8)
-  <span>&nbsp;&nbsp;</span></span>
-skeleton missing the correct immunites has them applied
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-SKELETS.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  9)
-  <span>&nbsp;&nbsp;</span></span>
-Corrects zombie damage and dying sounds that were skeleton sounds
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ZOMBIE.CRE, ZOMBIE_A.CRE, ZOMBIEB.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-10)
-  <span>&nbsp;</span></span>
-a small group of patches which correct the  scripting variable name
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-cultt1.cre, cultt4.cre, FEARM.cre, PRIDEM.cre
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-11)
-  <span>&nbsp;</span></span>
-Male guard no longer uses a female sound file
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-LEAGGU4.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-12)
-  <span>&nbsp;</span></span>
-A selection of 'generic' farmers all with the same name.  There is a specific farmer with that name, however. The 'generic' farmers are renamed "Farmer"
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-FARM.CRE, FARM3.CRE, FARM4.CRE, FARMER.CRE
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-13)
-  <span>&nbsp;</span></span>
-Corrects the slot position of some Mage robes, moves them from the cloak slot to the armor/robe slot.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ANDRIS.CRE, MARCEL.CRE, SHANDAL2.CRE
-  </samp>
-  </em>
-  <br />
-  </p>
+<br />
 
+<p><strong>SCRIPTS-ScriptingNameMatching.tph</strong></p>
 
-  <p><strong><em>
-CREATURES-MilochsPatches.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-alignment adjustments
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Those changed to 0x11:
-  <br />
-  <em>
-  <samp>
-halfen.cre, halfen2.cre, priilmu.cre, sleepdw.cre, sleephal.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Those changed to 0x12:
-  <br />
-  <em>
-  <samp>
-amnis3.cre, deltan2.cre, flam2.cre, galile.cre, karan.cre, karan1.cre, karan3.cre, knightsk.cre, monktu1.cre, monktu10.cre, monktu11.cre, monktu12.cre, monktu13.cre, monktu14.cre, monktu2.cre, monktu3.cre, monktu4.cre, monktu5.cre, monktu7.cre, monktu8.cre, monktu9.cre, pallon.cre, reevor.cre, reevor2.cre, ulraun.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Those changed to 0x13:
-  <br />
-  <em>
-  <samp>
-baruk.cre, bhobgob.cre, droth.cre, geltik.cre, glart.cre, hakt.cre, hobelite.cre, hobgo5.cre, hobgoa_a.cre, hobgoa_b.cre, hobgoa_c.cre, hobgoa_d.cre, hobgoa_e.cre, hobgob.cre, hobgob_a.cre, hobgob_b.cre, hobgob_c.cre, hobgob_d.cre, hobgob_e.cre, hobgoba.cre, hobgobc.cre, hobgobsu.cre, hobgzhur.cre, hobjoia.cre, ihobgob.cre, malkax.cre, ogrmba.cre, tersus.cre, winski2.cre, zekar.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Those changed to 0x21:
-  <br />
-  <em>
-  <samp>
-halffg.cre, halfg3.cre, halfg4.cre, halfg5.cre, halfg6.cre, halfgu.cre, harbor.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Those changed to 0x22:
-  <br />
-  <em>
-  <samp>
-ashen.cre, attslim.cre, avarice.cre, avaricem.cre, barslim.cre, bat_in.cre, begbax_d.cre, beggbax.cre, bellam.cre, borin.cre, bouncer.cre, boyba1_a.cre, boybax_a.cre, boybax_b.cre, brevli.cre, cauter.cre, chase.cre, chherd.cre, chicke.cre, chicker.cre, childulg.cre, connol.cre, corpse1.cre, corpse2.cre, d2fue.cre, d2isl.cre, dialogmo.cre, digger.cre, dopdop.cre, dopdur.cre, dopdur1.cre, dopdur2.cre, dopdur3.cre, dopfue.cre, dopisl.cre, dopkie.cre, drunk.cre, dursword.cre, erik.cre, euric.cre, farm.cre, farm3.cre, farm4.cre, farmer.cre, fcook2.cre, fcook3.cre, fear.cre, fearm.cre, fecook.cre, feloni.cre, fenten.cre, fgolem.cre, foresh.cre, ftowba_c.cre, ftowbasc.cre, ftowbasn.cre, ftowbax.cre, ftowbesc.cre, ftowbex.cre, ftowfrsc.cre, ftowubx.cre, ftowwi_c.cre, ftwbax_a.cre, ftwbax_b.cre, ftwbax_c.cre, ftwbax_d.cre, ftwbax_e.cre, gerde.cre, ghorak.cre, girba3_a.cre, girbax_a.cre, girbax_b.cre, girbax_c.cre, girbax_d.cre, girbax_e.cre, golinv.cre, greywo.cre, gurke.cre, halfmiri.cre, halftr.cre, hecito.cre, hephis.cre, hersch.cre, housg6.cre, hulrik.cre, jondal.cre, jondal3.cre, jopi.cre, kerrac.cre, keshee.cre, kolvar.cre, kovera.cre, krumm.cre, lachlu.cre, lahl.cre, lothan.cre, love.cre, lovem.cre, lucky.cre, lussel.cre, mcook.cre, mcook2.cre, mcook3.cre, mcook4.cre, mcook5.cre, mtbe3.cre, mtbe9.cre, mtob7.cre, mtob9.cre, mtowba_a.cre, mtowba_b.cre, mtowba_c.cre, mtowba_d.cre, mtowba_e.cre, mtowbasc.cre, mtowbasn.cre, mtowbast.cre, mtowbax.cre, mtowbe.cre, mtowbe_a.cre, mtowbe_b.cre, mtowbe_c.cre, mtowbe_d.cre, mtowbe_e.cre, mtowbesn.cre, mtowbest.cre, mtowbex.cre, mtowfr.cre, mtowfr_a.cre, mtowfr_b.cre, mtowfr_c.cre, mtowfr_d.cre, mtowfr_e.cre, mtowfrsc.cre, mtowfrst.cre, mtown2.cre, mtown3.cre, mtown4.cre, mtown5.cre, mtowna.cre, mtowna_a.cre, mtowna_b.cre, mtowna_c.cre, mtowna_d.cre, mtownasc.cre, mtownast.cre, mtowub_a.cre, mtowub_b.cre, mtowub_c.cre, mtowub_d.cre, mtowub_e.cre, mtowubsc.cre, mtowubx.cre, mtowwi.cre, mtowwi_a.cre, mtowwi_b.cre, mtowwi_c.cre, mtowwi_d.cre, mtowwi_e.cre, mtwbax_a.cre, mtwbax_b.cre, mtwbax_c.cre, mtwbax_d.cre, mtwbax_e.cre, mtwslim.cre, mtwslim2.cre, mtwslim3.cre, nadine.cre, nikola.cre, nobbax_a.cre, nobbax_b.cre, nobbax_c.cre, nobbax_d.cre, nobbax_e.cre, noblba_a.cre, noblba_b.cre, noblba_c.cre, noblba_d.cre, noblba_e.cre, noblbaz.cre, noblpa.cre, noblpa1.cre, noblpa2.cre, noblpa3.cre, noblpa4.cre, noblpa5.cre, nosfer.cre, oberan.cre, ocelli.cre, oogiew.cre, perdue.cre, petrin.cre, phanda.cre, pheirk.cre, pnashk.cre, poghm10.cre, poghm9.cre, poghma4.cre, poghma5.cre, poghma7.cre, prat.cre, pride.cre, pridem.cre, proslay.cre, prsbax_a.cre, prsbax_b.cre, prsbax_c.cre, quinn.cre, reevor3.cre, regina.cre, rodnim.cre, sailnew.cre, samuel.cre, shep.cre, shop01.cre, shop03.cre, shop04.cre, shop06.cre, shop07.cre, shop08.cre, skelet03.cre, sleepfat.cre, sleepfh.cre, sleepmh.cre, smuggl.cre, spengil.cre, squirr.cre, surrey.cre, tartus.cre, teven.cre, tiber.cre, tick.cre, voleta.cre, whelp.cre, zhurlo.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Those changed to 0x23:
-  <br />
-  <em>
-  <samp>
-gantol1.cre, karlat.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Those changed to 0x31:
-  <br />
-  <em>
-  <samp>
-ender.cre, fahrin.cre, norale.cre, sleepel.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Those changed to 0x33:
-  <br />
-  <em>
-  <samp>
-bassil.cre, britik.cre, darryl.cre, destus.cre, garkla.cre, gnoll.cre, gnoll_a.cre, gnoll_b.cre, gnoll_c.cre, gnoll_d.cre, gnoll_e.cre, gnoll5.cre, gnoll5a.cre, gnolld.cre, gnollper.cre, gnollsu.cre, gorf.cre, hack.cre, ingot.cre, ixvart.cre, nexlit.cre, ogre.cre, ogre02.cre, ogreco.cre, ogred.cre, oopah.cre, oopah2.cre, plyogre.cre, pumber2.cre, pumberl.cre, xvart.cre, xvart_a.cre, xvart_b.cre, xvart_c.cre, xvart2.cre, xvarth.cre, xvartsu.cre
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  2)
-  <span>&nbsp;&nbsp;</span></span>
-race, class and gender changes
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Demonic race:
-  <br />
-  <em>
-  <samp>
-tanar.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Spectre race & femal sex/gender:
-  <br />
-  <em>
-  <samp>
-ashiru.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Cat race & class:
-  <br />
-  <em>
-  <samp>
-cat.cre, catdead.cre, catp.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Druid class:
-  <br />
-  <em>
-  <samp>
-amaran.cre, druid3.cre, izefia.cre, takiyah.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Dwarf race:
-  <br />
-  <em>
-  <samp>
-brevli.cre, quinn.cre, sailal.cre, sleepdw.cre, tarnor.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Elf race:
-  <br />
-  <em>
-  <samp>
-borda.cre, cordyr.cre, mordai.cre, narcil.cre, sleepel.cre, tenya.cre, tenya2.cre, ulf.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Ghoul race & class:
-  <br />
-  <em>
-  <samp>
-fear.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Female sex/Gender:
-  <br />
-  <em>
-  <samp>
-cow.cre, cowh.cre, crew2.cre, crew3.cre, crew6.cre, d2isl.cre, delain.cre, dopisl.cre, farthi.cre, ftowub.cre, ftowub_c.cre, ftowub_d.cre, ftowwi.cre, ftowwi_a.cre, ftowwi_b.cre, ftowwi_c.cre, ftowwi_d.cre, ftowwi_e.cre, isla.cre, kaish2.cre, kaisha.cre, kryla.cre, pallon.cre, shara.cre, sleepfh.cre, solia1.cre, solia2.cre, voleta.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Ghoul race:
-  <br />
-  <em>
-  <samp>
-korax.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Gibberling race:
-  <br />
-  <em>
-  <samp>
-gibber.cre, gibber2.cre, gibbersu.cre, igibber.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Gnoll race:
-  <br />
-  <em>
-  <samp>
-gnoll5.cre, gnoll5a.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Gnome race:
-  <br />
-  <em>
-  <samp>
-mutami.cre, tellan.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Clay Golem race & class:
-  <br />
-  <em>
-  <samp>
-bishop.cre, king.cre, knight.cre, pawn.cre, rook.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Clay Golem race & class & female sex/gender:
-  <br />
-  <em>
-  <samp>
-queen.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Flesh Golem race & class:
-  <br />
-  <em>
-  <samp>
-duplica1.cre, fgolem.cre, golemf.cre, golemf2.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Iron Golem race & class & male sex/gender:
-  <br />
-  <em>
-  <samp>
-avarice.cre, avaricem.cre, battho.cre, doomdur.cre, doomgu.cre, doomsa.cre, dumfue.cre, dumkie.cre, helmho.cre, pride.cre, pridem.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Iron Golem race & class & female sex/gender:
-  <br />
-  <em>
-  <samp>
-dumisl.cre, love.cre, lovem.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Stone Golem race & class:
-  <br />
-  <em>
-  <samp>
-stonec.cre, stoned.cre, stonedl.cre, stonedw.cre, stoneg.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Half-Elf race
-  <br />
-  <em>
-  <samp>
-arlin.cre, attslim.cre, bayard.cre, cuchol.cre, cythan.cre, digger.cre, drelik.cre, farluc.cre, shaldr.cre, shank.cre, thieff.cre, wiven.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Halfling race:
-  <br />
-  <em>
-  <samp>
-alvanh.cre, nader.cre, nelik.cre, sailfin.cre, sleephal.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Hobgoblin race:
-  <br />
-  <em>
-  <samp>
-baruk.cre, bhobgob.cre, bullrush.cre, geltik.cre, glart.cre, hakt.cre, hobelite.cre, hobgo5.cre, hobgoa_a.cre, hobgoa_b.cre, hobgoa_c.cre, hobgoa_d.cre, hobgoa_e.cre, hobgob.cre, hobgob_a.cre, hobgob_b.cre, hobgob_c.cre, hobgob_d.cre, hobgob_e.cre, hobgoba.cre, hobgobc.cre, hobgobsu.cre, hobgzhur.cre, hobjoia.cre, ihobgob.cre, malkax.cre, tersus.cre, zargal.cre, zekar.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Human race:
-  <br />
-  <em>
-  <samp>
-fenrus.cre, davaeo.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Innocents:
-  <br />
-  <em>
-  <samp>
-blane.cre, bran.cre, dushai.cre, farthi.cre, joia.cre, jopi.cre, merch3.cre, merch4.cre, mtbe7.cre, mtob3.cre, nantri.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Demonic race & female sex/gender:
-  <br />
-  <em>
-  <samp>
-kirinh.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Ogre race:
-  <br />
-  <em>
-  <samp>
-droth.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Rodents race & class:
-  <br />
-  <em>
-  <samp>
-rat.cre, rat2.cre, squirr.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Skeleton race:
-  <br />
-  <em>
-  <samp>
-skelwa.cre, skelwa02.cre, skelwa03.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Mustard Jelly race & class:
-  <br />
-  <em>
-  <samp>
-jellmu.cre, jellmul.cre, jellspa.cre, jellymu.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Ochre Jelly race:
-  <br />
-  <em>
-  <samp>
-jelloc.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Green Jelly race & class:
-  <br />
-  <em>
-  <samp>
-jellygr.cre, jellygr2.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Olive Slime race & class:
-  <br />
-  <em>
-  <samp>
-schlum.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Spectre race & class:
-  <br />
-  <em>
-  <samp>
-daitel.cre, knight1.cre, knight2.cre, knight3.cre, knight4.cre, knight5.cre, knight6.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Spectre (Innocent) race:
-  <br />
-  <em>
-  <samp>
-durlagt.cre, isla.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Spider Queen race & class:
-  <br />
-  <em>
-  <samp>
-centeo.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Stalker race:
-  <br />
-  <em>
-  <samp>
-stalke.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Statue race:
-  <br />
-  <em>
-  <samp>
-achen.cre, cailan.cre, faizah.cre, rance.cre, vail.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Sword race & class:
-  <br />
-  <em>
-  <samp>
-dursword.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Vampiric Wolf race & class:
-  <br />
-  <em>
-  <samp>
-wolfva.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Werewolf race & class & female sex/gender:
-  <br />
-  <em>
-  <samp>
-marale.cre, marale2.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Wolfweres race & class:
-  <br />
-  <em>
-  <samp>
-jondalw.cre, wolfwe.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Xvart race & class:
-  <br />
-  <em>
-  <samp>
-destus.cre
-  </samp>
-  </em>
-  <br /><span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Zombies race & class:
-  <br />
-  <em>
-  <samp>
-sewerf2.cre, zombie.cre, zombie_a.cre, zombie_b.cre, zombie_c.cre, zombie_d.cre, zombie_e.cre, zombieb.cre, zombiew.cre
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><span style="color:#0000ff;font-size: 12pt"><span
+style="font-size: 11pt">Area Scripting Variable Names
+Corrections</span></span></p>
 
-  <p><strong><em>
-STORES-GullykinAndOtherStores.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-corrects the oversight where the store in Gullykin shared content with the store in Nashkell
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-alvan.dlg
-  </samp>
-  </em>
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Creates:
-  <br />
-  <em>
-  <samp>
-tem4003.sto
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  2)
-  <span>&nbsp;&nbsp;</span></span>
-Correct typos (English Language only)
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-dialog.tlk
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  3)
-  <span>&nbsp;&nbsp;</span></span>
-Reassign duplicate dialogues
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Creates:
-  <br />
-  <em>
-  <samp>
-ubba0133.dlg, ubme0706.dlg
-  </samp>
-  </em>
-  <br />
-  <br />
-   <span style='mso-list:Ignore'>
-  4)
-  <span>&nbsp;&nbsp;</span></span>
-Reassign launched shops to prevent duplicates
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-alyth.dlg, maltz.dlg, shop01.dlg, shop05.dlg, shop06.dlg, shop07.dlg, shop08.dlg, ubba0133.dlg, ubme0706.dlg
-  </samp>
-  </em>
-  <br />
-  <br />
-   <span style='mso-list:Ignore'>
-  5)
-  <span>&nbsp;&nbsp;</span></span>
-Correct Helm and Cloak bartender
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0116.are
-  </samp>
-  </em>
-  <br />
-  <br />
-   <span style='mso-list:Ignore'>
-  6)
-  <span>&nbsp;&nbsp;</span></span>
-Change bartender so that tav1215 can be renamed
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar1306.are
-  </samp>
-  </em>
-  <br />
-  <br />
-   <span style='mso-list:Ignore'>
-  7)
-  <span>&nbsp;&nbsp;</span></span>
-Low Lantern Corrections
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0133.are, tav0133.sto
-  </samp>
-  </em>
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Creates:
-  <br />
-  <em>
-  <samp>
-ubba0133.cre
-  </samp>
-  </em>
-  <br />
-  <br />
-   <span style='mso-list:Ignore'>
-  8)
-  <span>&nbsp;&nbsp;</span></span>
-Keexie Tavern corrections
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0154.are, ar0171.are, tav0154.are
-  </samp>
-  </em>
-  <br />
-  <br />
-   <span style='mso-list:Ignore'>
-  9)
-  <span>&nbsp;&nbsp;</span></span>
-Elfsong Tavern corrections
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0706.are, tav0705.sto
-  </samp>
-  </em>
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Creates:
-  <br />
-  <em>
-  <samp>
-ubme0706.cre, ubst0706.sto
-  </samp>
-  </em>
-  <br />
-  <br />
-   <span style='mso-list:Ignore'>
-  10)
-  <span>&nbsp;</span></span>
-Sundry name assignments and patches
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-sto4906.sto, stoblack.sto, stocheap.sto, stosilen.sto, tav0721.sto, tav0809.sto, tav0810.sto, tav1215.sto, tav4809.sto, tem0002.sto, tem2601.sto, ulgoth.sto, ar1116.are
-  </samp>
-  </em>
-  <br />
-  </p>
+<p>Corrects the scripting variable names used in scripts to match those found
+on the associated creature files</p>
 
-  <p><strong><em>
-SPELLS-MagicMissileDamageFix.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-corrects the damage done by the magic missle spells
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-spwi003.spl, spw112.spl
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><em>Files altered:</em> ar0612.bcs, ar0613.bcs, ar0614.bcs, ar0616.bcs,
+ar0800.bcs, ar1300.bcs</p>
 
-  <p><strong><em>
-ITEMS-BasicCorrections.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-  1)
-  <span>&nbsp;&nbsp;</span></span>
-adjusts weights, prices, name changes (not dependent upon GTU), & icon references
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-book27.itm, book39.itm, potn41.itm, ax1h04.itm, sw2h03.itm, scrl05.itm, boot06.itm, clck08.itm, book68.itm, helm06.itm, misc65.itm, misc67.itm, misc68.itm, misc70.itm, misc71.itm, misc75.itm, misc77.itm, misc62.itm, misc13.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  2)
-  <span>&nbsp;&nbsp;</span></span>
-corrects referenced item type should be arrow rather than misc/book
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-arow13.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  3)
-  <span>&nbsp;&nbsp;</span></span>
-corrects target of the raise dead scroll (unused in unmodified game - UB needs this corrected)
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-scrl63.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-  4)
-  <span>&nbsp;&nbsp;</span></span>
-allows bards to use the Gauntlets of Ogre Power
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-brac06.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-5)
-  <span>&nbsp;&nbsp;</span></span>
-remove strength requirement from arrows, the bow should require strength not the arrow
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-arow05.itm, arow12.itm, arow14.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-6)
-  <span>&nbsp;&nbsp;</span></span>
-add missing equipping effects to a number of files
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ring23.itm, sw2h06.itm, clck11.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-7)
-  <span>&nbsp;&nbsp;</span></span>
-spear attack animation corrected
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-sper02.itm, sper03.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-8)
-  <span>&nbsp;&nbsp;</span></span>
-corrects the use location of some magic items
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-magiweb.itm, scrl3g.itm, scrlzy.itm, scrlzz.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-9)
-  <span>&nbsp;&nbsp;</span></span>
-corrects icon reference name
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-arow1a.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-10)
-  <span>&nbsp;</span></span>
-modifies the potion to act more like the spell
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-POTN45.ITM
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-11)
-  <span>&nbsp;</span></span>
-adjusts timing to match description
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-potn36.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-12)
-  <span>&nbsp;</span></span>
-removes THAC0 & damage bonuses not mentioned in the item's description
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-arow08.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-13)
-  <span>&nbsp;</span></span>
-corrects dispellability of timing color on global/equipped effects
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ax1h04.itm, ax1h05.itm, ax1h06.itm, blun01.itm, blun04.itm, blun06.itm, bow02.itm, bow05.itm, bow06.itm, bow08.itm, bow09.itm, bow99.itm, bownon.itm, cattac1.itm, dagg04.itm, dagg05.itm, daggshit.itm, halb01.itm, halbrd01.itm, hamm01.itm, helm03.itm, helm04.itm, helm07.itm, iax1h01.itm, iblun04.itm, ibow03.itm, ihamm01.itm, mage02.itm, slimed2.itm, sw1h08.itm, sw1h14.itm, sw1h99.itm, sw2h01.itm, sw2h01b.itm, sw2h02.itm, sw2h05.itm, xbow01.itm, xbow03.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-14)
-  <span>&nbsp;</span></span>
-removes thieving skills from a plate of armor
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-plat05.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-15)
-  <span>&nbsp;</span></span>
-Allows bards to use scimitars
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-sw1h20.itm, sw1h22.itm, sw1h23.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-16)
-  <span>&nbsp;</span></span>
-Corrects icon references.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-brac11.itm, misc1h.itm, misc1b.itm, misc1a.itm, misc92.itm, misc94.itm, misc95.itm
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-17)
-  <span>&nbsp;</span></span>
-Corrects speed on Bala's Axe
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ax1h07.itm
-  </samp>
-  </em>
-  <br />
-  </p>
+<br />
 
+<p><strong>2DA-Corrections.tph</strong></p>
 
+<p><span style="color:#0000ff;font-size: 12pt"><span
+style="font-size: 11pt">2DA Corrections</span></span></p>
 
+<p>Modifies the 2da files to reflect the manual or 2e rules as necessary.</p>
 
-  <p><strong><em>
-UNLOCKED-MinorExistingContent.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-opens additional dialog by Fuller who will when asked inform player of the location of Hull's sword
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-fuller.dlg, hull.dlg
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-2)
-  <span>&nbsp;&nbsp;</span></span>
-opens additional banter that player can partake in with the nobles found in the side room on the first floor of the Candlekeep Inn.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-nobw4.dlg, nobl4.dlg
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><em>Files altered:</em> lorebon.2da, skillrng.2da, wspecial.2da,
+xplevel.2da, alignmnt.2da</p>
 
-  <p><strong><em>
-SCRIPTS-BasicCorrections.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Bone Wardstone Doesn't Disable Rune Traps Fix
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-trapdis.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<br />
 
+<p><strong>IDS-IDSAdditionsByMiloch.tph</strong></p>
 
-  <p><strong><em>
-ISSUES-VariousScriptWorkByMiloch.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Fix steal failure scripts to actually call the guards
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-innkeep.bcs, merch2.bcs, merch5.bcs, merch6.bcs, shop03.bcs, shop04.bcs, shop05.bcs, shop06.bcs, shop07.bcs, shop08.bcs, shopkn.bcs
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-2)
-  <span>&nbsp;&nbsp;</span></span>
-slight change in script
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-wtrunsgt.bcs
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-3)
-  <span>&nbsp;&nbsp;</span></span>
-Ensure attacked/hostile non-combatants run away if they can/should
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ardrou.cre, begbax_a.cre, begbax_b.cre, begbax_c.cre, begbax_d.cre, beggbax.cre, boybax.cre, boybax_a.cre, boybax_b.cre, boybax_c.cre, chilna.cre, chilna_a.cre, chilna_b.cre, chilna_c.cre, chilna_d.cre, cow.cre, cowh.cre, drienn.cre, emitar3.cre, euric.cre, fatman.cre, fatwom.cre, fenrus.cre, ftowbax.cre, ftowbex.cre, ftowubx.cre, ftwbax.cre, ftwbax_a.cre, ftwbax_b.cre, ftwbax_c.cre, ftwbax_d.cre, ftwbax_e.cre, girbax_a.cre, girbax_b.cre, girbax_c.cre, girbax_d.cre, girbax_e.cre, girlbax.cre, horse.cre, lucky.cre, monktu1.cre, monktu10.cre, monktu11.cre, monktu12.cre, monktu13.cre, monktu14.cre, monktu15.cre, monktu16.cre, monktu17.cre, monktu18.cre, monktu19.cre, monktu2.cre, monktu20.cre, monktu3.cre, monktu4.cre, monktu5.cre, monktu6.cre, monktu7.cre, monktu8.cre, monktu9.cre, mtowbax.cre, mtowbex.cre, mtowubx.cre, mtwbax_a.cre, mtwbax_b.cre, mtwbax_c.cre, mtwbax_d.cre, mtwbax_e.cre, nobbax_a.cre, nobbax_b.cre, nobbax_c.cre, nobbax_d.cre, nobbax_e.cre, noblbaz.cre, nowbax_a.cre, nowbax_b.cre, nowbax_c.cre, nowbax_d.cre, nowbax_e.cre, petrin.cre, prosbax.cre, prsbax_a.cre, prsbax_b.cre, prsbax_c.cre, shop01.cre, shop02.cre, shop03.cre, shop04.cre, shop05.cre, shop06.cre, shop07.cre, shop08.cre, therel.cre, triado.cre, wirthi.cre,
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-4)
-  <span>&nbsp;&nbsp;</span></span>
-Halfling enforcers go hostile where relevant
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-halfen.dlg
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-5)
-  <span>&nbsp;&nbsp;</span></span>
-Make sure guards only initiate dialogue if character is visible
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-amnise.bcs, monken.bcs
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-6)
-  <span>&nbsp;&nbsp;</span></span>
-Guard enforcers take money if offered
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-housen.dlg
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-7)
-  <span>&nbsp;&nbsp;</span></span>
-Guard enforcer lieutenants leave if captain leaves
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-housen2.bcs
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-8)
-  <span>&nbsp;&nbsp;</span></span>
-Assign guard talk initiaton script.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-halfen.cre, housen.cre
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-9)
-  <span>&nbsp;&nbsp;</span></span>
-Cloakwood Mines Guard infinite summoning fix
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-iron10.dlg
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-10)
-  <span>&nbsp;</span></span>
-Assign steal failure scripts where missing
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-maltz.cre, lucky.cre, shop01.cre, innke2.cre, winthr2.cre
-  </samp>
-  </em>
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Creates:
-  <br />
-  <em>
-  <samp>
-t-maltz.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><span style="color:#0000ff;font-size: 12pt"><span
+style="font-size: 11pt">Additional IDS References</span></span></p>
 
-  <p><strong><em>
-ISSUES-AdditonalGuardTrapAdjustments.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Sleeping creatures get Enemy/Alley value changed
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-sleepdw.cre, sleepel.cre, sleepfat.cre, sleepfh.cre, sleephal.cre, sleepmh.cre
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-2)
-  <span>&nbsp;&nbsp;</span></span>
-Adjust guard calling trap scripts to not be triggered by sleeping creatures & to not call multiple guards if guards are present or timer is active.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-act01.bcs, act02.bcs, act03.bcs, act04.bcs, act05.bcs, act06.bcs, act07.bcs, act08.bcs, act09.bcs, act10.bcs, act11.bcs, act12.bcs, act13.bcs
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-3)
-  <span>&nbsp;&nbsp;</span></span>
-Nashkel Barracks -- getting the guards to perform properly
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-amnise2.cre, amnise.dlg, amnise2.bcs, amnise.bcs, amnis.cre
-  </samp>
-  </em>
-  <br />
-  </p>
+<p>Adds additional IDS references to make certain creature and script
+adjustments easier to read in code format. Some entries are new other entries
+exist within the engine but not within the respective ids file.</p>
 
-  <p><strong><em>
-ISSUES-NoTalkHostile.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Adjust talk initiation scripts so that NPCs don't initiate conversation when they are hostile to the player.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-initdlg.bcs, initdlg2.bcs, initdlg3.bcs, initneb.bcs, initobe.bcs, initrev.bcs, initmain.bcs, initinv2.bcs, imoen.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><em>Files altered:</em> animate.ids, class.ids, race.ids, specific.ids,
+state.ids, ea.ids, shoutids.ids</p>
 
-  <p><strong><em>
-SCRIPTS-StealFailureGuardSpawns.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-guard spawn locations for steal failure scripts; move the guards to the entrance if the spawn location is off.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-innkeep.bcs, merch2.bcs, merch5.bcs, merch6.bcs, shop03.bcs, shop04.bcs, shop05.bcs, shop06.bcs, shopkn.bcs, shop07.bcs, shop08.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<br />
 
-  <p><strong><em>
-ISSUES-ShoutScriptAssignedAndFixed.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Ensure attacked innocents shout when they can/should
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-andars.bcs, bentha.bcs, brevli.bcs, brielb.bcs, cantic.bcs, casson.bcs, chante.bcs, chante2.bcs, delain.bcs, dunkin.bcs, durlyl.bcs, emerso.bcs, entill.bcs, farmbr.bcs, fcook2.bcs, firebe.bcs, ftowwi.bcs, ftowwi_a.bcs, ftowwi_b.bcs, ftowwi_c.bcs, ftowwi_d.bcs, ftowwi_e.bcs, gerde.bcs, gorpel.bcs, harbor.bcs, hull3.bcs, ithtyl.bcs, jared.bcs, kaella.bcs, karan.bcs, karan1.bcs, laurel.bcs, lena.bcs, lussel.bcs, madarc.bcs, messed.bcs, minec2.bcs, minec3.bcs, minec4.bcs, minec5.bcs, minerc.bcs, mirian.bcs, monktu1.bcs, monktu10.bcs, monktu11.bcs, monktu12.bcs, monktu13.bcs, monktu14.bcs, monktu2.bcs, monktu3.bcs, monktu4.bcs, monktu5.bcs, monktu7.bcs, monktu8.bcs, monktu9.bcs, mtowwi.bcs, mtowwi_a.bcs, mtowwi_b.bcs, mtowwi_c.bcs, mtowwi_d.bcs, mtowwi_e.bcs, mysmer.bcs, nadine.bcs, nantri.bcs, nila.bcs, nobl2.bcs, norale.bcs, orduli.bcs, petrin.bcs, phaers.bcs, phlydi.bcs, priilmu.bcs, rinnie.bcs, rodnim.bcs, sewerc.bcs, shista.bcs, slave.bcs, slave4.bcs, slave5.bcs, slave6.bcs, slavfree.bcs, slavlead.bcs, slavtell.bcs, solia1.bcs, tailas.bcs, tethto.bcs, tethto2.bcs, therel.bcs, tremai.bcs, varci.bcs, voieas.bcs, voinor.bcs, voisou.bcs, voiwes.bcs, zeke.bcs
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-2)
-  <span>&nbsp;&nbsp;</span></span>
-Make sure innocents only go hostile when hearing other innocents and flaming fist shout
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-shout.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><strong>AREA-CrashFixes.tph</strong></p>
 
-  <p><strong><em>
-ISSUES-GorpelAndGretekSolutions.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Under certain situations, the player could experience multiple instances of Gretek and friends being spawned by talking with Gorpel Hind. Also they would cause all other npcs in the inn to go hostile. There were some reports of Gretek's friends not going hostile either. These were hopefully well addressed.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-gorpel.dlg, gretek.dlg
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><span style="color:#0000ff;font-size: 12pt"><span
+style="font-size: 11pt">Game Crashes</span></span></p>
 
-  <p><strong><em>
-ISSUES-JondalarBehavesProperly.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Jondalar would if attacked by the player prior to ever having been talked to would instead of going hostile initiate conversation. This has been rectified.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-jondalar.bcs, ar2600.are, jondal.cre
-  </samp>
-  </em>
-  <br />
-  </p>
+<p>Solve two specific game crashes. Areas: Beregost and a house in central BG
+city.</p>
 
-  <p><strong><em>
+<p><em>Files altered:</em> ar3300.are, ar0717.are</p>
 
-ISSUES-LothanderAndMarekOtherSolutions.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Lothander has an instance where he is looped thru creation and removal due to some incorrectly coded triggers and actions.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-lothan.dlg
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-2)
-  <span>&nbsp;&nbsp;</span></span>
-A number of individuals reported problems with continuing the quest, typically it returns to the player having forgotten to talk to Lothander outside of the Diviner's Tent. His dialog suggests that he should initiate the conversation, this has been implemented.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0700.bcs
-  </samp>
-  </em>
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Creates:
-  <br />
-  <em>
-  <samp>
-abgfinit.bcs
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-3)
-  <span>&nbsp;&nbsp;</span></span>
-Marek when charmed states that he is giving the player the antidote, but never did.  this has been implemented.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-marek.dlg
-  </samp>
-  </em>
-  <br />
-  <br />
-  <span style='mso-list:Ignore'>
-4)
-  <span>&nbsp;&nbsp;</span></span>
-The antidote could be pickpocketed from Marek. Rather than removing the ability, the quest can now be solved in this manner.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0115.bcs
-  </samp>
-  </em>
-  <br />
+<br />
 
-  <p><strong><em>
-ISSUES-YeslickKickoutLoopFix.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Solves an issue where Yeslick would go thru a loop of joining and leaving the party under certain circumstances.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-yeslick.bcs, yeslij.dlg
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><strong>AREA-MissingAmbients.tph</strong></p>
 
-  <p><strong><em>
-ISSUES-MonksSpeakOfDeadOnlyWhenDead.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Addresses an issue with the monks Karan and Parda which occurs should the player exit either house in Candlekeep without killing either Carbos or Shank. The monks won't spawn and talk about the deaths.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-carbos.cre, shank.cre, ar2600.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><span style="color:#0000ff;font-size: 12pt"><span
+style="font-size: 11pt">Missing Ambient Horse Sounds</span></span></p>
 
-  <p><strong><em>
-ISSUES-BetterRatQuestCount.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Addresses a random issue where the rats for Reevor's quest aren't properly counted even tho all five have been killed.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-rat2.cre, ar2606.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<p>Replaces missing ambient horse sounds with existing ambient horse sounds.</p>
 
-  <p><strong><em>
-ISSUES-AldethBetrayalFixByIdobek.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Idobek's solution to the Aldeth Betrayal issue, based on Baldurdash & Dudley
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-dabron.bcs, aldeth.cre, ar0128.bcs, ar1100.bcs, aldeth.dlg, flamal.baf
-  </samp>
-  </em>
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Creates:
-  <br />
-  <em>
-  <samp>
-flamal.cre
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><em>Files altered:</em> ar0100.are, ar0200.are, ar0300.are, ar0400.are,
+ar0600.are, ar0621.are, ar0800.are, ar1100.are, ar1200.are, ar1400.are,
+ar1900.are, ar3300.are, ar4200.are, ar4300.are, ar4700.are, ar5400.are,
+ar5500.are</p>
 
-  <p><strong><em>
-ISSUES-ScarNoGoBye.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Scar would disappear forever if the player spoke to Duke Eltan. It was possible to speak with the Duke even while doing Scar's quests, thereby causing some players the inability to complete said quests. This has been rectified by only allowing Scar to disappear if and only if the player isn't doing any of his quests.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-scar.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<br />
 
-  <p><strong><em>
-ISSUES-ToTSC-UlgothsResidentsHostileFix.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-An issue with the resident's of Ulgoth's Beard going hostile when the cult attacks
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-cult3.cre, cult3.dlg
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><strong>AREA-RealignContainerHighlights.tph</strong></p>
 
-  <p><strong><em>
-ISSUES-ToTSC-CountingHouseConflicts.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-An issue where the one person calls the incorrect people in the area
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-crew1.cre, crew2.cre, crew3.cre, crew4.cre, crew5.cre, crew6.cre, crew7.cre ar0308.bcs, ar0307.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><span style="font-size: 11pt;color:#0000ff">Container Highlights</span></p>
 
-  <p><strong><em>
-ISSUES-BoyBodyAndJalanthaMistmyr.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Addresses the ability to obtain the dead boy's body multiple times and removes the capability of pick pocketing the body (surely one would notice THAT being pulled from their pocket).
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ar0609.are, ar0609.bcs, jalant.cre, tenya2.dlg, tenya2.cre
-  </samp>
-  </em>
-  <br />
-  </p>
+<p>Highlights of various containers are misaligned and have been readjusted to
+match the container graphic.</p>
 
-  <p><strong><em>
-ISSUES-RamazithsMultiplePickpocketExploit.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Addresses the issue where Ramazith could be pickpocketed multiple times for the same items. Care has been taken to allow the ability to pick his pockets but only once, even tho his creature file is created in three different areas.  Also touches up his dialog file where a state has a response which returns back to the same state.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-ramazi.dlg, ramazi.cre
-  </samp>
-  </em>
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Creates:
-  <br />
-  <em>
-  <samp>
-abgframi.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><em>Files altered:</em> ar0159.are, ar0101.are, ar0105.are, ar0004.are,
+ar0018.are, ar0709.are, ar0715.are, ar3331.are, ar3349.are, ar3345.are</p>
 
-  <p><strong><em>
-ISSUES-BanditScalpPickPocketProblems.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Addresses the oversight of the bandit scalps being able to be picked from pockets.  Scalp is removed and is given when the creature turns hostile. Failing that there is a chance depending upon if the script catches their death that the scalps will be created when they die if they don't already have one.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-teynga.dlg, nevill.dlg, knott.dlg, arghai.dlg, canto.dlg, ARGHAI.CRE, TEYNGA.CRE, ZEKAR.CRE, JEMBY.CRE, NEVILL.CRE, KNOTT.CRE, CANTO.CRE, BILLY.CRE, DRIBBE.CRE, BANDCAP.CRE, BANDCR.CRE, BANDIC.CRE, BANDIT.CRE, BANDIT2.CRE, BANDIT3.CRE, BANDITA.CRE, BANDITC.CRE, BANDITCY.CRE, HOBGOBC.CRE, RAEMON.CRE, REPMAN.CRE, THUG.CRE, TRALIT.CRE, shout.bcs
-  </samp>
-  </em>
-  <br />
-  </p>
+<br />
 
-  <p><strong><em>
-ISSUES-OublekEmeraldBountyExploit.tph
-  </em></strong><br />
-  <span style='mso-list:Ignore'>
-1)
-  <span>&nbsp;&nbsp;</span></span>
-Addresses to an extent the exploit of turning in one emerald and then the second for twice the proper reward.  Due to coding issues, you can turn in just one emerald, but will not be able to turn in the second for additional rewards.  Please see Unfinished Business v1.14 or higher for a component which enhances the exploit solution.
-  <br />
-  <span style='mso-list:Ignore'><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span>
-Files modified are:
-  <br />
-  <em>
-  <samp>
-oublek.dlg
-  </samp>
-  </em>
-  <br />
-  </p>
+<p><strong>AREA-ModifyFacingDirection.tph</strong></p>
 
+<p><span style="font-size: 11pt;color:#0000ff">Facing Direction
+Adjustments</span></p>
 
+<p>Scans every area file in game and modifies each entrance as necessary to an
+appropriate facing direction upon entering the area.</p>
+
+<br />
+
+<p><strong>AREA-FixDetectedAndTraplessTraps.tph</strong></p>
+
+<p><span style="font-size: 11pt;color:#0000ff">Containers Erroneously Marked as
+Trapped</span></p>
+
+<p>Removes the trapped status from containers and doors which do not have a
+script assigned to them.</p>
+
+<p><em>Files altered:</em> ar0153.are, ar1116.are, ar1211.are, ar2619.are,
+ar3341.are, ar3336.are, ar0512.are, ar0514.are, ar1001.are</p>
+
+<p></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">Pre-Detected
+Traps</span></span></p>
+
+<p>Makes trapped containers which are pre-detected to become undetected</p>
+
+<p><em>Files altered:</em> ar0500.are, ar0511.are, ar0512.are, ar0513.are,
+ar0514.are, ar1501.are, ar1502.are, ar1503.are, ar1504.are, ar3336.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Empty Containers Traps</span></p>
+
+<p>Makes trapped containers with no items trap less.</p>
+
+<p><em>Files altered:</em> ar0130.are, ar0161.are, ar0162.are, ar0166.are,
+ar0305.are, ar0306.are, ar1105.are, ar1310.are, ar3316.are, ar4810.are</p>
+
+<br />
+
+<p><strong>AREA-MinorCorrections.tph</strong></p>
+
+<p><span style="font-size: 11pt;color:#0000ff">Slave vs Prisoner</span></p>
+
+<p>A slave actor tied to the cloakwood mines was present in the basement of the
+Duchal Palace. Changed to a prisoner instead.</p>
+
+<p><em>Files altered:</em> ar0111.are</p>
+
+<p></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">The
+Mirror</span></span></p>
+
+<p>Remove item 'Mirror' from a container located in a house in Nashkell. This
+item was invisible as it has no graphic but could cause the game to crash if
+looted.</p>
+
+<p><em>Files altered:</em> ar4807.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Pile Vs Bag</span></p>
+
+<p>A few item piles located in Werewolf Cavern and Durlag Tower were
+incorrectly set to bag. They have been change to pile.</p>
+
+<p><em>Files altered:</em> ar2012.are, ar0513.are</p>
+
+<p></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">Containers Are
+Inaccessible Due To Static Characters</span></span></p>
+
+<p>Some containers were inaccessible, due to static characters standing in the
+way. In general, this could cause the party member trying to open the container
+to stutter around a bit trying to reach the area, then the engine giving up
+after a few seconds and opening the container from a distance.</p>
+
+<p><em>Files altered:</em> ar0100.are, ar4810.are, ar3320.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Red Sheaf Inn Impossible
+Crate</span></p>
+
+<p>In the Red Sheaf Inn there is a crate near the entrance that was impossible
+to be opened without getting caught even if there was no one in sight. This has
+now been corrected.</p>
+
+<p><em>Files altered:</em> ar3357.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Red Sheaf Inn Sleeping
+Man</span></p>
+
+<p>There are supposed to be six sleeping on the second floor in the Red Sheaf
+Inn, yet only five are visible. The location of the sixth was restricting it
+from being shown (but you could still hear him snoring).</p>
+
+<p><em>Files altered:</em> ar3303.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Helm And Cloak Inn
+Guards</span></p>
+
+<p>One of the second floors in the Helm and Cloak Inn has two guards posted who
+prevent you from entering the rooms behind due to the importance of the
+occupant. However, due to a location error you can just walk past one of them
+and enter the rooms behind.</p>
+
+<p><em>Files altered:</em> ar0117.are</p>
+
+<p></p>
+
+<p><span style="font-size: 12pt"><span style="color:#0000ff">Ithmeera Stuck In
+a Table</span></span></p>
+
+<p>On the third floor in Oberon's Estate you encounter three sisters. One of
+the sisters, Ithmeera, has had her location set inside a table so she is unable
+to move during combat.</p>
+
+<p><em>Files altered:</em> ar0145.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Container Opening
+Range</span></p>
+
+<p>Various containers could be opened from a distance due to their opening
+coordinates set too far from the container. They have now been adjusted and set
+closer.</p>
+
+<p><em>Files altered:</em> ar1503.are, ar1117.are, ar0153.are, ar4013.are,
+ar4011.are, ar4009.are, ar4007.are, ar4001.are, ar3901.are, ar4401.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Guard Summons When Caught
+Stealing</span></p>
+
+<p>When caught stealing guards are summoned. Many of these spawn locations are
+illogical such as spawning directly beside the container or in the bathroom or
+some other obscure location. These have been adjusted and set to match all
+other guard summons: either the entrance or the stairs depending on the area
+you are in. (an area modified more than once indicates multiple containers were
+adjusted)</p>
+
+<p><em>Files altered:</em> ar3357.are, ar3309.are, ar4805.are, ar4905.are,
+ar0006.are, ar0007.are, ar0009.are, ar0010.are, ar0011.are, ar0012.are,
+ar0015.are, ar0016.are, ar0018.are, ar0018.are, ar0020.are, ar0021.are,
+ar0108.are, ar0116.are, ar0130.are, ar0143.are, ar0155.are, ar0155.are,
+ar0155.are, ar0156.are, ar0158.are, ar0160.are, ar0166.are, ar0166.are,
+ar0170.are, ar0303.are, ar0303.are, ar0606.are, ar0608.are, ar0611.are,
+ar0618.are, ar0707.are, ar0711.are, ar0717.are, ar0810.are, ar1103.are,
+ar1103.are, ar1103.are, ar1111.are, ar1205.are, ar1207.are, ar1304.are,
+ar1315.are, ar1006.are, ar1006.are, ar4905.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Areas With Impossible to Open
+Chests</span></p>
+
+<p>A few chests were giving the "The mechanism that operates this does not have
+a conventional lock, and may be warded against simple spells." message
+erroneously. None required a special key, their lock picking difficulty was
+simply set too high.</p>
+
+<p><em>Files altered:</em> ar0018.are, ar0104.are, ar0108.are, ar0302.are,
+ar2643.are, ar4810.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Inactive Traps</span></p>
+
+<p>Turn various traps on that were off. They all contained a trap script but
+were not flagged as trapped. After a lengthy discussion we decided to turn some
+traps on</p>
+
+<p><em>Files altered:</em> ar0121.are, ar0153.are, ar0504.are, ar4905.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Locked Door</span></p>
+
+<p>Locks a door for consistency with the non-ToTSC version</p>
+
+<p><em>Files altered:</em> ar0300.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Trap Detection/Triggered
+Issues</span></p>
+
+<p>Some traps had a few errors which prevented them from being detected and/or
+triggered.</p>
+
+<p><em>Files altered:</em> ar0511.are</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Unequippable Items</span></p>
+
+<p>Two items found in containers are unequippable because they are meant for
+use by monsters only. Changed to the correct items.</p>
+
+<p><em>Files altered:</em> ar0511.are</p>
+
+<br />
+
+<p><strong>AREA-ContainerAccesPoints.tph</strong></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">Containers Are
+Inaccessible Due To Impassable Terrain</span></span></p>
+
+<p>Many containers were inaccessible, due to impassable terrain. In general,
+this could cause the party member trying to open the container to stutter
+around a bit trying to reach the area, then the engine giving up after a few
+seconds and opening the container from a distance. Containers with this issue
+have been moved slightly. (an area modified more than once indicates multiple
+containers were adjusted)</p>
+
+<p><em>Files altered:</em> ar2617.are, ar2630.are, ar2618.are, ar2643.are,
+ar2643.are, ar2643.are, ar2608.are, ar2609.are, ar2609.are, ar2609.are,
+ar2609.are, ar2611.are, ar2611.are, ar2612.are, ar2612.are, ar2612.are,
+ar2612.are, ar2614.are, ar2614.are, ar2302.are, ar2302.are, ar2302.are,
+ar2302.are, ar2302.are, ar2303.are, ar2303.are, ar2303.are, ar2303.are,
+ar2303.are, ar3201.are, ar3300.are, ar3300.are, ar3300.are, ar3300.are,
+ar3300.are, ar3300.are, ar3357.are, ar3303.are, ar3320.are, ar3321.are,
+ar3321.are, ar3332.are, ar3353.are, ar3353.are, ar3353.are, ar3353.are,
+ar3326.are, ar3314.are, ar3314.are, ar3314.are, ar4805.are, ar4002.are,
+ar4006.are, ar4008.are, ar4010.are, ar4012.are, ar4014.are, ar4101.are,
+ar1901.are, ar1802.are, ar1802.are, ar1802.are, ar1802.are, ar1802.are,
+ar0004.are, ar0004.are, ar0013.are, ar0013.are, ar0015.are, ar0015.are,
+ar0018.are, ar0018.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are,
+ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are, ar0100.are,
+ar0102.are, ar0102.are, ar0102.are, ar0102.are, ar0104.are, ar0105.are,
+ar0105.are, ar0108.are, ar0109.are, ar0110.are, ar0110.are, ar0110.are,
+ar0110.are, ar0114.are, ar0114.are, ar0114.are, ar0118.are, ar0118.are,
+ar0121.are, ar0135.are, ar0138.are, ar0160.are, ar0160.are, ar0161.are,
+ar0162.are, ar0170.are, ar0170.are, ar0170.are, ar0200.are, ar0200.are,
+ar0200.are, ar0200.are, ar0200.are, ar0300.are, ar0300.are, ar0300.are,
+ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are, ar0300.are,
+ar0300.are, ar0303.are, ar0304.are, ar0304.are, ar0304.are, ar0304.are,
+ar0304.are, ar0307.are, ar0308.are, ar0308.are, ar0600.are, ar0603.are,
+ar0607.are, ar0611.are, ar0611.are, ar0611.are, ar0613.are, ar0614.are,
+ar0614.are, ar0614.are, ar0700.are, ar0705.are, ar0710.are, ar0710.are,
+ar0716.are, ar0716.are, ar0716.are, ar0719.are, ar0725.are, ar0800.are,
+ar0802.are, ar0802.are, ar0809.are, ar0809.are, ar0814.are, ar0814.are,
+ar1100.are, ar1101.are, ar1102.are, ar1102.are, ar1111.are, ar1112.are,
+ar1112.are, ar1117.are, ar1200.are, ar1200.are, ar1200.are, ar1200.are,
+ar1200.are, ar1201.are, ar1201.are, ar1204.are, ar1204.are, ar1207.are,
+ar1207.are, ar1207.are, ar1207.are, ar1208.are, ar1208.are, ar1208.are,
+ar1214.are, ar1214.are, ar1215.are, ar1300.are, ar1301.are, ar1301.are,
+ar1301.are, ar1301.are, ar1302.are, ar1302.are, ar1303.are, ar1303.are,
+ar1307.are, ar1307.are, ar1307.are, ar1307.are, ar1309.are, ar1309.are,
+ar1317.are, ar1317.are, ar1001.are, ar1003.are, ar1003.are, ar1003.are,
+ar1005.are, ar1005.are, ar1005.are, ar1006.are, ar1006.are, ar1006.are,
+ar1007.are, ar1007.are, ar1007.are, ar0512.are, ar0512.are, ar0512.are,
+ar0512.are, ar0512.are, ar0512.are, ar0512.are</p>
+
+<br />
+
+<p><strong>DIALOG-BasicCorrections.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Basic Corrections</span></p>
+
+<p>Basically corrects various incorrectly typed code within multiple dialog
+files. Many of the fixes are simple to satisfy NearInfinity</p>
+
+<p><em>Files altered:</em> fergus.dlg, flam7.dlg, abela.dlg, brevli.dlg,
+deltan.dlg, deltan2.dlg, narlen.dlg, quinn.dlg, tersus.dlg, alatos.dlg,
+beland.dlg, bjahei.dlg, garric.dlg, jaheij.dlg, melica.dlg, minsc.dlg,
+sharte.dlg, therel.dlg, viconi.dlg, volo.dlg, amnise.dlg, bandic.dlg,
+cattac.dlg, delorn.dlg, delthy.dlg, doomsay.dlg, drunk.dlg, dynahe.dlg,
+edwinj.dlg, eldotp.dlg, emerso.dlg, friend.dlg, iron12.dlg, jared.dlg,
+lahl.dlg, minern.dlg, mtob6.dlg, nobl10.dlg, pheirk.dlg, pheirkas.dlg,
+raiken.dlg, read4.dlg, safana.dlg, shoal.dlg, sonner.dlg, tamoko.dlg,
+teven.dlg, test2.dlg, rashad.dlg, messed.dlg, nobl5.dlg, kaish.dlg, kielpc.dlg,
+kieres.dlg, ulf.dlg, galken.dlg, ulcast.dlg, shoal.dlg, albert.dlg, alora.dlg,
+arghai.dlg, baruk.dlg, beldin.dlg, benjy.dlg, brathl.dlg, brevli.dlg,
+brilla.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Ordulinian Quest Reward Fix
+(Baldurdash)</span></p>
+
+<p>Resolves the dialog bug that caused the quest reward item to not be given,
+though it's clearly indicated in the corresponding dialog that an item is being
+presented.</p>
+
+<p><em>Files altered:</em> orduli.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Tremain Belde'ar Dialog Crash
+Fix (Baldurdash)</span></p>
+
+<p>Resolves the invalid replies counter in his dialog definition that would
+cause a crash to desktop if options 2 then 1 were chosen.</p>
+
+<p><em>Files altered:</em> tremai.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 12pt"><span
+style="font-size: 11pt">Killing Marl XP Exploit Fix
+(Baldurdash)</span></span></p>
+
+<p>Eliminates the exploit of being able to calm Marl down in Feldepost's Inn in
+Beregost for experience, and then kill him for more experience and no loss of
+reputation or consequences even though he is then a harmless, neutral innocent.
+Appropriate consequences will now apply.</p>
+
+<p><em>Files altered:</em> marl.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Three Old Kegs Noblewoman
+Exploit Fix (Baldurdash)</span></p>
+
+<p>eliminates the exploit of charming this unnamed noblewoman and repeatedly
+talking to her for 500 gold each time. This was a definite bug caused by an
+embedded script command mismatch.</p>
+
+<p><em>Files altered:</em> nobw8.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Taerom Fuirium Ankheg Shell
+Exploit Fix (Baldurdash)</span></p>
+
+<p>Eliminates the exploit of being able to sell Ankheg shells repeatedly to the
+Beregost blacksmith. Another definite bug: the embedded script command to limit
+this to one choice between selling shells or making armour was present, but was
+not being accessed due to an invalid pointer reference.</p>
+
+<p><em>Files atlered:</em> taerom.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Shut Up! Revenant!</span></p>
+
+<p>The Revenant spams dialog during combat. Set some variables to prevent it</p>
+
+<p><em>Files altered:</em> reven3.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">A Tip From the Man With The
+Golden Pants</span></p>
+
+<p>The man with the golden pants doesn't give the tip to 18 charisma or better
+- now he does</p>
+
+<p><em>Files altered:</em> nobl9.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Tazok Turns Hostile During Final
+Battle (BGT)</span></p>
+
+<p>This causes Tazok to change allegiance correctly and attack the player's
+party during the final battle with Serevok.</p>
+
+<p><em>Files altered:</em> sarevo.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Ithtyl's Charmed Fix
+(Dudley)</span></p>
+
+<p>Can be charmed then spoken to twice for a total of 22gp however the dialog
+repeats even though she has no more money to give. Additionally she says she is
+giving you 20gp each time. The dialog fix should only allow her to offer the
+gift once.</p>
+
+<p><em>Files altered:</em> ithtyl.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Ughh!</span></p>
+
+<p>If you threaten to take Cythandria's possessions two "ARGHH" creatures are
+summoned. One of the "ARGHH" creatures has been replaced with the correct
+creature "UGHH"</p>
+
+<p><em>Files altered:</em> cythan.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Glanmarie Loves To Summon
+Guards</span></p>
+
+<p>Was spawning five of the same guard all of whom were trying to initiate
+dialog. They were all "leader" guards so we replaced four of them as "follower"
+guards. Also move their spawn location to the entrance from the stairs.</p>
+
+<p><em>Files altered:</em> glanma.dlg</p>
+
+<p></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">Albert Broken
+Reward Fix</span></span></p>
+
+<p>Albert in ToTSC now gives the reward that the vanilla BG game gives, for
+some reason this was broken in the ToTSC release</p>
+
+<p><em>Files altered:</em> albert.dlg</p>
+
+<br />
+
+<p><strong>DIALOG-ScarCorrections.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Scar Gold/Experience Reward
+Fixes</span></p>
+
+<p>Corrects Scar's dialog file to give the appropriate amounts of gold and/or
+experience in the right situations</p>
+
+<p><em>Files altered:</em> scar.dlg</p>
+
+<br />
+
+<p><strong>CREATURES-BasicCorrections.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Death Variables (UB)</span></p>
+
+<p>Assigns death variables to creatures in need of one</p>
+
+<p><em>Files altered:</em> sugar.cre, ivanne.cre, sorrel.cre, addy.cre,
+brenna.cre, caedmo.cre, elmin3.cre, jonavi.cre, kaella.cre, karan1.cre,
+parda1.cre, slavfree.cre, volo.cre, zombieb.cre, haffg2.cre, halfg2.cre,
+mtob4.cre, mtob5.cre, skeletb.cre, nobw4.cre, travel.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Creatures Lacking Items Due To
+Typos</span></p>
+
+<p>Some creatures carry items that don't exist due to a typo in the filename.
+Correct files assigned.</p>
+
+<p><em>Files altered:</em> dead2.cre, deadfuck.cre, flamang.cre, flampun.cre,
+flampun2.cre, flamsco.cre, flamwiz.cre, jamie.cre, kent.cre, lothan.cre,
+aasim.cre, amaran.cre, sakul.cre, drelik.cre, skelded.cre, cultass.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Creatures With Items in Wrong
+Slot (UB)</span></p>
+
+<p>Moves items that were placed into the incorrect equipping slot into the
+correct equipment slot</p>
+
+<p><em>Files altered:</em> rinnie.cre, zhurlo.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Creatures With Items in Wrong
+Slot</span></p>
+
+<p>Moves items that were placed into the incorrect equipping slot into the
+correct equipment slot</p>
+
+<p><em>Files altered:</em> andris.cre, marcel.cre, shandal2.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Creature Sex Fixes</span> <span
+style="color:#0000ff;font-size: 11pt">(UB)</span></p>
+
+<p>Various creatures were incorrectly identified as male or female </p>
+<ul>
+  <li><strong>Changed to Male:</strong> ike.cre, jondal.cre, andris.cre,
+    baresh2.cre, barwlf.cre, bearpo3.cre, beyn.cre, cuchol.cre, cult2.cre,
+    delsvir.cre, doomdur.cre, dradee.cre, dradee2.cre, garan.cre, king.cre,
+    leaggu1.cre, leaggu4.cre, leaggu5.cre, leaggu6.cre, leaggu7.cre,
+    marcel.cre, mtowub_a.cre, mtowub_b.cre, mtowub_c.cre, mtowub_d.cre,
+    mtowub_e.cre, mtowubsc.cre, mtowubsn.cre, mtowubst.cre, mtowubx.cre,
+    tarnor.cre, ulf.cre</li>
+  <li><strong>Changed to Female:</strong> jaheir4.cre, jaheir6.cre, arkush.cre,
+    desret.cre, diana.cre, joia.cre, kirian.cre, knight2.cre, knight5.cre,
+    sendai.cre, servwg.cre, serwen.cre, sleepfh.cre, tamah.cre, vayya.cre,
+    voleta.cre, wiven.cre, wudei.cre, claird.cre, cultt3.cre, cultt4.cre,
+    daese.cre, delain2.cre, ftowub_a.cre, ftowub_b.cre, ftowub_e.cre,
+    ftowubsc.cre, ftowubsn.cre, ftowubx.cre, islsir.cre, jaheir4.cre,
+    jaheir6.cre, leaggu2.cre, leaggu3.cre, lovem.cre, marale2.cre,
+    pheoarch.cre, tracea.cre</li>
+  <li><strong>Changed to Neither:</strong> appar.cre, cryptcra.cre, ghastd.cre,
+    grael.cre, hack.cre, plyogre.cre, skelet.cre, spidphas.cre, stalke.cre</li>
+</ul>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Farmers vs Bandits</span></p>
+
+<p>Stops farmers from turning hostile if nearby bandits get too close</p>
+
+<p><em>Files altered:</em> jebado.cre, sonner.cre, telmen.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Summoned Guards Called By
+Alora</span></p>
+
+<p>Realigns the allegiance of the inforcer called by Alora so they turn hostile
+directly</p>
+
+<p><em>Files altered:</em> flam.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Skeleton Immunity
+Corrections</span></p>
+
+<p>Skeleton missing the correct immunities has them applied</p>
+
+<p><em>Files altered:</em> skelets.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Zombie Incorrectly Using
+Skeleton Sound Set</span></p>
+
+<p>Corrects zombie damage and dying sounds that were skeleton sounds</p>
+
+<p><em>Files altered:</em> zombie.cre, zombie_a.cre, zombieb.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Creature Scripting Variable Name
+Corrections</span></p>
+
+<p>A small group of patches which correct the scripting variable name</p>
+
+<p><em>Files altered:</em> cultt1.cre, cultt4.cre, fearm.cre, pridem.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Guards Manly Voice</span></p>
+
+<p>Some Merchant League Guards no longer have an old woman&rsquo;s greeting</p>
+
+<p><em>Files altered:</em> leaggu4.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Farmers vs Lahl</span></p>
+
+<p>ToTSC error that Farmers got mistakenly named Lahl</p>
+
+<p><em>Files altered:</em> farm.cre, farm3.cre, farm4.cre, farmer.cre</p>
+
+<br />
+
+<p><strong>CREATURES-MilochsPatches.tph</strong></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">Creature Alignment
+Corrections</span></span></p>
+
+<p>The Fixpack changes the alignments of creature files with alignments that
+seem at odds with their BG1 behavior</p>
+<ul>
+  <li><strong>Changed to Lawful Good:</strong> halfen.cre, halfen2.cre,
+    priilmu.cre, sleepdw.cre, sleephal.cre</li>
+  <li><strong>Changed to Lawful Neutral:</strong> amnis3.cre, deltan2.cre,
+    flam2.cre, galile.cre, karan.cre, karan1.cre, karan3.cre, knightsk.cre,
+    monktu1.cre, monktu10.cre, monktu11.cre, monktu12.cre, monktu13.cre,
+    monktu14.cre, monktu2.cre, monktu3.cre, monktu4.cre, monktu5.cre,
+    monktu7.cre, monktu8.cre, monktu9.cre, pallon.cre, reevor.cre, reevor2.cre,
+    ulraun.cre</li>
+  <li><strong>Changed to Lawful Evil:</strong> baruk.cre, bhobgob.cre,
+    droth.cre, geltik.cre, glart.cre, hakt.cre, hobelite.cre, hobgo5.cre,
+    hobgoa_a.cre, hobgoa_b.cre, hobgoa_c.cre, hobgoa_d.cre, hobgoa_e.cre,
+    hobgob.cre, hobgob_a.cre, hobgob_b.cre, hobgob_c.cre, hobgob_d.cre,
+    hobgob_e.cre, hobgoba.cre, hobgobc.cre, hobgobsu.cre, hobgzhur.cre,
+    hobjoia.cre, ihobgob.cre, malkax.cre, ogrmba.cre, tersus.cre, winski2.cre,
+    zekar.cre</li>
+  <li><strong>Changed to Neutral Good:</strong> halffg.cre, halfg3.cre,
+    halfg4.cre, halfg5.cre, halfg6.cre, halfgu.cre, harbor.cre</li>
+  <li><strong>Changed to Neutral:</strong> ashen.cre, attslim.cre, avarice.cre,
+    avaricem.cre, barslim.cre, bat_in.cre, begbax_d.cre, beggbax.cre,
+    bellam.cre, borin.cre, bouncer.cre, boyba1_a.cre, boybax_a.cre,
+    boybax_b.cre, brevli.cre, cauter.cre, chase.cre, chherd.cre, chicke.cre,
+    chicker.cre, childulg.cre, connol.cre, corpse1.cre, corpse2.cre, d2fue.cre,
+    d2isl.cre, dialogmo.cre, digger.cre, dopdop.cre, dopdur.cre, dopdur1.cre,
+    dopdur2.cre, dopdur3.cre, dopfue.cre, dopisl.cre, dopkie.cre, drunk.cre,
+    dursword.cre, erik.cre, euric.cre, farm.cre, farm3.cre, farm4.cre,
+    farmer.cre, fcook2.cre, fcook3.cre, fear.cre, fearm.cre, fecook.cre,
+    feloni.cre, fenten.cre, fgolem.cre, foresh.cre, ftowba_c.cre, ftowbasc.cre,
+    ftowbasn.cre, ftowbax.cre, ftowbesc.cre, ftowbex.cre, ftowfrsc.cre,
+    ftowubx.cre, ftowwi_c.cre, ftwbax_a.cre, ftwbax_b.cre, ftwbax_c.cre,
+    ftwbax_d.cre, ftwbax_e.cre, gerde.cre, ghorak.cre, girba3_a.cre,
+    girbax_a.cre, girbax_b.cre, girbax_c.cre, girbax_d.cre, girbax_e.cre,
+    golinv.cre, greywo.cre, gurke.cre, halfmiri.cre, halftr.cre, hecito.cre,
+    hephis.cre, hersch.cre, housg6.cre, hulrik.cre, jondal.cre, jondal3.cre,
+    jopi.cre, kerrac.cre, keshee.cre, kolvar.cre, kovera.cre, krumm.cre,
+    lachlu.cre, lahl.cre, lothan.cre, love.cre, lovem.cre, lucky.cre,
+    lussel.cre, mcook.cre, mcook2.cre, mcook3.cre, mcook4.cre, mcook5.cre,
+    mtbe3.cre, mtbe9.cre, mtob7.cre, mtob9.cre, mtowba_a.cre, mtowba_b.cre,
+    mtowba_c.cre, mtowba_d.cre, mtowba_e.cre, mtowbasc.cre, mtowbasn.cre,
+    mtowbast.cre, mtowbax.cre, mtowbe.cre, mtowbe_a.cre, mtowbe_b.cre,
+    mtowbe_c.cre, mtowbe_d.cre, mtowbe_e.cre, mtowbesn.cre, mtowbest.cre,
+    mtowbex.cre, mtowfr.cre, mtowfr_a.cre, mtowfr_b.cre, mtowfr_c.cre,
+    mtowfr_d.cre, mtowfr_e.cre, mtowfrsc.cre, mtowfrst.cre, mtown2.cre,
+    mtown3.cre, mtown4.cre, mtown5.cre, mtowna.cre, mtowna_a.cre, mtowna_b.cre,
+    mtowna_c.cre, mtowna_d.cre, mtownasc.cre, mtownast.cre, mtowub_a.cre,
+    mtowub_b.cre, mtowub_c.cre, mtowub_d.cre, mtowub_e.cre, mtowubsc.cre,
+    mtowubx.cre, mtowwi.cre, mtowwi_a.cre, mtowwi_b.cre, mtowwi_c.cre,
+    mtowwi_d.cre, mtowwi_e.cre, mtwbax_a.cre, mtwbax_b.cre, mtwbax_c.cre,
+    mtwbax_d.cre, mtwbax_e.cre, mtwslim.cre, mtwslim2.cre, mtwslim3.cre,
+    nadine.cre, nikola.cre, nobbax_a.cre, nobbax_b.cre, nobbax_c.cre,
+    nobbax_d.cre, nobbax_e.cre, noblba_a.cre, noblba_b.cre, noblba_c.cre,
+    noblba_d.cre, noblba_e.cre, noblbaz.cre, noblpa.cre, noblpa1.cre,
+    noblpa2.cre, noblpa3.cre, noblpa4.cre, noblpa5.cre, nosfer.cre, oberan.cre,
+    ocelli.cre, oogiew.cre, perdue.cre, petrin.cre, phanda.cre, pheirk.cre,
+    pnashk.cre, poghm10.cre, poghm9.cre, poghma4.cre, poghma5.cre, poghma7.cre,
+    prat.cre, pride.cre, pridem.cre, proslay.cre, prsbax_a.cre, prsbax_b.cre,
+    prsbax_c.cre, quinn.cre, reevor3.cre, regina.cre, rodnim.cre, sailnew.cre,
+    samuel.cre, shep.cre, shop01.cre, shop03.cre, shop04.cre, shop06.cre,
+    shop07.cre, shop08.cre, skelet03.cre, sleepfat.cre, sleepfh.cre,
+    sleepmh.cre, smuggl.cre, spengil.cre, squirr.cre, surrey.cre, tartus.cre,
+    teven.cre, tiber.cre, tick.cre, voleta.cre, whelp.cre, zhurlo.cre</li>
+  <li><strong>Changed to Neutral Evil:</strong> gantol1.cre, karlat.cre</li>
+  <li><strong>Changed to Chaotic Good:</strong> ender.cre, fahrin.cre,
+    norale.cre, sleepel.cre</li>
+  <li><strong>Changed to Chaotic Evil:</strong> bassil.cre, britik.cre,
+    darryl.cre, destus.cre, garkla.cre, gnoll.cre, gnoll_a.cre, gnoll_b.cre,
+    gnoll_c.cre, gnoll_d.cre, gnoll_e.cre, gnoll5.cre, gnoll5a.cre, gnolld.cre,
+    gnollper.cre, gnollsu.cre, gorf.cre, hack.cre, ingot.cre, ixvart.cre,
+    nexlit.cre, ogre.cre, ogre02.cre, ogreco.cre, ogred.cre, oopah.cre,
+    oopah2.cre, plyogre.cre, pumber2.cre, pumberl.cre, xvart.cre, xvart_a.cre,
+    xvart_b.cre, xvart_c.cre, xvart2.cre, xvarth.cre, xvartsu.cre</li>
+</ul>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Creature Racial Fixes</span></p>
+
+<p>Various creatures had the wrong race set, which could affect how items and
+spells affected them. In a few cases the race was clearly wrong, but there was
+not an exact match to which to change so a 'best fit' was selected.</p>
+<ul>
+  <li><strong>Changed to Demonic:</strong> tanar.cre, kirinh.cre</li>
+  <li><strong>Changed to Spectre:</strong> ashiru.cre, daitel.cre, knight1.cre,
+    knight2.cre, knight3.cre, knight4.cre, knight5.cre, knight6.cre,
+    durlagt.cre, isla.cre</li>
+  <li><strong>Changed to Cat:</strong> cat.cre, catdead.cre, catp.cre</li>
+  <li><strong>Changed to Dwarf:</strong> brevli.cre, quinn.cre, sailal.cre,
+    sleepdw.cre, tarnor.cre</li>
+  <li><strong>Changed to Elf:</strong> borda.cre, cordyr.cre, mordai.cre,
+    narcil.cre, sleepel.cre, tenya.cre, tenya2.cre, ulf.cre</li>
+  <li><strong>Changed to Ghoul:</strong> fear.cre, korax.cre</li>
+  <li><strong>Changed to Gibberling:</strong> gibber.cre, gibber2.cre,
+    gibbersu.cre, igibber.cre</li>
+  <li><strong>Changed to Gnoll:</strong> gnoll5.cre, gnoll5a.cre</li>
+  <li><strong>Changed to Gnome:</strong> mutami.cre, tellan.cre</li>
+  <li><strong>Changed to Clay Golem:</strong> bishop.cre, king.cre, knight.cre,
+    pawn.cre, rook.cre, queen.cre</li>
+  <li><strong>Changed to Flesh Golem:</strong> duplica1.cre, fgolem.cre,
+    golemf.cre, golemf2.cre</li>
+  <li><strong>Changed to Iron Golem:</strong> avarice.cre, avaricem.cre,
+    battho.cre, doomdur.cre, doomgu.cre, doomsa.cre, dumfue.cre, dumkie.cre,
+    helmho.cre, pride.cre, pridem.cre, dumisl.cre, love.cre, lovem.cre</li>
+  <li><strong>Changed to Stone Golem:</strong> stonec.cre, stoned.cre,
+    stonedl.cre, stonedw.cre, stoneg.cre</li>
+  <li><strong>Changed to Half-Elf:</strong> arlin.cre, attslim.cre, bayard.cre,
+    cuchol.cre, cythan.cre, digger.cre, drelik.cre, farluc.cre, shaldr.cre,
+    shank.cre, thieff.cre, wiven.cre</li>
+  <li><strong>Changed to Halfling:</strong> alvanh.cre, nader.cre, nelik.cre,
+    sailfin.cre, sleephal.cre</li>
+  <li><strong>Changed to Hobgoblin:</strong> baruk.cre, bhobgob.cre,
+    bullrush.cre, geltik.cre, glart.cre, hakt.cre, hobelite.cre, hobgo5.cre,
+    hobgoa_a.cre, hobgoa_b.cre, hobgoa_c.cre, hobgoa_d.cre, hobgoa_e.cre,
+    hobgob.cre, hobgob_a.cre, hobgob_b.cre, hobgob_c.cre, hobgob_d.cre,
+    hobgob_e.cre, hobgoba.cre, hobgobc.cre, hobgobsu.cre, hobgzhur.cre,
+    hobjoia.cre, ihobgob.cre, malkax.cre, tersus.cre, zargal.cre, zekar.cre</li>
+  <li><strong>Changed to Human:</strong> fenrus.cre, davaeo.cre</li>
+  <li><strong>Changed to Orge:</strong> droth.cre</li>
+  <li><strong>Changed to Rabbit:</strong> rat.cre, rat2.cre, squirr.cre</li>
+  <li><strong>Changed to Skeleton:</strong> skelwa.cre, skelwa02.cre,
+    skelwa03.cre</li>
+  <li><strong>Changed to Slime:</strong> jellgr.cre</li>
+  <li><strong>Changed to Mustard Jelly:</strong> jellmu.cre, jellmul.cre,
+    jellspa.cre, jellymu.cre</li>
+  <li><strong>Changed to Ochre Jelly:</strong> jelloc.cre</li>
+  <li><strong>Changed to Green Jelly:</strong> jellygr.cre, jellygr2.cre</li>
+  <li><strong>Changed to Olive Slime:</strong> schlum.cre</li>
+  <li><strong>Changed to Spider Queen Race:</strong> centeo.cre</li>
+  <li><strong>Changed to Stalker:</strong> stalke.cre</li>
+  <li><strong>Changed to Statue:</strong> achen.cre, cailan.cre, faizah.cre,
+    rance.cre, vail.cre</li>
+  <li><strong>Changed to Sword:</strong> dursword.cre</li>
+  <li><strong>C</strong><strong>hanged to Vampiric Wolf:</strong>
+  wolfva.cre</li>
+  <li><strong>Changed to Lycanthrope:</strong> marale.cre, marale2.cre,
+    jondalw.cre, wolfwe.cre</li>
+  <li><strong>Changed to Xvart:</strong> destus.cre</li>
+  <li><strong>Changed to Zombie:</strong> sewerf2.cre, zombie.cre,
+    zombie_a.cre, zombie_b.cre, zombie_c.cre, zombie_d.cre, zombie_e.cre,
+    zombieb.cre, zombiew.cre</li>
+</ul>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Creature Class Fixes</span></p>
+
+<p>Many creatures were assigned incorrect classes.</p>
+<ul>
+  <li><strong>Changed to Cat:</strong> cat.cre, catdead.cre, catp.cre</li>
+  <li><strong>Changed to Druid:</strong> amaran.cre, druid3.cre, izefia.cre,
+    takiyah.cre</li>
+  <li><strong>Changed to Ghoul_Revenant:</strong> fear.cre</li>
+  <li><strong>Changed to Golem_Clay:</strong> bishop.cre, king.cre, knight.cre,
+    pawn.cre, rook.cre, queen.cre</li>
+  <li><strong>Changed to Golem_Flesh:</strong> duplica1.cre, fgolem.cre,
+    golemf.cre, golemf2.cre</li>
+  <li><strong>Changed to Golem_Iron:</strong> avarice.cre, avaricem.cre,
+    battho.cre, doomdur.cre, doomgu.cre, doomsa.cre, dumfue.cre, dumkie.cre,
+    helmho.cre, pride.cre, pridem.cre, dumisl.cre, love.cre, lovem.cre</li>
+  <li><strong>Changed to Golem_Stone:</strong> stonec.cre, stoned.cre,
+    stonedl.cre, stonedw.cre, stoneg.cre</li>
+  <li><strong>Changed to Innocent:</strong> blane.cre, bran.cre, dushai.cre,
+    farthi.cre, joia.cre, jopi.cre, merch3.cre, merch4.cre, mtbe7.cre,
+    mtob3.cre, nantri.cre, durlagt.cre, isla.cre, marale.cre, marale2.cre</li>
+  <li><strong>Changed to Food_Creature:</strong> rat.cre, rat2.cre,
+  squirr.cre</li>
+  <li><strong>Changed to Mustard_Jelly:</strong> jellmu.cre, jellmul.cre,
+    jellspa.cre, jellymu.cre</li>
+  <li><strong>Changed to Green_Jelly:</strong> jellygr.cre, jellygr2.cre</li>
+  <li><strong>Changed to Olive_Slime:</strong> schlum.cre</li>
+  <li><strong>Changed to Grey_Ooze:</strong> jellgr.cre</li>
+  <li><strong>Changed to Spectre:</strong> daitel.cre, knight1.cre,
+    knight2.cre, knight3.cre, knight4.cre, knight5.cre, knight6.cre</li>
+  <li><strong>Changed to Spider_Centeol:</strong> centeo.cre</li>
+  <li><strong>Changed to Long_Sword:</strong> dursword.cre</li>
+  <li><strong>Changed to Wolf_Vampiric:</strong> wolfva.cre</li>
+  <li><strong>Changed to Wolfwere:</strong> jondalw.cre, wolfwe.cre</li>
+  <li><strong>Changed to Kobold_Xvart:</strong> destus.cre</li>
+  <li><strong>Changed to Zombie_Normal:</strong> sewerf2.cre, zombie.cre,
+    zombie_a.cre, zombie_b.cre, zombie_c.cre, zombie_d.cre, zombie_e.cre,
+    zombieb.cre, zombiew.cre</li>
+</ul>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Creature Sex Fixes</span></p>
+
+<p>Various creatures were incorrectly identified as male or female</p>
+<ul>
+  <li><strong>Changed to Male:</strong> avarice.cre, avaricem.cre, battho.cre,
+    doomdur.cre, doomgu.cre, doomsa.cre, dumfue.cre, dumkie.cre, helmho.cre,
+    pride.cre, pridem.cre</li>
+  <li><strong>Changed to Female:</strong> ashiru.cre, cow.cre, cowh.cre,
+    crew2.cre, crew3.cre, crew6.cre, d2isl.cre, delain.cre, dopisl.cre,
+    farthi.cre, ftowub.cre, ftowub_c.cre, ftowub_d.cre, ftowwi.cre,
+    ftowwi_a.cre, ftowwi_b.cre, ftowwi_c.cre, ftowwi_d.cre, ftowwi_e.cre,
+    isla.cre, kaish2.cre, kaisha.cre, kryla.cre, pallon.cre, shara.cre,
+    sleepfh.cre, solia1.cre, solia2.cre, voleta.cre, queen.cre , dumisl.cre,
+    love.cre, lovem.cre, kirinh.cre, marale.cre, marale2.cre</li>
+</ul>
+
+<br />
+
+<p><strong>STORES-GullykinAndOtherStores.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Store, Tavern and Inn Fixes and
+Restorations (UB)</span></p>
+
+<p>To put it bluntly, stores, taverns, and inns in the original game are a
+mess. This makes all shops unique, assigns the correct bartenders, adds more
+specific names to the establishments and fixes an oversight at the Ulgoth's
+Beard store.</p>
+
+<p><em>Files altered:</em> alvan.dlg, dialog.tlk, alyth.dlg, maltz.dlg,
+shop01.dlg, shop05.dlg, shop06.dlg, shop07.dlg, shop08.dlg, ar0116.are,
+ar1306.are, ar0133.are, tav0133.sto, ar0154.are, ar0171.are, tav0154.are,
+ar0706.are, tav0705.sto, sto4906.sto, stoblack.sto, stocheap.sto, stosilen.sto,
+tav0721.sto, tav0809.sto, tav0810.sto, tav1215.sto, tav4809.sto, tem0002.sto,
+tem2601.sto, ulgoth.sto, ar1116.are, ar0705.are,</p>
+
+<p><em>Creates:</em> tem4003.sto, ubba0133.dlg, ubme0706.dlg, ubba0720.dlg,
+ubba0133.cre, ubme0706.cre, ubst0706.sto</p>
+
+<p></p>
+
+<p><strong><span style="color:#0000ff"><span
+style="color:#000000">SPELLS-MagicMissileDamageFix.tph</span></span></strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Magic Missile Damage Fix
+(Baldurdash)</span></p>
+
+<p>Corrects the damage done by Magic Missile (both enemies' and players') from
+2D3 to 1D4 +1, as it should be</p>
+
+<p><em>Files altered:</em> spwi003.spl, spw112.spl</p>
+
+<br />
+
+<p><strong>ITEMS-BasicCorrections.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Item Corrections</span></p>
+
+<p>Adjusts weights, prices, name changes (not dependent upon GTU) and icon
+references</p>
+
+<p><em>Files altered:</em> book27.itm, book39.itm, potn41.itm, ax1h04.itm,
+sw2h03.itm, scrl05.itm, boot06.itm, clck08.itm, book68.itm, helm06.itm,
+misc65.itm, misc67.itm, misc68.itm, misc70.itm, misc71.itm, misc75.itm,
+misc77.itm, misc62.itm, misc13.itm, brac11.itm, misc1h.itm, misc1b.itm,
+misc1a.itm, misc92.itm, misc94.itm, misc95.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">The Arrow That Wanted To Be A
+Book</span></p>
+
+<p>Corrects referenced item type should be arrow rather than misc/book</p>
+
+<p><em>Files altered:</em> arow13.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Raid Dead Scroll Fix
+(UB)</span></p>
+
+<p>Corrects target of the raise dead scroll (unused in unmodified game - UB
+needs this corrected)</p>
+
+<p><em>Files altered:</em> scrl63.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Gauntlets Of Ogre Power Fix
+(Baldurdash)</span></p>
+
+<p>Allows bards to use the Gauntlets of Ogre Power</p>
+
+<p><em>Files altered:</em> brac06.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Arrow Of Biting Fix
+(Baldurdash)</span></p>
+
+<p>Remove strength requirement from arrows, the bow should require strength not
+the arrow</p>
+
+<p><em>Files altered:</em> arow05.itm, arow12.itm, arow14.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Ring Of Folly (Dudley)</span></p>
+
+<p>Is cursed and inflicts Feeblemindedness on the wearer, but doesn't display
+either portrait icon</p>
+
+<p><em>Files altered:</em> ring23.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff"><span style="font-size: 11pt">Spider's Bane
+(Dudley)</span></span></p>
+
+<p>Offers immunity to Slow and Stun as part of its protection, but doesn't
+remove the portrait icons</p>
+
+<p><em>Files altered:</em> sw2h06.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Mage Robe of Electrical
+Resistance (Dudley)</span></p>
+
+<p>Is missing its 20% electrical resistance</p>
+
+<p><em>Files altered:</em> clck11.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Spear Corrections
+(Dudley)</span></p>
+
+<p>Has a Range of 1 but it should be 2. It also has overhand and backhand
+swings enabled in its item ability, but it should use 100% thrust animations</p>
+
+<p><em>Files altered:</em> sper02.itm, sper03.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Magic Items Use
+Locations</span></p>
+
+<p>Corrects a few magic items so you are able to use them (i.e. from the
+backpack icon)</p>
+
+<p><em>Files altered:</em> magiweb.itm, scrl3g.itm, scrlzy.itm, scrlzz.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Use Icon Typo</span></p>
+
+<p>Corrects icon reference name for Arrow +2</p>
+
+<p><em>Files altered:</em> arow1a.itm</p>
+
+<p></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">Potion of
+Freedom</span></span></p>
+
+<p>Modifies the potion to act more like the spell</p>
+
+<p><em>Files altered:</em> potn45.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Potion of Master
+Thievery</span></p>
+
+<p>Adjusts timing to match description</p>
+
+<p><em>Files altered:</em> potn36.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Arrow of Fire</span></p>
+
+<p>Removes THAC0 &amp; damage bonuses not mentioned in the item's
+description</p>
+
+<p><em>Files altered:</em> arow08.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Dispel Colours
+(Dudley)</span></p>
+
+<p>Corrects dispellability of timing colour on global/equipped effects</p>
+
+<p><em>Files altered:</em> ax1h04.itm, ax1h05.itm, ax1h06.itm, blun01.itm,
+blun04.itm, blun06.itm, bow02.itm, bow05.itm, bow06.itm, bow08.itm, bow09.itm,
+bow99.itm, bownon.itm, cattac1.itm, dagg04.itm, dagg05.itm, daggshit.itm,
+halb01.itm, halbrd01.itm, hamm01.itm, helm03.itm, helm04.itm, helm07.itm,
+iax1h01.itm, iblun04.itm, ibow03.itm, ihamm01.itm, mage02.itm, slimed2.itm,
+sw1h08.itm, sw1h14.itm, sw1h99.itm, sw2h01.itm, sw2h01b.itm, sw2h02.itm,
+sw2h05.itm, xbow01.itm, xbow03.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Thieving Skills On Plate
+Armor</span></p>
+
+<p>Removes thieving skills from a plate of armor</p>
+
+<p><em>Files altered:</em> plat05.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Thief Scimitar Use Fix</span></p>
+
+<p>Allows thieves to use scimitars</p>
+
+<p><em>Files altered:</em> sw1h20.itm, sw1h22.itm, sw1h23.itm</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Bala's Axe</span></p>
+
+<p>Corrects speed on Bala's Axe from 5 to 7</p>
+
+<p><em>Files altered:</em> ax1h07.itm</p>
+
+<br />
+
+<p><strong>UNLOCKED-MinorExistingContent.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Fuller Extra dialog</span></p>
+
+<p>Opens additional dialog by Fuller who will when asked inform player of the
+location of Hull's sword</p>
+
+<p><em>Files altered:</em> fuller.dlg, hull.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Noble Banter</span></p>
+
+<p>Opens additional banter that player can partake in with the nobles found in
+the side room on the first floor of the Candlekeep Inn.</p>
+
+<p><em>Files altered:</em> nobw4.dlg, nobl4.dlg</p>
+
+<br />
+
+<p><strong>SCRIPTS-BasicCorrections.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Bone Wardstone Fix</span></p>
+
+<p>Doesn't Disable Rune Traps </p>
+
+<p><em>Files altered:</em> trapdis.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-VariousScriptWorkByMiloch.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Fix steal failure scripts to
+actually call the guards Part 1</span></p>
+
+<p>When stealing from shopkeepers guards are summoned if you are caught. A
+slight error in the script prevented this from happened.</p>
+
+<p><em>Files altered:</em> innkeep.bcs, merch2.bcs, merch5.bcs, merch6.bcs,
+shop03.bcs, shop04.bcs, shop05.bcs, shop06.bcs, shop07.bcs, shop08.bcs,
+shopkn.bcs</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Fix steal failure scripts to
+actually call the guards Part 2</span></p>
+
+<p>Assign steal failure scripts where missing from Shopkeepers</p>
+
+<p><em>Files altered:</em> maltz.cre, lucky.cre, shop01.cre, innke2.cre,
+winthr2.cre</p>
+
+<p><em>Creates:</em> t-maltz.bcs</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">wtrunsgt Script
+Changes</span></p>
+
+<p>Changed nearestenemyof into GOODCUTOFF and added allegiance checks.
+runawayfrom is also last seen rather than enemy of</p>
+
+<p><em>Files altered:</em> wtrunsgt.bcs</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Run Away!</span></p>
+
+<p>Ensure attacked/hostile non-combatants run away if they can/should</p>
+
+<p><em>Files altered:</em> ardrou.cre, begbax_a.cre, begbax_b.cre,
+begbax_c.cre, begbax_d.cre, beggbax.cre, boybax.cre, boybax_a.cre,
+boybax_b.cre, boybax_c.cre, chilna.cre, chilna_a.cre, chilna_b.cre,
+chilna_c.cre, chilna_d.cre, cow.cre, cowh.cre, drienn.cre, emitar3.cre,
+euric.cre, fatman.cre, fatwom.cre, fenrus.cre, ftowbax.cre, ftowbex.cre,
+ftowubx.cre, ftwbax.cre, ftwbax_a.cre, ftwbax_b.cre, ftwbax_c.cre,
+ftwbax_d.cre, ftwbax_e.cre, girbax_a.cre, girbax_b.cre, girbax_c.cre,
+girbax_d.cre, girbax_e.cre, girlbax.cre, horse.cre, lucky.cre, monktu1.cre,
+monktu10.cre, monktu11.cre, monktu12.cre, monktu13.cre, monktu14.cre,
+monktu15.cre, monktu16.cre, monktu17.cre, monktu18.cre, monktu19.cre,
+monktu2.cre, monktu20.cre, monktu3.cre, monktu4.cre, monktu5.cre, monktu6.cre,
+monktu7.cre, monktu8.cre, monktu9.cre, mtowbax.cre, mtowbex.cre, mtowubx.cre,
+mtwbax_a.cre, mtwbax_b.cre, mtwbax_c.cre, mtwbax_d.cre, mtwbax_e.cre,
+nobbax_a.cre, nobbax_b.cre, nobbax_c.cre, nobbax_d.cre, nobbax_e.cre,
+noblbaz.cre, nowbax_a.cre, nowbax_b.cre, nowbax_c.cre, nowbax_d.cre,
+nowbax_e.cre, petrin.cre, prosbax.cre, prsbax_a.cre, prsbax_b.cre,
+prsbax_c.cre, shop01.cre, shop02.cre, shop03.cre, shop04.cre, shop05.cre,
+shop06.cre, shop07.cre, shop08.cre, therel.cre, triado.cre, wirthi.cre,</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">I Can See You!</span></p>
+
+<p>Make sure guards only initiate dialog if character is visible.</p>
+
+<p><em>Files altered:</em> amnise.bcs, monken.bcs</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Cloakwood Mines Guard
+Fix</span></p>
+
+<p>Can repeatedly summon guards when you have spoken to him and refuse to
+surrender.</p>
+
+<p><em>Files altered:</em> iron10.dlg</p>
+
+<br />
+
+<p><strong>ISSUES-AdditonalGuardTrapAdjustments.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Sleeping Creatures Stay
+Sleeping</span></p>
+
+<p>Sleeping creatures get Enemy/Alley value changed so they do not turn hostile
+if you attack other creatures.</p>
+
+<p><em>Files altered:</em> sleepdw.cre, sleepel.cre, sleepfat.cre, sleepfh.cre,
+sleephal.cre, sleepmh.cre</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Guard Getting Summoned
+Triggers</span></p>
+
+<p>Adjust guard calling trap scripts to not be triggered by sleeping creatures
+and to not call multiple guards if guards are present or timer is active.</p>
+
+<p><em>Files altered:</em> act01.bcs, act02.bcs, act03.bcs, act04.bcs,
+act05.bcs, act06.bcs, act07.bcs, act08.bcs, act09.bcs, act10.bcs, act11.bcs,
+act12.bcs, act13.bcs</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Nashkel Barracks Guard</span></p>
+
+<p>Getting the guards to perform properly. If you get caught stealing but
+successfully bride them to ignore it, the guards will all leave and not just
+the leader. If you attack there are fixes to ensure they attack when they turn
+hostile.</p>
+
+<p><em>Files altered:</em> amnise2.cre, amnise.dlg, amnise2.bcs, amnise.bcs,
+amnis.cre</p>
+
+<br />
+
+<p><strong>ISSUES-NoTalkHostile.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Talk First! Then
+Fight!</span></p>
+
+<p>Adjust talk initiation scripts so that NPCs don't initiate conversation when
+they are hostile to the player.</p>
+
+<p><em>Files altered:</em> initdlg.bcs, initdlg2.bcs, initdlg3.bcs,
+initneb.bcs, initobe.bcs, initrev.bcs, initmain.bcs, initinv2.bcs, imoen.bcs</p>
+
+<br />
+
+<p><strong>SCRIPTS-StealFailureGuardSpawns.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Guard Spawn Locations For Steal
+Failure Scripts</span></p>
+
+<p>Move the guards to the entrance if the spawn location is off.</p>
+
+<p><em>Files altered:</em> innkeep.bcs, merch2.bcs, merch5.bcs, merch6.bcs,
+shop03.bcs, shop04.bcs, shop05.bcs, shop06.bcs, shopkn.bcs, shop07.bcs,
+shop08.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-ShoutScriptAssignedAndFixed.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Innocent Shouts</span></p>
+
+<p>Ensure attacked innocents shout when they can/should</p>
+
+<p><em>Files altered:</em> andars.bcs, bentha.bcs, brevli.bcs, brielb.bcs,
+cantic.bcs, casson.bcs, chante.bcs, chante2.bcs, delain.bcs, dunkin.bcs,
+durlyl.bcs, emerso.bcs, entill.bcs, farmbr.bcs, fcook2.bcs, firebe.bcs,
+ftowwi.bcs, ftowwi_a.bcs, ftowwi_b.bcs, ftowwi_c.bcs, ftowwi_d.bcs,
+ftowwi_e.bcs, gerde.bcs, gorpel.bcs, harbor.bcs, hull3.bcs, ithtyl.bcs,
+jared.bcs, kaella.bcs, karan.bcs, karan1.bcs, laurel.bcs, lena.bcs, lussel.bcs,
+madarc.bcs, messed.bcs, minec2.bcs, minec3.bcs, minec4.bcs, minec5.bcs,
+minerc.bcs, mirian.bcs, monktu1.bcs, monktu10.bcs, monktu11.bcs, monktu12.bcs,
+monktu13.bcs, monktu14.bcs, monktu2.bcs, monktu3.bcs, monktu4.bcs, monktu5.bcs,
+monktu7.bcs, monktu8.bcs, monktu9.bcs, mtowwi.bcs, mtowwi_a.bcs, mtowwi_b.bcs,
+mtowwi_c.bcs, mtowwi_d.bcs, mtowwi_e.bcs, mysmer.bcs, nadine.bcs, nantri.bcs,
+nila.bcs, nobl2.bcs, norale.bcs, orduli.bcs, petrin.bcs, phaers.bcs,
+phlydi.bcs, priilmu.bcs, rinnie.bcs, rodnim.bcs, sewerc.bcs, shista.bcs,
+slave.bcs, slave4.bcs, slave5.bcs, slave6.bcs, slavfree.bcs, slavlead.bcs,
+slavtell.bcs, solia1.bcs, tailas.bcs, tethto.bcs, tethto2.bcs, therel.bcs,
+tremai.bcs, varci.bcs, voieas.bcs, voinor.bcs, voisou.bcs, voiwes.bcs,
+zeke.bcs</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Innocent Turning Hostile
+Corrections</span></p>
+
+<p>Make sure innocents only go hostile when hearing other innocents and flaming
+fist shouts</p>
+
+<p><em>Files altered:</em> shout.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-GorpelAndGretekSolutions.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Hind vs Gretek</span></p>
+
+<p>Under certain situations, the player could experience multiple instances of
+Gretek and friends being spawned by talking with Gorpel Hind. Also they would
+cause all other npcs in the inn to go hostile. There were some reports of
+Gretek's friends not going hostile either. These were hopefully well
+addressed.</p>
+
+<p><em>Files altered:</em> gorpel.dlg, gretek.dlg</p>
+
+<br />
+
+<p><strong>ISSUES-JondalarBehavesProperly.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">It's Good To Talk.</span></p>
+
+<p>Jondalar would if attacked by the player prior to ever having been talked to
+would instead of going hostile initiate conversation. This has been
+rectified.</p>
+
+<p><em>Files altered:</em> jondalar.bcs, ar2600.are, jondal.cre</p>
+
+<br />
+
+<p><strong>ISSUES-LothanderAndMarekOtherSolutions.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Lothander Corrections Part
+1</span></p>
+
+<p>Lothander has an instance where he is looped through creation and removal
+due to some incorrectly coded triggers and actions.</p>
+
+<p><em>Files altered:</em> lothan.dlg</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Lothander Corrections Part
+2</span></p>
+
+<p>A number of individuals reported problems with continuing the quest,
+typically it returns to the player having forgotten to talk to Lothander
+outside of the Diviner's Tent. His dialog suggests that he should initiate the
+conversation, this has been implemented.</p>
+
+<p><em>Files altered:</em> ar0700.bcs</p>
+
+<p><em>Creates:</em> abgfinit.bcs</p>
+
+<p></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Marek Corrections Part
+1</span></p>
+
+<p>Marek when charmed states that he is giving the player the antidote, but
+never did. This has been implemented.</p>
+
+<p><em>Files altered:</em> marek.dlg</p>
+
+<p></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">Marek Corrections
+Part 2</span></span></p>
+
+<p>The antidote could be pickpocketed from Marek. Rather than removing the
+ability, the quest can now be solved in this manner.</p>
+
+<p><em>Files altered:</em> ar0115.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-YeslickKickoutLoopFix.tph</strong></p>
+
+<p><span style="font-size: 11pt"><span style="color:#0000ff">Are You Staying Or
+Going?</span></span></p>
+
+<p>Solves an issue where Yeslick would go through a loop of joining and leaving
+the party under certain circumstances.</p>
+
+<p><em>Files altered:</em> yeslick.bcs, yeslij.dlg</p>
+
+<br />
+
+<p><strong>ISSUES-MonksSpeakOfDeadOnlyWhenDead.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Karan And Parda vs Carbos And
+Shank</span></p>
+
+<p>Addresses an issue with the monks Karan and Parda which occurs should the
+player exit either house in Candlekeep without killing either Carbos or Shank.
+The monks won't spawn and talk about the deaths.</p>
+
+<p><em>Files altered:</em> carbos.cre, shank.cre, ar2600.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-BetterRatQuestCount.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Reevor's Quest Fix</span></p>
+
+<p>Addresses a random issue where the rats for Reevor's quest aren't properly
+counted even though all five have been killed.</p>
+
+<p><em>Files altered:</em> rat2.cre, ar2606.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-AldethBetrayalFixByIdobek.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Aldeth Betrayal Issue</span></p>
+
+<p>Idobek's solution to the Aldeth Betrayal issue, based on Baldurdash &amp;
+Dudley</p>
+
+<p><em>Files altered:</em> dabron.bcs, aldeth.cre, ar0128.bcs, ar1100.bcs,
+aldeth.dlg, flamal.baf</p>
+
+<p><em>Creates:</em> flamal.cre</p>
+
+<br />
+
+<p><strong>ISSUES-ScarNoGoBye.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Scar Forever Gone</span></p>
+
+<p>Scar would disappear forever if the player spoke to Duke Eltan. It was
+possible to speak with the Duke even while doing Scar's quests, thereby causing
+some players the inability to complete said quests. This has been rectified by
+only allowing Scar to disappear if and only if the player isn't doing any of
+his quests.</p>
+
+<p><em>Files altered:</em> scar.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-ToTSC-UlgothsResidentsHostileFix.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Innocents Incorrectly Turning
+Hostile</span></p>
+
+<p>An issue with the resident's of Ulgoth's Beard going hostile when the cult
+attacks</p>
+
+<p><em>Files altered:</em> cult3.cre, cult3.dlg</p>
+
+<br />
+
+<p><strong>ISSUES-ToTSC-CountingHouseConflicts.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Calling Incorrect
+People</span></p>
+
+<p>Both area scripts conflict with the dialog of Ulf and Kieres respectively
+such that if you end up in a fight with Ulf, he triggers an action that tries
+to turn the guards hostile (who are upstairs from him) and if you fight with
+Kieres, he turns the crew mates hostile (who are downstairs from him). It would
+seem most likely that the guards should guard the lower floor and the crew
+mates are with their captain.</p>
+
+<p>If there is any doubt the captain calls to his "mates" for help.</p>
+
+<p><em>Files altered:</em> crew1.cre, crew2.cre, crew3.cre, crew4.cre,
+crew5.cre, crew6.cre, crew7.cre ar0308.bcs, ar0307.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-BoyBodyAndJalanthaMistmyr.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Jalanth And The Dead Boy
+Fix</span></p>
+
+<p>Addresses the ability to obtain the dead boy's body multiple times and
+removes the capability of pick pocketing the body (surely one would notice THAT
+being pulled from their pocket).</p>
+
+<p><em>Files altered:</em> ar0609.are, ar0609.bcs, jalant.cre, tenya2.dlg,
+tenya2.cre</p>
+
+<br />
+
+<p><strong>ISSUES-RamazithsMultiplePickpocketExploit.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Ramazith's Pick Pocket
+Exploit</span></p>
+
+<p>Addresses the issue where Ramazith could be pick pocketed multiple times for
+the same items. Care has been taken to allow the ability to pick his pockets
+but only once, even though his creature file is created in three different
+areas. Also touches up his dialog file where a state has a response which
+returns back to the same state.</p>
+
+<p><em>Files altered:</em> ramazi.dlg, ramazi.cre</p>
+
+<p><em>Creates:</em> abgframi.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-BanditScalpPickPocketProblems.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Bandit Pick Pocking
+Problems</span></p>
+
+<p>Addresses the oversight of the bandit scalps being able to be picked from
+pockets. Scalp is removed and is given when the creature turns hostile. Failing
+that there is a chance depending upon if the script catches their death that
+the scalps will be created when they die if they don't already have one.</p>
+
+<p><em>Files altered:</em> teynga.dlg, nevill.dlg, knott.dlg, arghai.dlg,
+canto.dlg, arghai.cre, teynga.cre, zekar.cre, jemby.cre, nevill.cre, knott.cre,
+canto.cre, billy.cre, dribbe.cre, bandcap.cre, bandcr.cre, bandic.cre,
+bandit.cre, bandit2.cre, bandit3.cre, bandita.cre, banditc.cre, banditcy.cre,
+hobgobc.cre, raemon.cre, repman.cre, thug.cre, tralit.cre, shout.bcs</p>
+
+<br />
+
+<p><strong>ISSUES-OublekEmeraldBountyExploit.tph</strong></p>
+
+<p><span style="color:#0000ff;font-size: 11pt">Oublek Emerald Bounty
+Exploit</span></p>
+
+<p>Addresses to an extent the exploit of turning in one emerald and then the
+second for twice the proper reward. Due to coding issues, you can turn in just
+one emerald, but will not be able to turn in the second for additional rewards.
+Please see Unfinished Business v1.14 or higher for a component which enhances
+the exploit solution.</p>
+
+<p><em>Files altered:</em> oublek.dlg </p>
+
+<br />
 
   <h3>Game Text Update</h3>
   <p>Salk has provided us with a "merging of the best" text strings. Sources were the vanilla game, ToTSC expansion, Baldurdash, and Dudleyville. He also standardized spacing, line spacing, as well as spell & item descriptions. Included are also a few item file adjustments (such as weight) which are needed to match corrected descriptions. A few files also needed to be redirected to the correct name or description. <strong>ENGLISH ONLY</strong></p>
