@@ -155,7 +155,7 @@ COPY_EXISTING ~ar0300.are~ ~override~
  END
 BUT_ONLY_IF_IT_CHANGES
 // ----------------------------------------------------------------------------
-//AR0511 (renamed ARD011): Trap 4 added flag �Detectable trap�; Trap 15 corrected to Proximity trigger, was Info trigger;
+//AR0511 (renamed ARD011): Trap 4 added flag Detectable trap; Trap 15 corrected to Proximity trigger, was Info trigger;
 //Corrected undroppable Lard Shield (SHLD18) to a droppable one (SHLD15)
 //dudley -- Change Item 3 in Container 8 from HELM13.ITM to HELM10.ITM.
 COPY_EXISTING ~ar0511.are~ ~override~
