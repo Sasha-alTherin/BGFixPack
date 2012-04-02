@@ -59,3 +59,10 @@ COPY_EXISTING ~ar0717.are~ ~override~
   SET "#actors" = ("%#actors%" - 1)
  END
 BUT_ONLY_IF_IT_CHANGES
+
+//remove item which can cause the game to crash
+COPY_EXISTING ar4807.are override
+  LAUNCH_PATCH_FUNCTION DELETE_AREA_ITEM
+    STR_VAR item_to_delete = misc02
+  END
+BUT_ONLY
