@@ -13,13 +13,6 @@ COPY_EXISTING ar0111.are override //Flaming Fist Cellar
   END
 BUT_ONLY
 
-//remove item which can cause the game to crash
-COPY_EXISTING ar4807.are override
-  LAUNCH_PATCH_FUNCTION DELETE_AREA_ITEM
-    STR_VAR item_to_delete = misc02
-  END
-BUT_ONLY
-
 //change container type from bag to pile
 ACTION_FOR_EACH abfile IN ~ar2012~ ~ar0513~ BEGIN
 ACTION_IF (FILE_EXISTS_IN_GAME ~%abfile%.are~ ) THEN BEGIN
@@ -126,86 +119,6 @@ OUTER_FOR (idx = 0; idx < %num_array%; idx += 1) BEGIN
  END
 END
 
-//container trap points (i.e. guard spawn points)
-ACTION_DEFINE_ARRAY arefile BEGIN ar3357 ar3309 ar4805 ar4905 ar0006 ar0007 ar0009 ar0010 ar0011 ar0012 ar0015 ar0016 ar0018 ar0018 ar0020 ar0021 ar0108 ar0116 ar0130 ar0143 ar0155 ar0155 ar0155 ar0156 ar0158 ar0160 ar0166 ar0166 ar0170 ar0303 ar0303 ar0606 ar0608 ar0611 ar0618 ar0707 ar0711 ar0717 ar0810 ar1103 ar1103 ar1103 ar1111 ar1205 ar1207 ar1304 ar1315 ar1006 ar1006  ar4905 END
-ACTION_DEFINE_ARRAY oldXoff BEGIN    468    468    404    212    276    276    212    468    212    276    532    312    345    341    232    276    916    700    612    335    316    321    327    276    212    212    717    728    212    212    436    724    404    262    276    468    468    468    724    262    270    267    468    468   1108    276    212    212    340     276 END
-ACTION_DEFINE_ARRAY oldYoff BEGIN    564    180    372    244    180    308    308    180    308    308    180    324    271    277    242    308    884    476   1134    390    327    341    320    308    308    308    311    313    308    372    276    372    340    371    308    180    180    180    372    269    268    270    500    180    308    180    308    308    308     244 END
-ACTION_DEFINE_ARRAY newXoff BEGIN    341    410    134    275    503    405    512    424    512    424    276    492    407    332    492    405    960    831    320    633    487    487    487    369    501    276    497    497    276    504    504    538    418    332    373    433    406    397    570    497    497    497    766    439    465    493    511    426    426     275 END
-ACTION_DEFINE_ARRAY newYoff BEGIN    614    361    337    329    463    252    194    351    194    322    200    478    407    332    478    252    785   1058   1284    480    454    454    454    241    180    200    166    166    200    189    189    563    177    489    241    356    337    331    444    462    462    462    485    358   1117    469    190    320    320     317 END
-OUTER_SET num_array = 50
-OUTER_FOR (idx = 0; idx < %num_array%; idx += 1) BEGIN
- OUTER_SPRINT file $arefile("%idx%")
- OUTER_SET OXoff = $oldXoff("%idx%")
- OUTER_SET OYoff = $oldYoff("%idx%")
- ACTION_IF (IS_AN_INT $newXoff("%idx%") ) BEGIN
-  OUTER_SET NXoff = $newXoff("%idx%")
- END ELSE BEGIN
-  OUTER_SET NXoff = %OXoff%
- END
- ACTION_IF (IS_AN_INT $newYoff("%idx%") ) BEGIN
-  OUTER_SET NYoff = $newYoff("%idx%")
- END ELSE BEGIN
-  OUTER_SET NYoff = %OYoff%
- END
- ACTION_IF (FILE_EXISTS_IN_GAME ~%file%.are~) THEN BEGIN
-  COPY_EXISTING ~%file%.are~ override
-   READ_LONG 0x70 con_off
-   READ_SHORT 0x74 con_cnt
-   FOR (i = 0; i < con_cnt; i += 1) BEGIN
-    READ_SHORT (i * 0xc0 + con_off + 0x34) xoff
-    READ_SHORT (i * 0xc0 + con_off + 0x36) yoff
-    PATCH_IF (xoff = %OXoff%) AND (yoff = %OYoff%) BEGIN //container trap point
-     PATCH_IF (VARIABLE_IS_SET %NXoff%) AND (IS_AN_INT %NXoff%) BEGIN
-      PATCH_LOG ~%file%.are -- replaced old X offset: %xoff% with new X offset: %NXoff%~
-      WRITE_SHORT (i * 0xc0 + con_off + 0x34) %NXoff%
-     END
-     PATCH_IF (VARIABLE_IS_SET %NYoff%) AND (IS_AN_INT %NYoff%) BEGIN
-      PATCH_LOG ~%file%.are -- replaced old Y offset: %yoff% with new Y offset: %NYoff%~
-      WRITE_SHORT (i * 0xc0 + con_off + 0x36) %NYoff%
-     END
-    END
-   END
-  BUT_ONLY
- END
-END
-
-//reduce lock difficulty from 100 to 90 
-ACTION_FOR_EACH file IN ~ar0018~ ~ar0104~ ~ar0108~ ~ar0302~ ~ar2643~ ~ar4810~ BEGIN
-ACTION_IF (FILE_EXISTS_IN_GAME ~%file%.are~) THEN BEGIN
- COPY_EXISTING ~%file%.are~ override
-  READ_LONG  0x70 cont_off
-  READ_SHORT 0x74 cont_num
-  FOR(y=0;y<%cont_num%;y+=1)BEGIN
-   READ_SHORT (%cont_off% + 0x26 + (%y% * 0xc0)) lockdiff
-   READ_LONG  (%cont_off% + 0x28 + (%y% * 0xc0)) flags
-   READ_LONG  (%cont_off% + 0x44 + (%y% * 0xc0)) hasitem
-   PATCH_IF (%flags% BAND 0b00000001) AND (%lockdiff% > 99) BEGIN
-    WRITE_SHORT (%cont_off% + 0x26 + (%y% * 0xc0)) 90
-   END
-  END
- BUT_ONLY
-END
-END
-
-//turn traps on that were off
-ACTION_FOR_EACH file IN ~ar0121~ ~ar0153~ ~ar0504~ ~ar4905~ BEGIN
-ACTION_IF (FILE_EXISTS_IN_GAME ~%file%.are~) THEN BEGIN
- COPY_EXISTING ~%file%.are~ ~override~
-  READ_LONG  0x70 "cont_off"
-  READ_SHORT 0x74 "cont_num"
-  FOR(y=0;y<%cont_num%;y+=1)BEGIN
-   READ_LONG  (%cont_off% + 0x44 + (%y% * 0xc0)) hasitem
-   READ_SHORT (%cont_off% + 0x30 + (%y% * 0xc0)) trapped
-   READ_ASCII (%cont_off% + 0x48 + (%y% * 0xc0)) trapscript
-   PATCH_IF (FILE_EXISTS_IN_GAME ~%trapscript%.bcs~) AND (%trapped% = 0) AND (%hasitem% >0) BEGIN
-    WRITE_SHORT (%cont_off% + 0x30 + (%y% * 0xc0)) 1
-    PATCH_LOG ~%SOURCE_FILE% -- Container index #%y% -- has items & had trap value: %trapped% -- now has trap value: 1~
-   END
-  END
-BUT_ONLY
-END
-END
-
 ACTION_IF (GAME_IS ~totsc~) BEGIN
 // ----------------------------------------------------------------------------
 // AR0300 (renamed AR7400): Door 1 to the Counting House set as locked as described by Jacil
@@ -224,7 +137,7 @@ COPY_EXISTING ~ar0300.are~ ~override~
  END
 BUT_ONLY_IF_IT_CHANGES
 // ----------------------------------------------------------------------------
-//AR0511 (renamed ARD011): Trap 4 added flag ‘Detectable trap’; Trap 15 corrected to Proximity trigger, was Info trigger;
+//AR0511 (renamed ARD011): Trap 4 added flag ï¿½Detectable trapï¿½; Trap 15 corrected to Proximity trigger, was Info trigger;
 //Corrected undroppable Lard Shield (SHLD18) to a droppable one (SHLD15)
 //dudley -- Change Item 3 in Container 8 from HELM13.ITM to HELM10.ITM.
 COPY_EXISTING ~ar0511.are~ ~override~
