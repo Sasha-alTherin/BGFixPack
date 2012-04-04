@@ -28,6 +28,7 @@ END
 
 //Reassign duplicate dialogues
 COPY_EXISTING ~bart15.dlg~ ~override/ubba0133.dlg~
+COPY_EXISTING ~bart11.dlg~ ~override/ubba0720.dlg~
 COPY_EXISTING ~merch4.dlg~ ~override/ubme0706.dlg~
 
 //Reassign launched shops to prevent duplicates
@@ -63,6 +64,10 @@ REPLACE_ACTION_TEXT shop08
 REPLACE_ACTION_TEXT ubba0133
   ~StartStore("tav0154",LastTalkedToBy())~
   ~StartStore("tav0133",LastTalkedToBy())~
+
+REPLACE_ACTION_TEXT ubba0720
+  ~StartStore("tav0721",LastTalkedToBy())~
+  ~StartStore("ubst0720",LastTalkedToBy())~
 
 REPLACE_ACTION_TEXT ubme0706
   ~StartStore("sto4906",LastTalkedToBy())~
@@ -116,6 +121,29 @@ BUT_ONLY
 
 COPY_EXISTING ~tav0133.sto~ ~override~ //Low Lantern
   SAY NAME2 #14976
+  WRITE_LONG 8 2 // Type (Inn)
+  WRITE_BYTE 0x5c 0b00000011 //Rooms
+BUT_ONLY
+
+/////////////////////////////////////////////////////////////////////////////
+//Drakon Tavern
+COPY_EXISTING ~bart11.cre~ ~override/ubba0720.cre~
+  WRITE_ASCII 0x2cc ~ubba0720~ // Dialog
+COPY_EXISTING ~ar0720.are~ ~override~ // Correct Drakon Tavern bartender
+  PATCH_IF (SOURCE_SIZE > 0x11c) BEGIN
+        READ_LONG 0x54 actOff
+        FOR (READ_SHORT 0x58 numAct; numAct; numAct -= 0x1) BEGIN
+          READ_ASCII actOff + 0x80 actor
+          PATCH_IF (~%actor%~ STRING_EQUAL_CASE ~BART11~ = 1) BEGIN
+                WRITE_ASCII actOff + 0x80 ~UBBA0720~ #8
+          END
+          actOff += 0x110
+        END
+  END
+BUT_ONLY
+BUT_ONLY
+COPY_EXISTING ~tav0721.sto~ ~override/ubst0720.sto~ // Drakon Tavern
+  SAY NAME2 #20635
 BUT_ONLY
 
 /////////////////////////////////////////////////////////////////////////////
