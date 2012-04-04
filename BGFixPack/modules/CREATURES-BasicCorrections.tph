@@ -87,13 +87,6 @@ COPY_EXISTING RINNIE.CRE OVERRIDE // Rinnie: LEAT01 (Leather Armor)
   END
  END
 BUT_ONLY_IF_IT_CHANGES
-//taken from UB -- correct bad script give them something usefull
-COPY_EXISTING BIRD_INE.CRE OVERRIDE
-              BIRD_INN.CRE OVERRIDE
-              BIRD_INS.CRE OVERRIDE
-              BIRD_INW.CRE OVERRIDE
-WRITE_ASCII 0x258 ~RANDFLY~ #8
-BUT_ONLY_IF_IT_CHANGES
 // ----------------------------------------------------------------------------
 // Gender corrections -- from UB
 // ----------------------------------------------------------------------------
@@ -172,7 +165,7 @@ ACTION_FOR_EACH file IN ~FEARM~ ~PRIDEM~ BEGIN
   WRITE_ASCIIE 0x280 ~%SOURCE_RES%~ #18 //assign new
  BUT_ONLY_IF_IT_CHANGES
 END //and action_for_each
-//LEAGGU4: Some Merchant League Guards no longer have an old woman’s greeting
+//LEAGGU4: Some Merchant League Guards no longer have an old womanï¿½s greeting
  COPY_EXISTING ~LEAGGU4.CRE~ ~override~
   SAY 0xa4 #4964
   SAY 0x10c #4964
