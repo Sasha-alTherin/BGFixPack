@@ -1,6 +1,13 @@
 //DIALOG-BasicCorrections.tph
 PRINT ~Processing DIALOG-BasicCorrections.tph~
 SILENT
+
+// ----------------------------------------------------------------------------
+//Keep Varci from being able to repeat dialog states after moving inside~
+<<<<<<<< varci.d
+ADD_STATE_TRIGGER varci 6 ~!Global("HelpVarci","GLOBAL",1)~
+>>>>>>>>
+COMPILE ~varci.d~
 // ----------------------------------------------------------------------------
 //Ordulinian Quest Reward Fix
 <<<<<<<< inlined/orduli.d
