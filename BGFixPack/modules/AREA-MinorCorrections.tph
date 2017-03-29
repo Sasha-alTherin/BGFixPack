@@ -155,27 +155,9 @@ COPY_EXISTING ~ar0300.are~ ~override~
  END
 BUT_ONLY_IF_IT_CHANGES
 // ----------------------------------------------------------------------------
-//AR0511 (renamed ARD011): Trap 4 added flag Detectable trap; Trap 15 corrected to Proximity trigger, was Info trigger;
 //Corrected undroppable Lard Shield (SHLD18) to a droppable one (SHLD15)
 //dudley -- Change Item 3 in Container 8 from HELM13.ITM to HELM10.ITM.
 COPY_EXISTING ~ar0511.are~ ~override~
- READ_SHORT 0x005a ~regionnum~
- READ_LONG 0x005c ~regionoff~
- FOR(x1=0;x1<%regionnum%;x1+=1)BEGIN
-  READ_ASCII (%regionoff% + (0xc4*%x1%)) ~regionname~ (5)
-  PATCH_IF (~Trap4~ STRING_EQUAL_CASE ~%regionname%~) BEGIN
-   READ_LONG (%regionoff% + (0xc4*%x1%)+0x0060) ~flags~
-   WRITE_LONG (%regionoff% + (0xc4*%x1%)+0x0060) (%flags% BOR 0b1000)
-   SET x1=%regionnum%
-  END
- END
- FOR(x2=0;x2<%regionnum%;x2+=1)BEGIN
-  READ_ASCII (%regionoff% + (0xc4*%x2%)) ~regionname~ (7)
-  PATCH_IF (~Trap 15~ STRING_EQUAL_CASE ~%regionname%~) BEGIN
-   WRITE_SHORT (%regionoff% + (0xc4*%x2%)+0x0020) 0
-   SET x2=%regionnum%
-  END
- END
  READ_SHORT 0x0076 ~itemnum~
  READ_LONG 0x0078 ~itemoff~
  FOR(x3=0;x3<%itemnum%;x3+=1)BEGIN
